@@ -24,7 +24,7 @@ export default function App() {
 
   if (fontsLoaded) {
     return (
-      <View style={styles.container}>
+      <View style={styles.wrapper}>
         <Home />
       </View>
     );
@@ -44,10 +44,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#fff",
   },
-  container: {
+  wrapper: {
     flex: 1,
     backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
   },
 });
