@@ -1,7 +1,10 @@
-import Home from "./screens/home";
-import * as Font from "expo-font";
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
+import * as Font from "expo-font";
+
+import { NavigationContainer } from "@react-navigation/native";
+
+import HomeStack from "./navigation/homeStack";
 
 export default function App() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -24,9 +27,9 @@ export default function App() {
 
   if (fontsLoaded) {
     return (
-      <View style={styles.wrapper}>
-        <Home />
-      </View>
+      <NavigationContainer>
+        <HomeStack />
+      </NavigationContainer>
     );
   } else {
     return (
@@ -42,10 +45,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#fff",
-  },
-  wrapper: {
-    flex: 1,
     backgroundColor: "#fff",
   },
 });
