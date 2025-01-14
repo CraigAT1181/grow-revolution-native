@@ -4,7 +4,9 @@ import * as Font from "expo-font";
 
 import { NavigationContainer } from "@react-navigation/native";
 
+import { AuthProvider, useAuth } from "./contexts/AuthContext";
 import HomeStack from "./navigation/homeStack";
+import AuthStack from "./navigation/authStack";
 
 export default function App() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -27,9 +29,11 @@ export default function App() {
 
   if (fontsLoaded) {
     return (
-      <NavigationContainer>
-        <HomeStack />
-      </NavigationContainer>
+      <AuthProvider>
+        <NavigationContainer>
+          <Wrapper />
+        </NavigationContainer>
+      </AuthProvider>
     );
   } else {
     return (
@@ -39,6 +43,12 @@ export default function App() {
     );
   }
 }
+
+const Wrapper = () => {
+  const { user } = useAuth();
+
+  return user ? <HomeStack /> : <AuthStack />;
+};
 
 const styles = StyleSheet.create({
   loadingContainer: {
