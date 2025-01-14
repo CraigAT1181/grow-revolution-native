@@ -1,16 +1,30 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import Signup from "../screens/authentication/signup";
+import SignIn from "../screens/authentication/sign-in";
 import Register from "../screens/authentication/register";
-import Authenticate from "../screens/authentication/authenticate";
+import PasswordReset from "../screens/authentication/password-reset";
 
 const Stack = createStackNavigator();
 
 const AuthStack = () => {
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="Authentication" component={Authenticate} />
-      <Stack.Screen name="Sign Up" component={Signup} />
+    <Stack.Navigator
+      initialRouteName="SignIn"
+      screenOptions={{
+        headerStyle: { backgroundColor: "#333" },
+        headerTintColor: "white",
+      }}
+    >
+      <Stack.Screen
+        name="SignIn"
+        options={{ headerTitle: "Sign In" }}
+        component={SignIn}
+      />
       <Stack.Screen name="Register" component={Register} />
+      <Stack.Screen
+        name="PasswordReset"
+        options={{ headerTitle: "Reset Password" }}
+        component={PasswordReset}
+      />
     </Stack.Navigator>
   );
 };
