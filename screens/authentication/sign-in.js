@@ -47,7 +47,7 @@ const SignIn = ({ navigation }) => {
             <Text style={globalStyles.errorText}>
               {formikProps.touched.email && formikProps.errors.email}
             </Text>
-            <View style={styles.passwordContainer}>
+            <View>
               <TextInput
                 style={globalStyles.input}
                 placeholder="Password"
@@ -92,13 +92,6 @@ const SignIn = ({ navigation }) => {
 export default SignIn;
 
 const styles = StyleSheet.create({
-  passwordContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    borderBottomWidth: 1,
-    borderColor: "#ccc",
-    marginBottom: 20,
-  },
   input: {
     flex: 1,
     fontSize: 16,
@@ -108,5 +101,6 @@ const styles = StyleSheet.create({
   iconContainer: {
     position: "absolute",
     right: 15,
+    top: 12,
   },
 });
