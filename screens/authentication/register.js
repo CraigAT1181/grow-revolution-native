@@ -1,18 +1,17 @@
-import react, { useState } from "react";
-import { globalStyles } from "../../styles/global";
+import React, { useState } from "react";
 import {
   StyleSheet,
   TouchableOpacity,
   View,
   Text,
   TextInput,
-  Button,
 } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import PrimaryButton from "../../components/primary-button";
-import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import SecondaryButton from "../../components/secondary-button";
+import { globalStyles } from "../../styles/global";
+import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
 const validationSchema = Yup.object({
   email: Yup.string().email("Invalid email format").required("Required"),

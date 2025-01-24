@@ -5,6 +5,11 @@ export const globalStyles = StyleSheet.create({
     flex: 1,
     padding: 20,
   },
+  screen: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
   titleText: {
     fontFamily: "nunito-bold",
     fontSize: 18,

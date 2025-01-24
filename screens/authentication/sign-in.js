@@ -1,18 +1,18 @@
-import react, { useState } from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   TouchableOpacity,
   View,
   Text,
   TextInput,
-  Button,
 } from "react-native";
-import { globalStyles } from "../../styles/global";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import PrimaryButton from "../../components/primary-button";
-import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import SecondaryButton from "../../components/secondary-button";
+import { globalStyles } from "../../styles/global";
+import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+import { useAuth } from "../../contexts/AuthContext";
 
 const validationSchema = Yup.object({
   email: Yup.string().email("Invalid email format").required("Required"),
@@ -21,8 +21,11 @@ const validationSchema = Yup.object({
     .required("Required"),
 });
 
-const SignIn = ({ navigation }) => {
+const SignInScreen = ({ navigation }) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { signin } = useAuth();
 
   return (
     <View style={globalStyles.container}>
@@ -32,8 +35,15 @@ const SignIn = ({ navigation }) => {
             email: "",
             password: "",
           }}
-          onSubmit={(values) => {
-            console.log(values);
+          onSubmit={async (values) => {
+            setIsLoading(true);
+            try {
+              await signin(values.email, values.password);
+            } catch (error) {
+              console.log(`Error: ${error}`);
+            } finally {
+              setIsLoading(false);
+            }
           }}
           validationSchema={validationSchema}
         >
@@ -44,7 +54,10 @@ const SignIn = ({ navigation }) => {
                 placeholder="Email"
                 onChangeText={formikProps.handleChange("email")}
                 value={formikProps.values.email}
-                onBlur={formikProps.handleBlur.email}
+                onBlur={formikProps.handleBlur("email")}
+                onEndEditing={(e) =>
+                  formikProps.setFieldValue("email", e.nativeEvent.text)
+                }
               />
               <Text style={globalStyles.errorText}>
                 {formikProps.touched.email && formikProps.errors.email}
@@ -75,6 +88,7 @@ const SignIn = ({ navigation }) => {
               <PrimaryButton
                 text="Confirm"
                 onPress={formikProps.handleSubmit}
+                loading={isLoading}
               />
             </View>
           )}
@@ -97,7 +111,7 @@ const SignIn = ({ navigation }) => {
   );
 };
 
-export default SignIn;
+export default SignInScreen;
 
 const styles = StyleSheet.create({
   form: {

@@ -1,14 +1,19 @@
+// React components
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import * as Font from "expo-font";
 
+// Navigation
 import { NavigationContainer } from "@react-navigation/native";
 
+// Context
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
-import HomeStack from "./navigation/homeStack";
+
+// Custom Screens / Stacks
+import MainDrawer from "./navigation/mainDrawer";
 import AuthStack from "./navigation/authStack";
 
-export default function App() {
+const App = () => {
   const [fontsLoaded, setFontsLoaded] = useState(false);
 
   useEffect(() => {
@@ -42,13 +47,15 @@ export default function App() {
       </View>
     );
   }
-}
+};
 
 const Wrapper = () => {
   const { user } = useAuth();
 
-  return user ? <HomeStack /> : <AuthStack />;
+  return user ? <MainDrawer /> : <AuthStack />;
 };
+
+export default App;
 
 const styles = StyleSheet.create({
   loadingContainer: {
