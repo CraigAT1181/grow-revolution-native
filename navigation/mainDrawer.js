@@ -1,5 +1,12 @@
 import React from "react";
-import { View, Button, StyleSheet, Image, Text } from "react-native";
+import {
+  View,
+  Button,
+  StyleSheet,
+  Image,
+  Text,
+  TouchableOpacity,
+} from "react-native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import MainTabs from "./mainTabs";
 import { useAuth } from "../contexts/AuthContext";
@@ -48,12 +55,13 @@ const DrawerContent = ({ navigation }) => {
 // Import DrawerContent from above and return the MainTabs component in screen.
 const MainDrawer = () => {
   return (
-    <Drawer.Navigator drawerContent={(props) => <DrawerContent {...props} />}>
-      <Drawer.Screen
-        name="Tabs"
-        component={MainTabs}
-        options={{ headerShown: false }}
-      />
+    <Drawer.Navigator
+      drawerContent={(props) => <DrawerContent {...props} />}
+      screenOptions={{ headerShown: false }}
+    >
+      <Drawer.Screen name="Tabs">
+        {({ navigation }) => <MainTabs drawerNavigation={navigation} />}
+      </Drawer.Screen>
     </Drawer.Navigator>
   );
 };
