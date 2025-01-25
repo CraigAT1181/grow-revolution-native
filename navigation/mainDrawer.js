@@ -24,13 +24,16 @@ const ProfileHeader = ({ userName, profilePic }) => (
 // Create Content section of Drawer
 const DrawerContent = ({ navigation }) => {
   const { user, signout } = useAuth();
-  const profilePic = null;
+  console.log(user.profile_pic);
+
+  const profilePic = user.profile_pic;
+  const encodedProfilePic = encodeURI(profilePic);
   const userName = user.email;
 
   return (
     <View style={{ flex: 1 }}>
       {/* Profile Section */}
-      <ProfileHeader userName={userName} profilePic={profilePic} />
+      <ProfileHeader userName={userName} profilePic={encodedProfilePic} />
 
       {/* Menu Items */}
       <View style={{ flex: 1 }}>

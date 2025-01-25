@@ -2,8 +2,9 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const api = axios.create({
-  baseURL: "http://10.0.2.2:3000", // When using emulator
-  // baseURL: "http://192.168.0.106:3000", // When connected to home WiFi
+  // baseURL: "http://10.0.2.2:3000", // Mobile
+  // baseURL: "http://192.168.0.106:3000", // Home
+  baseURL: "http://192.168.1.127:3000", // Dad's
 });
 
 export default api;
@@ -12,21 +13,16 @@ export default api;
 
 export const handleSignin = async (email, password) => {
   try {
-    const { data } = await api.post("/auth/signin", {
+    const { data: user } = await api.post("/auth/signin", {
       email,
       password,
     });
-    console.log("DATA", data);
 
-    const userData = {
-      user: data.user,
-      session: data.session,
-    };
+    await AsyncStorage.setItem("user", JSON.stringify(user));
 
-    await AsyncStorage.setItem("user", JSON.stringify(userData));
-    console.log("USERDATA in Backend:", userData);
+    console.log("user", user);
 
-    return userData;
+    return user;
   } catch (error) {
     throw error;
   }
@@ -43,3 +39,7 @@ export const handleSignout = async () => {
     throw error;
   }
 };
+
+// export const handleRegister = async (formData) => {
+//   {email, password, }
+// };

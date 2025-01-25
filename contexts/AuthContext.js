@@ -30,8 +30,7 @@ const AuthProvider = ({ children }) => {
   const signin = async (email, password) => {
     try {
       const userData = await handleSignin(email, password);
-      setUser(userData.user);
-      console.log("UserData in Context>>", userData);
+      setUser(userData);
 
       return userData;
     } catch (error) {
