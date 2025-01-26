@@ -170,12 +170,13 @@ const Register = ({ navigation }) => {
                 </View>
               ) : (
                 <View style={styles.profilePicInput}>
+                  <Text>No profile picture chosen</Text>
                   <TouchableOpacity onPress={pickImage}>
                     <FontAwesome5
                       name={"camera"}
                       size={80}
                       color="gray"
-                      style={styles.profileImage}
+                      style={styles.cameraIcon}
                     />
                   </TouchableOpacity>
                 </View>
@@ -237,7 +238,9 @@ const styles = StyleSheet.create({
     height: 100,
     borderRadius: 50,
     marginVertical: 10,
-    // alignSelf: "center",
+  },
+  cameraIcon: {
+    marginVertical: 10,
   },
   profilePicInput: {
     alignItems: "center",
