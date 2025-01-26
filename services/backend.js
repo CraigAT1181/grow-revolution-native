@@ -40,6 +40,13 @@ export const handleSignout = async () => {
   }
 };
 
-// export const handleRegister = async (formData) => {
-//   {email, password, }
-// };
+export const handleRegister = async (userDetails) => {
+  try {
+    const { data } = await api.post("/auth/register", userDetails);
+    console.log("Reg data", data);
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};

@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   TouchableOpacity,
   View,
   Text,
   TextInput,
+  Keyboard,
 } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -24,8 +25,24 @@ const validationSchema = Yup.object({
 const SignInScreen = ({ navigation }) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isKeyboardVisible, setKeyboardVisible] = useState(false);
 
   const { signin } = useAuth();
+
+  useEffect(() => {
+    const showSubscription = Keyboard.addListener("keyboardDidShow", () => {
+      setKeyboardVisible(true);
+    });
+
+    const hideSubscription = Keyboard.addListener("keyboardDidHide", () => {
+      setKeyboardVisible(false);
+    });
+
+    return () => {
+      showSubscription.remove();
+      hideSubscription.remove();
+    };
+  }, []);
 
   return (
     <View style={globalStyles.container}>
@@ -102,11 +119,15 @@ const SignInScreen = ({ navigation }) => {
           </TouchableOpacity>
         </View>
       </View>
-      <Text style={styles.registerText}>Don't have an account yet?</Text>
-      <SecondaryButton
-        text={"Register"}
-        onPress={() => navigation.replace("Register")}
-      />
+      {!isKeyboardVisible && (
+        <View>
+          <Text style={styles.registerText}>Don't have an account yet?</Text>
+          <SecondaryButton
+            text={"Register"}
+            onPress={() => navigation.replace("Register")}
+          />
+        </View>
+      )}
     </View>
   );
 };
