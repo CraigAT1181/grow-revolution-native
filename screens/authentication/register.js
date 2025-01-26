@@ -107,7 +107,7 @@ const Register = ({ navigation }) => {
                 placeholder="Email"
                 onChangeText={formikProps.handleChange("email")}
                 value={formikProps.values.email}
-                onBlur={formikProps.handleBlur.email}
+                onBlur={formikProps.handleBlur("email")}
               />
               <Text style={globalStyles.errorText}>
                 {formikProps.touched.email && formikProps.errors.email}
@@ -118,7 +118,7 @@ const Register = ({ navigation }) => {
                   placeholder="Password"
                   onChangeText={formikProps.handleChange("password")}
                   value={formikProps.values.password}
-                  onBlur={formikProps.handleBlur.password}
+                  onBlur={formikProps.handleBlur("password")}
                   secureTextEntry={!passwordVisible}
                 />
                 <TouchableOpacity
@@ -140,7 +140,7 @@ const Register = ({ navigation }) => {
                 placeholder="Username"
                 onChangeText={formikProps.handleChange("username")}
                 value={formikProps.values.username}
-                onBlur={formikProps.handleBlur.username}
+                onBlur={formikProps.handleBlur("username")}
               />
               <Text style={globalStyles.errorText}>
                 {formikProps.touched.username && formikProps.errors.username}
@@ -150,7 +150,7 @@ const Register = ({ navigation }) => {
                 placeholder="Location"
                 onChangeText={formikProps.handleChange("location")}
                 value={formikProps.values.location}
-                onBlur={formikProps.handleBlur.location}
+                onBlur={formikProps.handleBlur("location")}
               />
               <Text style={globalStyles.errorText}>
                 {formikProps.touched.location && formikProps.errors.location}
@@ -237,6 +237,8 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 50,
+    borderWidth: 2,
+    borderColor: "#ccc",
     marginVertical: 10,
   },
   cameraIcon: {

@@ -85,7 +85,7 @@ const SignInScreen = ({ navigation }) => {
                   placeholder="Password"
                   onChangeText={formikProps.handleChange("password")}
                   value={formikProps.values.password}
-                  onBlur={formikProps.handleBlur.password}
+                  onBlur={formikProps.handleBlur("password")}
                   secureTextEntry={!passwordVisible}
                 />
                 <TouchableOpacity
