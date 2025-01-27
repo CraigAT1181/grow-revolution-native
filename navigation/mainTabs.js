@@ -37,16 +37,37 @@ const MainTabs = ({ drawerNavigation }) => {
               <FontAwesome5
                 name={"user"}
                 size={20}
-                color="gray"
+                color="#064e3b"
                 style={styles.noProfilePicIcon}
               />
             )}
           </TouchableOpacity>
         ),
+        tabBarStyle: {
+          paddingTop: 5,
+        },
       }}
     >
-      <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Grow" component={Grow} />
+      <Tab.Screen
+        name="Home"
+        component={Home}
+        options={{
+          tabBarIcon: ({ size }) => (
+            <FontAwesome5 name="home" size={size} color={"#064e3b"} />
+          ),
+          tabBarLabel: "",
+        }}
+      />
+      <Tab.Screen
+        name="Grow"
+        component={Grow}
+        options={{
+          tabBarIcon: ({ size }) => (
+            <FontAwesome5 name="seedling" size={size} color={"#064e3b"} />
+          ),
+          tabBarLabel: "",
+        }}
+      />
     </Tab.Navigator>
   );
 };
