@@ -27,7 +27,7 @@ const DrawerContent = ({ navigation }) => {
 
   const profilePic = user.profile_pic;
   const encodedProfilePic = encodeURI(profilePic);
-  const userName = user.email;
+  const userName = user.user_name;
 
   return (
     <View style={{ flex: 1 }}>
@@ -73,8 +73,10 @@ export default MainDrawer;
 const styles = StyleSheet.create({
   profileContainer: {
     padding: 20,
+    paddingTop: 100,
+    marginBottom: 50,
     alignItems: "center",
-    backgroundColor: "#f4f4f4",
+    backgroundColor: "#064e3b",
   },
   profilePic: {
     width: 80,
@@ -85,5 +87,6 @@ const styles = StyleSheet.create({
   userName: {
     fontSize: 18,
     fontWeight: "bold",
+    color: "#fff",
   },
 });

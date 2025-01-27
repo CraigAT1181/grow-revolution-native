@@ -11,7 +11,7 @@ const Home = () => {
       <View style={globalStyles.screen}>
         <Text
           style={globalStyles.titleText}
-        >{`Welcome Home ${user.email}!`}</Text>
+        >{`Welcome Home ${user.user_name}!`}</Text>
       </View>
     </View>
   );

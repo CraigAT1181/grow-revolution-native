@@ -18,14 +18,48 @@ const AuthProvider = ({ children }) => {
         const storedUser = await AsyncStorage.getItem("user");
 
         if (storedUser) {
+          console.log("Stored User:", storedUser);
+
           const { user } = JSON.parse(storedUser);
+          console.log("Set User:", user);
+
           setUser(user);
         } else {
+          console.log("No user found in AsyncStorage.");
+          setUser(null);
         }
       } catch (error) {
         console.error("Error loading user from AsyncStorage:", error);
       }
     }
+    loadUser();
+  }, []);
+  useEffect(() => {
+    async function loadUser() {
+      try {
+        const storedUser = await AsyncStorage.getItem("user");
+
+        if (storedUser) {
+          console.log("Stored User:", storedUser);
+
+          const parsedData = JSON.parse(storedUser);
+          const { user } = parsedData;
+
+          if (user) {
+            console.log("User loaded:", user);
+            setUser(user); // Update the state
+          } else {
+            console.warn("No user found in stored data.");
+          }
+        } else {
+          console.warn("No stored user found in AsyncStorage.");
+          setUser(null); // Handle unauthenticated state
+        }
+      } catch (error) {
+        console.error("Error loading user from AsyncStorage:", error);
+      }
+    }
+
     loadUser();
   }, []);
 

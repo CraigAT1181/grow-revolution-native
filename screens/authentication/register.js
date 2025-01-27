@@ -107,6 +107,7 @@ const Register = ({ navigation }) => {
       await register(formData);
     } catch (error) {
       console.error("Registration error:", error);
+      setSubmitError(error);
     }
   };
 
@@ -122,6 +123,7 @@ const Register = ({ navigation }) => {
           }}
           onSubmit={async (values) => {
             setIsLoading(true);
+            setSubmitError(null);
             try {
               await packUserDetails(
                 values.email,
@@ -220,7 +222,9 @@ const Register = ({ navigation }) => {
                   </TouchableOpacity>
                 </View>
               )}
-
+              {submitError && (
+                <Text style={globalStyles.errorText}>{submitError}</Text>
+              )}
               <PrimaryButton
                 text="Confirm"
                 onPress={formikProps.handleSubmit}
