@@ -1,6 +1,10 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { handleSignin, handleSignout } from "../services/backend";
+import {
+  handleRegister,
+  handleSignin,
+  handleSignout,
+} from "../services/backend";
 
 const AuthContext = createContext();
 
@@ -17,7 +21,6 @@ const AuthProvider = ({ children }) => {
           const { user } = JSON.parse(storedUser);
           setUser(user);
         } else {
-          console.log("No user found in storage.");
         }
       } catch (error) {
         console.error("Error loading user from AsyncStorage:", error);
@@ -49,8 +52,18 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+  const register = async (formData) => {
+    try {
+      const { message, user } = await handleRegister(formData);
+      setUser(user);
+      console.log(message);
+    } catch (error) {
+      console.error(`Error registering user: ${error}`);
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ user, signin, signout }}>
+    <AuthContext.Provider value={{ user, signin, signout, register }}>
       {children}
     </AuthContext.Provider>
   );

@@ -15,6 +15,8 @@ import SecondaryButton from "../../components/secondary-button";
 import { globalStyles } from "../../styles/global";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import * as ImagePicker from "expo-image-picker";
+import { useAuth } from "../../contexts/AuthContext";
+import mime from "mime";
 
 const validationSchema = Yup.object({
   email: Yup.string().email("Invalid email format").required("Required"),
@@ -29,7 +31,10 @@ const Register = ({ navigation }) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [profilePic, setProfilePic] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [submitError, setSubmitError] = useState(null);
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+
+  const { register } = useAuth();
 
   useEffect(() => {
     const showSubscription = Keyboard.addListener("keyboardDidShow", () => {
@@ -72,6 +77,39 @@ const Register = ({ navigation }) => {
     }
   };
 
+  const packUserDetails = async (
+    email,
+    password,
+    username,
+    location,
+    profilePic
+  ) => {
+    const formData = new FormData();
+
+    formData.append("email", email);
+    formData.append("password", password);
+    formData.append("username", username);
+    formData.append("location", location);
+
+    if (profilePic) {
+      const mimeType = mime.getType(profilePic) || "image/jpeg";
+
+      const fileExtention = mimeType.split("/")[1];
+
+      formData.append("profilePic", {
+        uri: profilePic,
+        name: `profile_pic.${fileExtention}`,
+        type: mimeType,
+      });
+    }
+
+    try {
+      await register(formData);
+    } catch (error) {
+      console.error("Registration error:", error);
+    }
+  };
+
   return (
     <View style={globalStyles.container}>
       <View style={styles.form}>
@@ -85,15 +123,16 @@ const Register = ({ navigation }) => {
           onSubmit={async (values) => {
             setIsLoading(true);
             try {
-              await register(
+              await packUserDetails(
                 values.email,
-                value.password,
+                values.password,
                 values.username,
                 values.location,
                 profilePic
               );
             } catch (error) {
               console.log(`Error: ${error}`);
+              setSubmitError(error);
             } finally {
               setIsLoading(false);
             }

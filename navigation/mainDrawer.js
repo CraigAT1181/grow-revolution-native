@@ -24,7 +24,6 @@ const ProfileHeader = ({ userName, profilePic }) => (
 // Create Content section of Drawer
 const DrawerContent = ({ navigation }) => {
   const { user, signout } = useAuth();
-  console.log(user.profile_pic);
 
   const profilePic = user.profile_pic;
   const encodedProfilePic = encodeURI(profilePic);

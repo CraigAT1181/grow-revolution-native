@@ -3,8 +3,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const api = axios.create({
   // baseURL: "http://10.0.2.2:3000", // Mobile
-  // baseURL: "http://192.168.0.106:3000", // Home
-  baseURL: "http://192.168.1.127:3000", // Dad's
+  baseURL: "http://192.168.0.106:3000", // Home
+  // baseURL: "http://192.168.1.127:3000", // Dad's
 });
 
 export default api;
@@ -19,8 +19,6 @@ export const handleSignin = async (email, password) => {
     });
 
     await AsyncStorage.setItem("user", JSON.stringify(user));
-
-    console.log("user", user);
 
     return user;
   } catch (error) {
@@ -40,10 +38,15 @@ export const handleSignout = async () => {
   }
 };
 
-export const handleRegister = async (userDetails) => {
+export const handleRegister = async (formData) => {
   try {
-    const { data } = await api.post("/auth/register", userDetails);
-    console.log("Reg data", data);
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    };
+
+    const { data } = await api.post("/auth/register", formData, config);
 
     return data;
   } catch (error) {
