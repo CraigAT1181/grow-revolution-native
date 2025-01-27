@@ -1,22 +1,20 @@
 import React from "react";
-import {
-  View,
-  Button,
-  StyleSheet,
-  Image,
-  Text,
-  TouchableOpacity,
-} from "react-native";
+import { View, Button, StyleSheet, Image, Text } from "react-native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import MainTabs from "./mainTabs";
 import { useAuth } from "../contexts/AuthContext";
+import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
 const Drawer = createDrawerNavigator();
 
 // Create Profile section of Drawer
 const ProfileHeader = ({ userName, profilePic }) => (
   <View style={styles.profileContainer}>
-    <Image source={{ uri: profilePic }} style={styles.profilePic} />
+    {profilePic ? (
+      <Image source={{ uri: profilePic }} style={styles.profilePic} />
+    ) : (
+      <FontAwesome5 name={"user"} size={25} style={styles.noProfilePicAvatar} />
+    )}
     <Text style={styles.userName}>{userName}</Text>
   </View>
 );
@@ -25,8 +23,12 @@ const ProfileHeader = ({ userName, profilePic }) => (
 const DrawerContent = ({ navigation }) => {
   const { user, signout } = useAuth();
 
-  const profilePic = user.profile_pic;
-  const encodedProfilePic = encodeURI(profilePic);
+  let encodedProfilePic = null;
+
+  if (user.profile_pic) {
+    const profilePic = user.profile_pic;
+    encodedProfilePic = encodeURI(profilePic);
+  }
   const userName = user.user_name;
 
   return (
@@ -72,8 +74,7 @@ export default MainDrawer;
 
 const styles = StyleSheet.create({
   profileContainer: {
-    padding: 20,
-    paddingTop: 100,
+    padding: 50,
     marginBottom: 50,
     alignItems: "center",
     backgroundColor: "#064e3b",
@@ -88,5 +89,15 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     color: "#fff",
+  },
+  noProfilePicIcon: {
+    borderRadius: 50,
+    marginRight: 20,
+    padding: 20,
+  },
+  noProfilePicAvatar: {
+    borderRadius: 50,
+    padding: 20,
+    color: "white",
   },
 });

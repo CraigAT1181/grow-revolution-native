@@ -17,13 +17,19 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import * as ImagePicker from "expo-image-picker";
 import { useAuth } from "../../contexts/AuthContext";
 import mime from "mime";
+import { ScrollView } from "react-native-gesture-handler";
 
 const validationSchema = Yup.object({
   email: Yup.string().email("Invalid email format").required("Required"),
   password: Yup.string()
     .min(6, "Must be at least 6 characters")
     .required("Required"),
-  username: Yup.string().required("Required"),
+  username: Yup.string()
+    .matches(
+      /^[a-zA-Z0-9](?![-_])[a-zA-Z0-9_-]*$/,
+      "Only letters, numbers, _ or - allowed. Cannot start with _ or -."
+    )
+    .required("Required"),
   location: Yup.string().required("Required"),
 });
 
@@ -88,7 +94,7 @@ const Register = ({ navigation }) => {
 
     formData.append("email", email);
     formData.append("password", password);
-    formData.append("username", username);
+    formData.append("username", `@${username}`.toLowerCase());
     formData.append("location", location);
 
     if (profilePic) {
@@ -112,138 +118,148 @@ const Register = ({ navigation }) => {
   };
 
   return (
-    <View style={globalStyles.container}>
-      <View style={styles.form}>
-        <Formik
-          initialValues={{
-            email: "",
-            password: "",
-            username: "",
-            location: "",
-          }}
-          onSubmit={async (values) => {
-            setIsLoading(true);
-            setSubmitError(null);
-            try {
-              await packUserDetails(
-                values.email,
-                values.password,
-                values.username,
-                values.location,
-                profilePic
-              );
-            } catch (error) {
-              console.log(`Error: ${error}`);
-              setSubmitError(error);
-            } finally {
-              setIsLoading(false);
-            }
-          }}
-          validationSchema={validationSchema}
-        >
-          {(formikProps) => (
-            <View>
-              <TextInput
-                style={globalStyles.input}
-                placeholder="Email"
-                onChangeText={formikProps.handleChange("email")}
-                value={formikProps.values.email}
-                onBlur={formikProps.handleBlur("email")}
-              />
-              <Text style={globalStyles.errorText}>
-                {formikProps.touched.email && formikProps.errors.email}
-              </Text>
+    <ScrollView
+      contentContainerStyle={globalStyles.container}
+      showsVerticalScrollIndicator={false}
+      keyboardShouldPersistTaps="handled"
+    >
+      <View>
+        <View style={styles.form}>
+          <Formik
+            initialValues={{
+              email: "",
+              password: "",
+              username: "",
+              location: "",
+            }}
+            onSubmit={async (values) => {
+              setIsLoading(true);
+              setSubmitError(null);
+              try {
+                await packUserDetails(
+                  values.email,
+                  values.password,
+                  values.username,
+                  values.location,
+                  profilePic
+                );
+              } catch (error) {
+                console.log(`Error: ${error}`);
+                setSubmitError(error);
+              } finally {
+                setIsLoading(false);
+              }
+            }}
+            validationSchema={validationSchema}
+          >
+            {(formikProps) => (
               <View>
+                <Text>Email</Text>
                 <TextInput
                   style={globalStyles.input}
-                  placeholder="Password"
-                  onChangeText={formikProps.handleChange("password")}
-                  value={formikProps.values.password}
-                  onBlur={formikProps.handleBlur("password")}
-                  secureTextEntry={!passwordVisible}
+                  onChangeText={formikProps.handleChange("email")}
+                  value={formikProps.values.email}
+                  onBlur={formikProps.handleBlur("email")}
                 />
-                <TouchableOpacity
-                  style={styles.iconContainer}
-                  onPress={() => setPasswordVisible(!passwordVisible)}
-                >
-                  <FontAwesome5
-                    name={passwordVisible ? "eye" : "eye-slash"} // Dynamically toggle the icon
-                    size={20}
-                    color="gray"
+                <Text style={globalStyles.errorText}>
+                  {formikProps.touched.email && formikProps.errors.email}
+                </Text>
+                <View>
+                  <Text>Password</Text>
+                  <TextInput
+                    style={globalStyles.input}
+                    onChangeText={formikProps.handleChange("password")}
+                    value={formikProps.values.password}
+                    onBlur={formikProps.handleBlur("password")}
+                    secureTextEntry={!passwordVisible}
                   />
-                </TouchableOpacity>
-              </View>
-              <Text style={globalStyles.errorText}>
-                {formikProps.touched.password && formikProps.errors.password}
-              </Text>
-              <TextInput
-                style={globalStyles.input}
-                placeholder="Username"
-                onChangeText={formikProps.handleChange("username")}
-                value={formikProps.values.username}
-                onBlur={formikProps.handleBlur("username")}
-              />
-              <Text style={globalStyles.errorText}>
-                {formikProps.touched.username && formikProps.errors.username}
-              </Text>
-              <TextInput
-                style={globalStyles.input}
-                placeholder="Location"
-                onChangeText={formikProps.handleChange("location")}
-                value={formikProps.values.location}
-                onBlur={formikProps.handleBlur("location")}
-              />
-              <Text style={globalStyles.errorText}>
-                {formikProps.touched.location && formikProps.errors.location}
-              </Text>
-
-              {profilePic ? (
-                <View style={styles.profilePicInput}>
-                  <TouchableOpacity onPress={pickImage}>
-                    <Image
-                      source={profilePic ? { uri: profilePic } : null}
-                      style={styles.profileImage}
-                    />
-                  </TouchableOpacity>
-                  <TouchableOpacity onPress={() => setProfilePic(null)}>
-                    <Text style={globalStyles.errorText}>Remove</Text>
-                  </TouchableOpacity>
-                </View>
-              ) : (
-                <View style={styles.profilePicInput}>
-                  <Text>No profile picture chosen</Text>
-                  <TouchableOpacity onPress={pickImage}>
+                  <TouchableOpacity
+                    style={styles.iconContainer}
+                    onPress={() => setPasswordVisible(!passwordVisible)}
+                  >
                     <FontAwesome5
-                      name={"camera"}
-                      size={80}
+                      name={passwordVisible ? "eye" : "eye-slash"}
+                      size={20}
                       color="gray"
-                      style={styles.cameraIcon}
                     />
                   </TouchableOpacity>
                 </View>
-              )}
-              {submitError && (
-                <Text style={globalStyles.errorText}>{submitError}</Text>
-              )}
-              <PrimaryButton
-                text="Confirm"
-                onPress={formikProps.handleSubmit}
-                loading={isLoading}
-              />
-            </View>
-          )}
-        </Formik>
-      </View>
-      {!isKeyboardVisible && (
-        <View>
-          <Text style={styles.signinText}>Already have an account?</Text>
-          <SecondaryButton
-            text={"Sign In"}
-            onPress={() => navigation.replace("SignIn")}
-          />
+                <Text style={globalStyles.errorText}>
+                  {formikProps.touched.password && formikProps.errors.password}
+                </Text>
+                <View>
+                  <Text>Username</Text>
+                  <TextInput
+                    style={globalStyles.input}
+                    placeholder=""
+                    onChangeText={formikProps.handleChange("username")}
+                    value={formikProps.values.username}
+                    onBlur={formikProps.handleBlur("username")}
+                  />
+                  <Text style={styles.usernameAt}>@</Text>
+                </View>
+                <Text style={globalStyles.errorText}>
+                  {formikProps.touched.username && formikProps.errors.username}
+                </Text>
+                <Text>Location</Text>
+                <TextInput
+                  style={globalStyles.input}
+                  onChangeText={formikProps.handleChange("location")}
+                  value={formikProps.values.location}
+                  onBlur={formikProps.handleBlur("location")}
+                />
+                <Text style={globalStyles.errorText}>
+                  {formikProps.touched.location && formikProps.errors.location}
+                </Text>
+
+                {profilePic ? (
+                  <View style={styles.profilePicInput}>
+                    <TouchableOpacity onPress={pickImage}>
+                      <Image
+                        source={profilePic ? { uri: profilePic } : null}
+                        style={styles.profileImage}
+                      />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => setProfilePic(null)}>
+                      <Text style={globalStyles.errorText}>Remove</Text>
+                    </TouchableOpacity>
+                  </View>
+                ) : (
+                  <View style={styles.profilePicInput}>
+                    <Text>No profile picture chosen</Text>
+                    <TouchableOpacity onPress={pickImage}>
+                      <FontAwesome5
+                        name={"camera"}
+                        size={80}
+                        color="gray"
+                        style={styles.cameraIcon}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                )}
+                {submitError && (
+                  <Text style={globalStyles.errorText}>{submitError}</Text>
+                )}
+                <PrimaryButton
+                  text="Confirm"
+                  onPress={formikProps.handleSubmit}
+                  loading={isLoading}
+                />
+              </View>
+            )}
+          </Formik>
         </View>
-      )}
-    </View>
+        {!isKeyboardVisible && (
+          <View style={globalStyles.authBottomButtonPanel}>
+            <Text style={styles.signinText}>Already have an account?</Text>
+            <SecondaryButton
+              text={"Sign In"}
+              onPress={() => navigation.replace("SignIn")}
+            />
+          </View>
+        )}
+      </View>
+    </ScrollView>
   );
 };
 
@@ -263,7 +279,14 @@ const styles = StyleSheet.create({
   iconContainer: {
     position: "absolute",
     right: 15,
-    top: 12,
+    top: 32,
+  },
+  usernameAt: {
+    position: "absolute",
+    top: 30,
+    left: 10,
+    fontSize: 18,
+    color: "#ccc",
   },
   signinText: {
     textAlign: "center",

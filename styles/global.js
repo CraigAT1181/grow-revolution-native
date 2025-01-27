@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 export const globalStyles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     padding: 20,
   },
   screen: {
@@ -23,6 +23,7 @@ export const globalStyles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#ddd",
     padding: 10,
+    textAlign: "center",
     fontSize: 18,
     borderRadius: 6,
   },
@@ -31,5 +32,8 @@ export const globalStyles = StyleSheet.create({
     marginBottom: 10,
     marginTop: 6,
     textAlign: "center",
+  },
+  authBottomButtonPanel: {
+    marginTop: 50,
   },
 });
