@@ -5,6 +5,7 @@ import {
   handleSignin,
   handleSignout,
 } from "../services/backend";
+import { Alert } from "react-native";
 
 const AuthContext = createContext();
 
@@ -42,7 +43,7 @@ const AuthProvider = ({ children }) => {
 
       return userData;
     } catch (error) {
-      console.error("Error during sign in:", error);
+      throw error;
     }
   };
 

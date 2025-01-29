@@ -25,6 +25,7 @@ const validationSchema = Yup.object({
 const SignInScreen = ({ navigation }) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
 
   const { signin } = useAuth();
@@ -55,9 +56,14 @@ const SignInScreen = ({ navigation }) => {
           onSubmit={async (values) => {
             setIsLoading(true);
             try {
+              setError(null);
               await signin(values.email, values.password);
             } catch (error) {
-              console.log(`Error: ${error}`);
+              const errorMessage =
+                error.response?.data?.message ||
+                error.message ||
+                "An unexpected error occured, please try again.";
+              setError(errorMessage);
             } finally {
               setIsLoading(false);
             }
@@ -102,6 +108,7 @@ const SignInScreen = ({ navigation }) => {
               <Text style={globalStyles.errorText}>
                 {formikProps.touched.password && formikProps.errors.password}
               </Text>
+              {error && <Text style={globalStyles.errorText}>{error}</Text>}
               <PrimaryButton
                 text="Confirm"
                 onPress={formikProps.handleSubmit}

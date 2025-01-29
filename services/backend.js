@@ -22,7 +22,17 @@ export const handleSignin = async (email, password) => {
 
     return user;
   } catch (error) {
-    throw error;
+    if (error.response) {
+      const { statusCode, message } = error.response.data;
+      throw { statusCode, message };
+    } else if (error.request) {
+      throw {
+        statusCode: 503,
+        message: "No response from server. Check your connection.",
+      };
+    } else {
+      throw { statusCode: 500, message: "An unexpected error occurred." };
+    }
   }
 };
 
