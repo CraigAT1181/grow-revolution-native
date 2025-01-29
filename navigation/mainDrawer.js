@@ -4,6 +4,8 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import MainTabs from "./mainTabs";
 import { useAuth } from "../contexts/AuthContext";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+import DrawerMenuButton from "../components/drawer-menu-button";
+import SecondaryButton from "../components/secondary-button";
 
 const Drawer = createDrawerNavigator();
 
@@ -38,19 +40,21 @@ const DrawerContent = ({ navigation }) => {
 
       {/* Menu Items */}
       <View style={{ flex: 1 }}>
-        <Button
-          title="Home"
+        <DrawerMenuButton
+          icon={"home"}
+          text="Home"
           onPress={() => navigation.navigate("Tabs", { screen: "Home" })}
         />
-        <Button
-          title="Grow"
+        <DrawerMenuButton
+          icon={"seedling"}
+          text="Grow"
           onPress={() => navigation.navigate("Tabs", { screen: "Grow" })}
         />
       </View>
 
       {/* Sign-Out Section */}
       <View style={{ padding: 20 }}>
-        <Button title="Sign Out" onPress={signout} />
+        <SecondaryButton text="Sign Out" onPress={signout} />
       </View>
     </View>
   );
