@@ -72,9 +72,9 @@ const SignInScreen = ({ navigation }) => {
         >
           {(formikProps) => (
             <View>
+              <Text>Email</Text>
               <TextInput
                 style={globalStyles.input}
-                placeholder="Email"
                 onChangeText={formikProps.handleChange("email")}
                 value={formikProps.values.email}
                 onBlur={formikProps.handleBlur("email")}
@@ -86,9 +86,9 @@ const SignInScreen = ({ navigation }) => {
                 {formikProps.touched.email && formikProps.errors.email}
               </Text>
               <View>
+                <Text>Password</Text>
                 <TextInput
                   style={globalStyles.input}
-                  placeholder="Password"
                   onChangeText={formikProps.handleChange("password")}
                   value={formikProps.values.password}
                   onBlur={formikProps.handleBlur("password")}
@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
   iconContainer: {
     position: "absolute",
     right: 15,
-    top: 12,
+    top: 32,
   },
   resetPasswordContainer: {
     alignItems: "center",
