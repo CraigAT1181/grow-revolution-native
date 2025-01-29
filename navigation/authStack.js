@@ -10,7 +10,7 @@ const AuthStack = () => {
     <Stack.Navigator
       initialRouteName="SignIn"
       screenOptions={{
-        headerStyle: { backgroundColor: "#333" },
+        headerStyle: { backgroundColor: "#064e3b" },
         headerTintColor: "white",
       }}
     >
