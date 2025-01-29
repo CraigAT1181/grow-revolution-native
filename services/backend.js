@@ -1,5 +1,6 @@
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { enableLegacyWebImplementation } from "react-native-gesture-handler";
 
 const api = axios.create({
   // baseURL: "http://10.0.2.2:3000", // Mobile
@@ -69,5 +70,29 @@ export const handleRegister = async (formData) => {
     return { message, user };
   } catch (error) {
     throw error;
+  }
+};
+
+export const handlePasswordResetRequest = async (email) => {
+  try {
+    console.log("Email received:", email);
+
+    const { data } = await api.post("/auth/reset-password", {
+      email: email,
+    });
+
+    return data;
+  } catch (error) {
+    if (error.response) {
+      const { statusCode, message } = error.response.data;
+      throw { statusCode, message };
+    } else if (error.request) {
+      throw {
+        statusCode: 503,
+        message: "No response from server. Check your connection.",
+      };
+    } else {
+      throw { statusCode: 500, message: "An unexpected error occurred." };
+    }
   }
 };

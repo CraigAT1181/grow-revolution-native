@@ -10,6 +10,9 @@ export const globalStyles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  form: {
+    flex: 1,
+  },
   titleText: {
     fontFamily: "nunito-bold",
     fontSize: 18,

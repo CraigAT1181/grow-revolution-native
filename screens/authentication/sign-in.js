@@ -47,7 +47,7 @@ const SignInScreen = ({ navigation }) => {
 
   return (
     <View style={globalStyles.container}>
-      <View style={styles.form}>
+      <View style={globalStyles.form}>
         <Formik
           initialValues={{
             email: "",
@@ -142,9 +142,6 @@ const SignInScreen = ({ navigation }) => {
 export default SignInScreen;
 
 const styles = StyleSheet.create({
-  form: {
-    flex: 1,
-  },
   input: {
     flex: 1,
     fontSize: 16,

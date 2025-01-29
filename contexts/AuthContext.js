@@ -2,10 +2,10 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   handleRegister,
+  handlePasswordResetRequest,
   handleSignin,
   handleSignout,
 } from "../services/backend";
-import { Alert } from "react-native";
 
 const AuthContext = createContext();
 
@@ -68,8 +68,19 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+  const passwordResetRequest = async (email) => {
+    try {
+      const { message } = await handlePasswordResetRequest(email);
+      return message;
+    } catch (error) {
+      throw error;
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ user, signin, signout, register }}>
+    <AuthContext.Provider
+      value={{ user, signin, signout, register, passwordResetRequest }}
+    >
       {children}
     </AuthContext.Provider>
   );
