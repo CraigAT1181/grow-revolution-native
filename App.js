@@ -30,10 +30,19 @@ const App = () => {
     loadFonts();
   }, []);
 
+  const linking = {
+    prefixes: ["growrev://"],
+    config: {
+      screens: {
+        newPassword: "reset-password", // map URL to the Reset Password screen
+      },
+    },
+  };
+
   if (fontsLoaded) {
     return (
       <AuthProvider>
-        <NavigationContainer>
+        <NavigationContainer linking={linking}>
           <Wrapper />
         </NavigationContainer>
       </AuthProvider>

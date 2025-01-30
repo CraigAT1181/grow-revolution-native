@@ -1,6 +1,6 @@
 {
   "expo": {
-    "scheme": "grow-revolution",
+    "scheme": "growrev",
     "name": "grow-revolution-native",
     "slug": "grow-revolution-native",
     "version": "1.0.0",
@@ -14,9 +14,11 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.yourdomain.growrev"
     },
     "android": {
+      "package": "com.yourdomain.growrev",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -26,7 +28,7 @@
           "action": "VIEW",
           "data": [
             {
-              "scheme": "grow-revolution",
+              "scheme": "growrev",
               "host": "reset-password"
             }
           ],
