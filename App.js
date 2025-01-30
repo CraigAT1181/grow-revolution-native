@@ -3,15 +3,13 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import * as Font from "expo-font";
 
+import Wrapper from "./screens/wrapper";
+
 // Navigation
 import { NavigationContainer } from "@react-navigation/native";
 
 // Context
-import { AuthProvider, useAuth } from "./contexts/AuthContext";
-
-// Custom Screens / Stacks
-import MainDrawer from "./navigation/mainDrawer";
-import AuthStack from "./navigation/authStack";
+import { AuthProvider } from "./contexts/AuthContext";
 
 const App = () => {
   const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -47,12 +45,6 @@ const App = () => {
       </View>
     );
   }
-};
-
-const Wrapper = () => {
-  const { user } = useAuth();
-
-  return user ? <MainDrawer /> : <AuthStack />;
 };
 
 export default App;
