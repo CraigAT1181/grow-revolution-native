@@ -6,6 +6,8 @@ import Grow from "../screens/grow";
 import { TouchableOpacity, Image, StyleSheet } from "react-native";
 import { useAuth } from "../contexts/AuthContext";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+import Community from "../screens/community";
+import AdPage from "../screens/ad-page";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -64,6 +66,26 @@ const MainTabs = ({ drawerNavigation }) => {
         options={{
           tabBarIcon: ({ size }) => (
             <FontAwesome5 name="seedling" size={size} color={"#064e3b"} />
+          ),
+          tabBarLabel: "",
+        }}
+      />
+      <Tab.Screen
+        name="Community"
+        component={Community}
+        options={{
+          tabBarIcon: ({ size }) => (
+            <FontAwesome5 name="users" size={size} color={"#064e3b"} />
+          ),
+          tabBarLabel: "",
+        }}
+      />
+      <Tab.Screen
+        name="Ads"
+        component={AdPage}
+        options={{
+          tabBarIcon: ({ size }) => (
+            <FontAwesome5 name="newspaper" size={size} color={"#064e3b"} />
           ),
           tabBarLabel: "",
         }}

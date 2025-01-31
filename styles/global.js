@@ -39,4 +39,14 @@ export const globalStyles = StyleSheet.create({
   authBottomButtonPanel: {
     marginTop: 50,
   },
+  hrContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  hr: {
+    width: "80%",
+    height: 1,
+    backgroundColor: "#000",
+    marginVertical: 10,
+  },
 });

@@ -6,11 +6,12 @@ import { useAuth } from "../contexts/AuthContext";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import DrawerMenuButton from "../components/drawer-menu-button";
 import SecondaryButton from "../components/secondary-button";
+import { globalStyles } from "../styles/global";
 
 const Drawer = createDrawerNavigator();
 
 // Create Profile section of Drawer
-const ProfileHeader = ({ userName, profilePic }) => (
+const ProfileHeader = ({ userName, email, profilePic }) => (
   <View style={styles.profileContainer}>
     {profilePic ? (
       <Image source={{ uri: profilePic }} style={styles.profilePic} />
@@ -18,6 +19,7 @@ const ProfileHeader = ({ userName, profilePic }) => (
       <FontAwesome5 name={"user"} size={25} style={styles.noProfilePicAvatar} />
     )}
     <Text style={styles.userName}>{userName}</Text>
+    <Text style={styles.email}>{email}</Text>
   </View>
 );
 
@@ -32,11 +34,16 @@ const DrawerContent = ({ navigation }) => {
     encodedProfilePic = encodeURI(profilePic);
   }
   const userName = user.user_name;
+  const email = user.email;
 
   return (
     <View style={{ flex: 1 }}>
       {/* Profile Section */}
-      <ProfileHeader userName={userName} profilePic={encodedProfilePic} />
+      <ProfileHeader
+        userName={userName}
+        email={email}
+        profilePic={encodedProfilePic}
+      />
 
       {/* Menu Items */}
       <View style={{ flex: 1 }}>
@@ -48,6 +55,34 @@ const DrawerContent = ({ navigation }) => {
         <DrawerMenuButton
           icon={"seedling"}
           text="Grow"
+          onPress={() => navigation.navigate("Tabs", { screen: "Grow" })}
+        />
+        <DrawerMenuButton
+          icon={"users"}
+          text="Community"
+          onPress={() => navigation.navigate("Tabs", { screen: "Community" })}
+        />
+        <DrawerMenuButton
+          icon={"newspaper"}
+          text="Ads"
+          onPress={() => navigation.navigate("Tabs", { screen: "AdPage" })}
+        />
+        <DrawerMenuButton
+          icon={"envelope"}
+          text="Inbox"
+          onPress={() => navigation.navigate("Tabs", { screen: "Grow" })}
+        />
+        <DrawerMenuButton
+          icon={"bell"}
+          text="Notifications"
+          onPress={() => navigation.navigate("Tabs", { screen: "Home" })}
+        />
+        <View style={globalStyles.hrContainer}>
+          <View style={globalStyles.hr}></View>
+        </View>
+        <DrawerMenuButton
+          icon={"cog"}
+          text="Settings"
           onPress={() => navigation.navigate("Tabs", { screen: "Grow" })}
         />
       </View>
@@ -93,6 +128,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     color: "#fff",
+  },
+  email: {
+    fontSize: 14,
+    color: "#ccc",
+    marginTop: 4,
   },
   noProfilePicIcon: {
     borderRadius: 50,

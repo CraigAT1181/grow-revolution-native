@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   button: {
     flexDirection: "row",
     alignItems: "center",
-    marginVertical: 8,
+    marginVertical: 12,
     paddingHorizontal: 32,
   },
   iconContainer: {
