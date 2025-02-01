@@ -1,11 +1,11 @@
 import React from "react";
-import { View, Button, StyleSheet, Image, Text } from "react-native";
+import { View, StyleSheet, Image, Text } from "react-native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import MainTabs from "./mainTabs";
 import { useAuth } from "../contexts/AuthContext";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
-import DrawerMenuButton from "../components/drawer-menu-button";
-import SecondaryButton from "../components/secondary-button";
+import DrawerMenuButton from "../components/buttons/drawer-menu-button";
+import SecondaryButton from "../components/buttons/secondary-button";
 import { globalStyles } from "../styles/global";
 
 const Drawer = createDrawerNavigator();

@@ -9,8 +9,8 @@ import {
 } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import PrimaryButton from "../../components/primary-button";
-import SecondaryButton from "../../components/secondary-button";
+import PrimaryButton from "../../components/buttons/primary-button";
+import SecondaryButton from "../../components/buttons/secondary-button";
 import { globalStyles } from "../../styles/global";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { useAuth } from "../../contexts/AuthContext";
