@@ -5,7 +5,7 @@ import { globalStyles } from "../styles/global";
 const AdPage = () => {
   return (
     <View style={globalStyles.screen}>
-      <Text style={globalStyles.titleText}>Ad Page screen.</Text>
+      <Text style={globalStyles.text}>Ad screen.</Text>
     </View>
   );
 };

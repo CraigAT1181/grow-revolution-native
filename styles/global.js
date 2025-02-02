@@ -1,6 +1,10 @@
 import { StyleSheet } from "react-native";
 
 export const globalStyles = StyleSheet.create({
+  container: {
+    flexGrow: 1,
+    padding: 20,
+  },
   screen: {
     flex: 1,
     padding: 20,

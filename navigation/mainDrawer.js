@@ -70,12 +70,12 @@ const DrawerContent = ({ navigation }) => {
         <DrawerMenuButton
           icon={"envelope"}
           text="Inbox"
-          onPress={() => navigation.navigate("Tabs", { screen: "Grow" })}
+          onPress={() => navigation.navigate("Tabs", { screen: "#" })}
         />
         <DrawerMenuButton
           icon={"bell"}
           text="Notifications"
-          onPress={() => navigation.navigate("Tabs", { screen: "Home" })}
+          onPress={() => navigation.navigate("Tabs", { screen: "#" })}
         />
         <View style={globalStyles.hrContainer}>
           <View style={globalStyles.hr}></View>
@@ -83,7 +83,7 @@ const DrawerContent = ({ navigation }) => {
         <DrawerMenuButton
           icon={"cog"}
           text="Settings"
-          onPress={() => navigation.navigate("Tabs", { screen: "Grow" })}
+          onPress={() => navigation.navigate("Tabs", { screen: "#" })}
         />
       </View>
 

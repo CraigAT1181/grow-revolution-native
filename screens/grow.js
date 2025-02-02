@@ -6,10 +6,7 @@ import { FlatList } from "react-native-gesture-handler";
 const Grow = () => {
   return (
     <View style={globalStyles.screen}>
-      {/* Month button slider */}
-      <View>
-        <FlatList data={null} keyExtractor={null} renderItem={null} />
-      </View>
+      <Text style={globalStyles.text}>Grow screen</Text>
     </View>
   );
 };
