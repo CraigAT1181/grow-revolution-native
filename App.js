@@ -1,6 +1,7 @@
 // React components
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
+import { StatusBar } from "react-native";
 import * as Font from "expo-font";
 
 import Wrapper from "./screens/wrapper";
@@ -34,7 +35,7 @@ const App = () => {
     prefixes: ["growrev://"],
     config: {
       screens: {
-        newPassword: "reset-password", // map URL to the Reset Password screen
+        newPassword: "reset-password",
       },
     },
   };
@@ -43,6 +44,7 @@ const App = () => {
     return (
       <AuthProvider>
         <NavigationContainer linking={linking}>
+          <StatusBar barStyle="light-content" backgroundColor="#260F07" />
           <Wrapper />
         </NavigationContainer>
       </AuthProvider>

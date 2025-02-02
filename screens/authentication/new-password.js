@@ -75,7 +75,7 @@ const NewPassword = ({ accessToken }) => {
                   onPress={() => setPasswordVisible(!passwordVisible)}
                 >
                   <FontAwesome5
-                    name={passwordVisible ? "eye" : "eye-slash"} // Dynamically toggle the icon
+                    name={passwordVisible ? "eye" : "eye-slash"}
                     size={20}
                     color="gray"
                   />

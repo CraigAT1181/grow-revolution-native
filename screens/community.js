@@ -4,10 +4,8 @@ import { globalStyles } from "../styles/global";
 
 const Community = () => {
   return (
-    <View style={globalStyles.container}>
-      <View style={globalStyles.screen}>
-        <Text style={globalStyles.titleText}>Community screen.</Text>
-      </View>
+    <View style={globalStyles.screen}>
+      <Text style={globalStyles.text}>Community screen.</Text>
     </View>
   );
 };

@@ -7,12 +7,10 @@ const Home = () => {
   const { user } = useAuth();
 
   return (
-    <View style={globalStyles.container}>
-      <View style={globalStyles.screen}>
-        <Text
-          style={globalStyles.titleText}
-        >{`Welcome Home ${user.user_name}!`}</Text>
-      </View>
+    <View style={globalStyles.screen}>
+      <Text
+        style={globalStyles.titleText}
+      >{`Welcome Home ${user.user_name}!`}</Text>
     </View>
   );
 };

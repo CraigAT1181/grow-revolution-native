@@ -5,8 +5,8 @@ import MainTabs from "./mainTabs";
 import { useAuth } from "../contexts/AuthContext";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import DrawerMenuButton from "../components/buttons/drawer-menu-button";
-import SecondaryButton from "../components/buttons/secondary-button";
 import { globalStyles } from "../styles/global";
+import SecondaryButton from "../components/buttons/secondary-button";
 
 const Drawer = createDrawerNavigator();
 
@@ -46,7 +46,7 @@ const DrawerContent = ({ navigation }) => {
       />
 
       {/* Menu Items */}
-      <View style={{ flex: 1 }}>
+      <View>
         <DrawerMenuButton
           icon={"home"}
           text="Home"
@@ -116,13 +116,15 @@ const styles = StyleSheet.create({
     padding: 50,
     marginBottom: 50,
     alignItems: "center",
-    backgroundColor: "#064e3b",
+    backgroundColor: "#260F07",
   },
   profilePic: {
     width: 80,
     height: 80,
     borderRadius: 40,
     marginBottom: 10,
+    borderWidth: 2,
+    borderColor: "#fff",
   },
   userName: {
     fontSize: 18,

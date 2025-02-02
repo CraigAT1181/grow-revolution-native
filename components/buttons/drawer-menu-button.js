@@ -7,7 +7,7 @@ const DrawerMenuButton = ({ icon, text, onPress }) => {
     <TouchableOpacity onPress={onPress}>
       <View style={styles.button}>
         <View style={styles.iconContainer}>
-          <FontAwesome5 name={icon} size={25} color={"#064e3b"} />
+          <FontAwesome5 name={icon} size={25} color={"#401B1B"} />
         </View>
         <View>
           <Text style={styles.text}>{text}</Text>
@@ -34,6 +34,6 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "#064e3b",
+    color: "#401B1B",
   },
 });

@@ -45,6 +45,8 @@ const MainTabs = ({ drawerNavigation }) => {
             )}
           </TouchableOpacity>
         ),
+        headerStyle: { backgroundColor: "#260F07" },
+        headerTintColor: "white",
         tabBarStyle: {
           paddingTop: 5,
         },
@@ -55,7 +57,7 @@ const MainTabs = ({ drawerNavigation }) => {
         component={Home}
         options={{
           tabBarIcon: ({ size }) => (
-            <FontAwesome5 name="home" size={size} color={"#064e3b"} />
+            <FontAwesome5 name="home" size={size} color={"#260F07"} />
           ),
           tabBarLabel: "",
         }}
@@ -65,7 +67,7 @@ const MainTabs = ({ drawerNavigation }) => {
         component={Grow}
         options={{
           tabBarIcon: ({ size }) => (
-            <FontAwesome5 name="seedling" size={size} color={"#064e3b"} />
+            <FontAwesome5 name="seedling" size={size} color={"#260F07"} />
           ),
           tabBarLabel: "",
         }}
@@ -75,7 +77,7 @@ const MainTabs = ({ drawerNavigation }) => {
         component={Community}
         options={{
           tabBarIcon: ({ size }) => (
-            <FontAwesome5 name="users" size={size} color={"#064e3b"} />
+            <FontAwesome5 name="users" size={size} color={"#260F07"} />
           ),
           tabBarLabel: "",
         }}
@@ -85,7 +87,7 @@ const MainTabs = ({ drawerNavigation }) => {
         component={AdPage}
         options={{
           tabBarIcon: ({ size }) => (
-            <FontAwesome5 name="newspaper" size={size} color={"#064e3b"} />
+            <FontAwesome5 name="newspaper" size={size} color={"#260F07"} />
           ),
           tabBarLabel: "",
         }}

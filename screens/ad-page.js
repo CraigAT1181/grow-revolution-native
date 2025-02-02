@@ -4,10 +4,8 @@ import { globalStyles } from "../styles/global";
 
 const AdPage = () => {
   return (
-    <View style={globalStyles.container}>
-      <View style={globalStyles.screen}>
-        <Text style={globalStyles.titleText}>Ad Page screen.</Text>
-      </View>
+    <View style={globalStyles.screen}>
+      <Text style={globalStyles.titleText}>Ad Page screen.</Text>
     </View>
   );
 };

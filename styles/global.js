@@ -1,20 +1,23 @@
 import { StyleSheet } from "react-native";
 
 export const globalStyles = StyleSheet.create({
-  container: {
-    flexGrow: 1,
-    padding: 20,
-  },
   screen: {
     flex: 1,
+    padding: 20,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: "#fff",
   },
   form: {
     flex: 1,
   },
   titleText: {
     fontFamily: "nunito-bold",
+    fontSize: 18,
+    color: "#333",
+  },
+  text: {
+    fontFamily: "nunito-regular",
     fontSize: 18,
     color: "#333",
   },
@@ -31,7 +34,7 @@ export const globalStyles = StyleSheet.create({
     borderRadius: 6,
   },
   errorText: {
-    color: "crimson",
+    color: "#AA0808",
     marginBottom: 10,
     marginTop: 6,
     textAlign: "center",

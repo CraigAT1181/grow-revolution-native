@@ -17,14 +17,14 @@ const styles = StyleSheet.create({
   button: {
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: "#064e3b",
+    borderColor: "#260F07",
     paddingVertical: 14,
     paddingHorizontal: 10,
     marginHorizontal: 50,
     backgroundColor: "white",
   },
   buttonText: {
-    color: "#064e3b",
+    color: "#260F07",
     fontWeight: "bold",
     textTransform: "uppercase",
     fontSize: 16,

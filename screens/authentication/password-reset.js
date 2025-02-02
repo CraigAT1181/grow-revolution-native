@@ -3,7 +3,7 @@ import { globalStyles } from "../../styles/global";
 import { Formik } from "formik";
 import { useState } from "react";
 import * as Yup from "yup";
-import PrimaryButton from "../../components/primary-button";
+import PrimaryButton from "../../components/buttons/primary-button";
 import { useAuth } from "../../contexts/AuthContext";
 
 const validationSchema = Yup.object({
@@ -81,7 +81,7 @@ export default PasswordReset;
 
 const styles = StyleSheet.create({
   successText: {
-    color: "green",
+    color: "#188918",
     marginBottom: 10,
     marginTop: 6,
     textAlign: "center",
