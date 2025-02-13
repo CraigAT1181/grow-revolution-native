@@ -5,7 +5,7 @@ import {
   handlePasswordResetRequest,
   handleSignin,
   handleSignout,
-} from "../services/backend";
+} from "../services/authService";
 
 const AuthContext = createContext();
 

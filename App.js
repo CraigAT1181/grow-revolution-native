@@ -11,6 +11,7 @@ import { NavigationContainer } from "@react-navigation/native";
 
 // Context
 import { AuthProvider } from "./contexts/AuthContext";
+import { GrowProvider } from "./contexts/GrowContext";
 
 const App = () => {
   const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -43,10 +44,12 @@ const App = () => {
   if (fontsLoaded) {
     return (
       <AuthProvider>
-        <NavigationContainer linking={linking}>
-          <StatusBar barStyle="light-content" backgroundColor="#260F07" />
-          <Wrapper />
-        </NavigationContainer>
+        <GrowProvider>
+          <NavigationContainer linking={linking}>
+            <StatusBar barStyle="light-content" backgroundColor="#260F07" />
+            <Wrapper />
+          </NavigationContainer>
+        </GrowProvider>
       </AuthProvider>
     );
   } else {

@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Image, Text } from "react-native";
+import { View, StyleSheet, Image, Text, ImageBackground } from "react-native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import MainTabs from "./mainTabs";
 import { useAuth } from "../contexts/AuthContext";
@@ -12,15 +12,24 @@ const Drawer = createDrawerNavigator();
 
 // Create Profile section of Drawer
 const ProfileHeader = ({ userName, email, profilePic }) => (
-  <View style={styles.profileContainer}>
-    {profilePic ? (
-      <Image source={{ uri: profilePic }} style={styles.profilePic} />
-    ) : (
-      <FontAwesome5 name={"user"} size={25} style={styles.noProfilePicAvatar} />
-    )}
-    <Text style={styles.userName}>{userName}</Text>
-    <Text style={styles.email}>{email}</Text>
-  </View>
+  <ImageBackground
+    source={require("../assets/backgrounds/dark_wood.jpg")}
+    style={styles.profileHeaderBackground}
+  >
+    <View style={styles.profileContainer}>
+      {profilePic ? (
+        <Image source={{ uri: profilePic }} style={styles.profilePic} />
+      ) : (
+        <FontAwesome5
+          name={"user"}
+          size={25}
+          style={styles.noProfilePicAvatar}
+        />
+      )}
+      <Text style={styles.userName}>{userName}</Text>
+      <Text style={styles.email}>{email}</Text>
+    </View>
+  </ImageBackground>
 );
 
 // Create Content section of Drawer
@@ -38,55 +47,56 @@ const DrawerContent = ({ navigation }) => {
 
   return (
     <View style={{ flex: 1 }}>
-      {/* Profile Section */}
-      <ProfileHeader
-        userName={userName}
-        email={email}
-        profilePic={encodedProfilePic}
-      />
+      <View style={{ flexGrow: 1 }}>
+        {/* Profile Section */}
+        <ProfileHeader
+          userName={userName}
+          email={email}
+          profilePic={encodedProfilePic}
+        />
 
-      {/* Menu Items */}
-      <View>
-        <DrawerMenuButton
-          icon={"home"}
-          text="Home"
-          onPress={() => navigation.navigate("Tabs", { screen: "Home" })}
-        />
-        <DrawerMenuButton
-          icon={"seedling"}
-          text="Grow"
-          onPress={() => navigation.navigate("Tabs", { screen: "Grow" })}
-        />
-        <DrawerMenuButton
-          icon={"users"}
-          text="Community"
-          onPress={() => navigation.navigate("Tabs", { screen: "Community" })}
-        />
-        <DrawerMenuButton
-          icon={"newspaper"}
-          text="Ads"
-          onPress={() => navigation.navigate("Tabs", { screen: "AdPage" })}
-        />
-        <DrawerMenuButton
-          icon={"envelope"}
-          text="Inbox"
-          onPress={() => navigation.navigate("Tabs", { screen: "#" })}
-        />
-        <DrawerMenuButton
-          icon={"bell"}
-          text="Notifications"
-          onPress={() => navigation.navigate("Tabs", { screen: "#" })}
-        />
-        <View style={globalStyles.hrContainer}>
-          <View style={globalStyles.hr}></View>
+        {/* Menu Items */}
+        <View style={{ marginTop: 20 }}>
+          <DrawerMenuButton
+            icon={"home"}
+            text="Home"
+            onPress={() => navigation.navigate("Tabs", { screen: "Home" })}
+          />
+          <DrawerMenuButton
+            icon={"seedling"}
+            text="Grow"
+            onPress={() => navigation.navigate("Tabs", { screen: "Grow" })}
+          />
+          <DrawerMenuButton
+            icon={"users"}
+            text="Community"
+            onPress={() => navigation.navigate("Tabs", { screen: "Community" })}
+          />
+          <DrawerMenuButton
+            icon={"newspaper"}
+            text="Ads"
+            onPress={() => navigation.navigate("Tabs", { screen: "AdPage" })}
+          />
+          <DrawerMenuButton
+            icon={"envelope"}
+            text="Inbox"
+            onPress={() => navigation.navigate("Tabs", { screen: "#" })}
+          />
+          <DrawerMenuButton
+            icon={"bell"}
+            text="Notifications"
+            onPress={() => navigation.navigate("Tabs", { screen: "#" })}
+          />
+          <View style={globalStyles.hrContainer}>
+            <View style={globalStyles.hr}></View>
+          </View>
+          <DrawerMenuButton
+            icon={"cog"}
+            text="Settings"
+            onPress={() => navigation.navigate("Tabs", { screen: "#" })}
+          />
         </View>
-        <DrawerMenuButton
-          icon={"cog"}
-          text="Settings"
-          onPress={() => navigation.navigate("Tabs", { screen: "#" })}
-        />
       </View>
-
       {/* Sign-Out Section */}
       <View style={{ padding: 20 }}>
         <SecondaryButton text="Sign Out" onPress={signout} />
@@ -112,11 +122,19 @@ const MainDrawer = () => {
 export default MainDrawer;
 
 const styles = StyleSheet.create({
+  profileHeaderBackground: {
+    width: "100%",
+    height: 200, // Set a fixed height instead of flex: 1
+    resizeMode: "cover",
+    justifyContent: "center", // Ensures content is centered properly
+    alignItems: "center",
+  },
+
   profileContainer: {
     padding: 50,
-    marginBottom: 50,
+    marginVertical: 20,
     alignItems: "center",
-    backgroundColor: "#260F07",
+    backgroundColor: "transparent",
   },
   profilePic: {
     width: 80,
@@ -127,7 +145,7 @@ const styles = StyleSheet.create({
     borderColor: "#fff",
   },
   userName: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: "bold",
     color: "#fff",
   },
