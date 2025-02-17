@@ -5,8 +5,8 @@ import { SharedTransitionType } from "react-native-reanimated";
 
 const api = axios.create({
   // baseURL: "http://10.0.2.2:3000", // Mobile
-  // baseURL: "http://192.168.0.106:3000", // Home
-  baseURL: "http://192.168.1.127:3000", // Dad's
+  baseURL: "http://192.168.0.106:3000", // Home
+  // baseURL: "http://192.168.1.127:3000", // Dad's
 });
 
 export default api;

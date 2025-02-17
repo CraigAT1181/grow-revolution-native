@@ -1,16 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import { StyleSheet, TouchableOpacity, View, Text } from "react-native";
 import { globalStyles } from "../../styles/global";
 import { FlatList } from "react-native-gesture-handler";
 
-const TopMenuBar = ({ tabContent }) => {
-  const [selectedTab, setSelectedTab] = useState(tabContent[0].id);
-
+const TopMenuBar = ({ tabContent, selectedTab, setSelectedTab }) => {
   return (
     <View style={styles.container}>
       <FlatList
         data={tabContent}
         horizontal
+        contentContainerStyle={styles.menuData}
         showsHorizontalScrollIndicator={false}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
@@ -24,7 +23,7 @@ const TopMenuBar = ({ tabContent }) => {
                 selectedTab === item.id && styles.activeTabText,
               ]}
             >
-              {item.title}
+              {item.icon}
             </Text>
           </TouchableOpacity>
         )}
@@ -36,16 +35,24 @@ const TopMenuBar = ({ tabContent }) => {
 export default TopMenuBar;
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "",
+  // container: {
+  //   backgroundColor: "#260F07",
+  // },
+  menuData: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+    width: "100%",
+    backgroundColor: "white",
+    marginBottom: 20,
   },
   tab: {
+    alignItems: "center",
+    justifyContent: "center",
     paddingVertical: 10,
-    paddingHorizontal: 15,
-    marginHorizontal: 2,
-    backgroundColor: "#ccc",
-    borderTopStartRadius: 25,
-    borderTopEndRadius: 25,
+    paddingHorizontal: 70,
+    backgroundColor: "white",
+    borderWidth: 1,
   },
   activeTab: {
     backgroundColor: "#260F07",
