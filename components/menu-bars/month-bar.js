@@ -3,9 +3,7 @@ import { StyleSheet, TouchableOpacity, View, Text } from "react-native";
 import { globalStyles } from "../../styles/global";
 import { FlatList } from "react-native-gesture-handler";
 
-const MonthBar = ({ tabContent }) => {
-  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
-
+const MonthBar = ({ tabContent, selectedMonth, setSelectedMonth }) => {
   return (
     <View style={styles.container}>
       <FlatList

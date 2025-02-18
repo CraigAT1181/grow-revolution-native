@@ -36,20 +36,26 @@ const GrowProvider = ({ children }) => {
       // Check AsyncStorage for cached data
       const cachedData = await AsyncStorage.getItem(`monthlyJobs-${monthId}`);
       if (cachedData) {
+        console.log("CachedData:", cachedData);
+
         const parsedData = JSON.parse(cachedData);
         setAtAGlance(parsedData.atAGlance);
         setProduceList(parsedData.produceList);
         setMonthlyJobs(parsedData.monthlyJobs);
+        console.log("parsedDate:", parsedData);
+
         return parsedData;
       }
 
       // Fetch data from API
       const data = await fetchMonthlyJobs(monthId);
+      console.log("data in Context:", data);
 
       // Extract job titles for "At A Glance" view
       const jobTitles = data.produceJobs
         .map((job) => job.job_title)
         .concat(data.generalJobs.map((job) => job.job_title));
+      console.log("jobTitles in context:", jobTitles);
 
       // Store jobs together
       const monthlyJobsData = [...data.produceJobs, ...data.generalJobs];
@@ -59,7 +65,7 @@ const GrowProvider = ({ children }) => {
       setMonthlyJobs(monthlyJobsData);
       setProduceList(data.produceList);
 
-      // Cache data in AsyncStorage
+      // // Cache data in AsyncStorage
       const jobsToCache = {
         atAGlance: jobTitles,
         produceList: data.produceList,
@@ -69,6 +75,8 @@ const GrowProvider = ({ children }) => {
         `monthlyJobs-${monthId}`,
         JSON.stringify(jobsToCache)
       );
+
+      console.log("jobsToCache:", jobsToCache);
 
       return jobsToCache;
     } catch (error) {

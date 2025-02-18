@@ -25,6 +25,11 @@ export const globalStyles = StyleSheet.create({
     fontSize: 18,
     color: "#333",
   },
+  smallText: {
+    fontFamily: "nunito-regular",
+    fontSize: 14,
+    color: "#333",
+  },
   paragraph: {
     marginVertical: 8,
     lineHeight: 20,
