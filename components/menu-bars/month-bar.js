@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { StyleSheet, TouchableOpacity, View, Text } from "react-native";
 import { globalStyles } from "../../styles/global";
 import { FlatList } from "react-native-gesture-handler";
+import { useGrow } from "../../contexts/GrowContext";
 
-const MonthBar = ({ tabContent, selectedMonth, setSelectedMonth }) => {
+const MonthBar = ({ tabContent }) => {
+  const { selectedMonth, setSelectedMonth } = useGrow();
+
   return (
     <View style={styles.container}>
       <FlatList

@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
-import { FlatList } from "react-native-gesture-handler";
+import React, { useState } from "react";
+import { View, StyleSheet } from "react-native";
 import { globalStyles } from "../styles/global";
 import { useGrow } from "../contexts/GrowContext";
 import MonthBar from "../components/menu-bars/month-bar";
 import TopMenuBar from "../components/menu-bars/top-menu-bar";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import MonthlyJobs from "./monthly-jobs";
+import { ScrollView } from "react-native-gesture-handler";
 
 const Grow = () => {
   const topMenu = [
@@ -21,10 +21,13 @@ const Grow = () => {
   ];
   const [selectedTab, setSelectedTab] = useState(topMenu[0].id);
   const { months } = useGrow();
-  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
 
   return (
-    <View style={globalStyles.container}>
+    <ScrollView
+      contentContainerStyle={globalStyles.container}
+      showsVerticalScrollIndicator={false}
+      keyboardShouldPersistTaps="handled"
+    >
       <TopMenuBar
         tabContent={topMenu}
         selectedTab={selectedTab}
@@ -32,15 +35,11 @@ const Grow = () => {
       />
       {selectedTab === topMenu[0].id && (
         <View>
-          <MonthBar
-            tabContent={months}
-            selectedMonth={selectedMonth}
-            setSelectedMonth={setSelectedMonth}
-          />
-          <MonthlyJobs selectedMonth={selectedMonth} />
+          <MonthBar tabContent={months} />
+          <MonthlyJobs />
         </View>
       )}
-    </View>
+    </ScrollView>
   );
 };
 

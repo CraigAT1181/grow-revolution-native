@@ -1,16 +1,14 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { createStackNavigator } from "@react-navigation/stack";
 import Home from "../screens/home";
-import Grow from "../screens/grow";
 import { TouchableOpacity, Image, StyleSheet } from "react-native";
 import { useAuth } from "../contexts/AuthContext";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import Community from "../screens/community";
 import AdPage from "../screens/ad-page";
+import GrowStack from "./grow-stack";
 
 const Tab = createBottomTabNavigator();
-const Stack = createStackNavigator();
 
 const MainTabs = ({ drawerNavigation }) => {
   const { user } = useAuth();
@@ -64,7 +62,7 @@ const MainTabs = ({ drawerNavigation }) => {
       />
       <Tab.Screen
         name="Grow"
-        component={Grow}
+        component={GrowStack}
         options={{
           tabBarIcon: ({ size }) => (
             <FontAwesome5 name="seedling" size={size} color={"#260F07"} />

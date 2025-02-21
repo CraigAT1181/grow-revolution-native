@@ -2,9 +2,10 @@ import React from "react";
 import { StyleSheet, TouchableOpacity, View, Text, Image } from "react-native";
 import { globalStyles } from "../../styles/global";
 import { FlatList } from "react-native-gesture-handler";
+import { useNavigation } from "@react-navigation/native";
 
 const ProduceBar = ({ produce }) => {
-  console.log("Produce:", produce);
+  const navigation = useNavigation();
 
   return (
     <View>
@@ -17,18 +18,19 @@ const ProduceBar = ({ produce }) => {
         renderItem={({ item }) => (
           <View style={styles.produceButtonContainer}>
             <TouchableOpacity
-              onPress={() => "#" /*Navigation to produce details screen*/}
+              onPress={() =>
+                navigation.navigate("ProduceDetails", { produceItem: item })
+              }
             >
-              {/* <Text>{item.name}</Text> */}
-              {console.log(item.name)}
-
               <Image
                 source={{ uri: item.icon }}
                 style={styles.produceButton}
                 resizeMode="contain"
               />
             </TouchableOpacity>
-            <Text style={globalStyles.smallText}>{item.name}</Text>
+            <Text style={globalStyles.smallText}>
+              {item.name[0].toUpperCase() + item.name.slice(1)}
+            </Text>
           </View>
         )}
       />

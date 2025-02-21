@@ -1,13 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useGrow } from "../contexts/GrowContext";
 import { View, Text } from "react-native";
 import ProduceBar from "../components/menu-bars/produce-bar";
 import { globalStyles } from "../styles/global";
 
-const MonthlyJobs = ({ selectedMonth }) => {
-  const { atAGlance, produceList, monthlyJobs, handleFetchMonthlyJobs } =
-    useGrow();
-  const currentMonth = new Date().getMonth() + 1;
+const MonthlyJobs = () => {
+  const {
+    atAGlance,
+    produceList,
+    monthlyJobs,
+    handleFetchMonthlyJobs,
+    selectedMonth,
+  } = useGrow();
 
   useEffect(() => {
     const fetchMonthData = async () => {
@@ -27,7 +31,7 @@ const MonthlyJobs = ({ selectedMonth }) => {
       {produceList && (
         <View>
           <View style={{ alignItems: "center" }}>
-            <Text style={globalStyles.titleText}>Produce this month</Text>
+            <Text style={globalStyles.titleText}>Featuring this month</Text>
           </View>
           <ProduceBar produce={produceList} />
         </View>
