@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { View, StyleSheet } from "react-native";
 import { globalStyles } from "../styles/global";
-import { useGrow } from "../contexts/GrowContext";
 import MonthBar from "../components/menu-bars/month-bar";
 import TopMenuBar from "../components/menu-bars/top-menu-bar";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
@@ -20,11 +19,10 @@ const Grow = () => {
     },
   ];
   const [selectedTab, setSelectedTab] = useState(topMenu[0].id);
-  const { months } = useGrow();
 
   return (
     <ScrollView
-      contentContainerStyle={globalStyles.container}
+      contentContainerStyle={globalStyles.screen}
       showsVerticalScrollIndicator={false}
       keyboardShouldPersistTaps="handled"
     >
@@ -35,7 +33,7 @@ const Grow = () => {
       />
       {selectedTab === topMenu[0].id && (
         <View>
-          <MonthBar tabContent={months} />
+          <MonthBar />
           <MonthlyJobs />
         </View>
       )}

@@ -7,6 +7,7 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import Community from "../screens/community";
 import AdPage from "../screens/ad-page";
 import GrowStack from "./grow-stack";
+import { colours } from "../styles/global";
 
 const Tab = createBottomTabNavigator();
 
@@ -43,7 +44,7 @@ const MainTabs = ({ drawerNavigation }) => {
             )}
           </TouchableOpacity>
         ),
-        headerStyle: { backgroundColor: "#260F07" },
+        headerStyle: { backgroundColor: colours.primary },
         headerTintColor: "white",
         tabBarStyle: {
           paddingTop: 5,
@@ -55,7 +56,7 @@ const MainTabs = ({ drawerNavigation }) => {
         component={Home}
         options={{
           tabBarIcon: ({ size }) => (
-            <FontAwesome5 name="home" size={size} color={"#260F07"} />
+            <FontAwesome5 name="home" size={size} color={colours.primary} />
           ),
           tabBarLabel: "",
         }}
@@ -65,7 +66,7 @@ const MainTabs = ({ drawerNavigation }) => {
         component={GrowStack}
         options={{
           tabBarIcon: ({ size }) => (
-            <FontAwesome5 name="seedling" size={size} color={"#260F07"} />
+            <FontAwesome5 name="seedling" size={size} color={colours.primary} />
           ),
           tabBarLabel: "",
         }}
@@ -75,7 +76,7 @@ const MainTabs = ({ drawerNavigation }) => {
         component={Community}
         options={{
           tabBarIcon: ({ size }) => (
-            <FontAwesome5 name="users" size={size} color={"#260F07"} />
+            <FontAwesome5 name="users" size={size} color={colours.primary} />
           ),
           tabBarLabel: "",
         }}
@@ -85,7 +86,11 @@ const MainTabs = ({ drawerNavigation }) => {
         component={AdPage}
         options={{
           tabBarIcon: ({ size }) => (
-            <FontAwesome5 name="newspaper" size={size} color={"#260F07"} />
+            <FontAwesome5
+              name="newspaper"
+              size={size}
+              color={colours.primary}
+            />
           ),
           tabBarLabel: "",
         }}

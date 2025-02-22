@@ -1,16 +1,16 @@
 import React from "react";
 import { StyleSheet, TouchableOpacity, View, Text } from "react-native";
-import { globalStyles } from "../../styles/global";
+import { colours, globalStyles } from "../../styles/global";
 import { FlatList } from "react-native-gesture-handler";
 import { useGrow } from "../../contexts/GrowContext";
 
-const MonthBar = ({ tabContent }) => {
-  const { selectedMonth, setSelectedMonth } = useGrow();
+const MonthBar = () => {
+  const { months, selectedMonth, setSelectedMonth } = useGrow();
 
   return (
-    <View style={styles.container}>
+    <View>
       <FlatList
-        data={tabContent}
+        data={months}
         horizontal
         showsHorizontalScrollIndicator={false}
         keyExtractor={(item) => item.month_id}
@@ -35,7 +35,7 @@ const MonthBar = ({ tabContent }) => {
       />
       <View style={styles.content}>
         <Text style={globalStyles.text}>
-          {tabContent.find((m) => m.month_id === selectedMonth).introduction}
+          {months.find((m) => m.month_id === selectedMonth).introduction}
         </Text>
       </View>
     </View>
@@ -45,19 +45,18 @@ const MonthBar = ({ tabContent }) => {
 export default MonthBar;
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "",
-  },
   tab: {
     paddingVertical: 10,
     paddingHorizontal: 15,
     marginHorizontal: 2,
-    backgroundColor: "#ccc",
+    backgroundColor: colours.white,
+    borderWidth: 2,
+    borderColor: colours.secondary,
     borderTopStartRadius: 25,
     borderTopEndRadius: 25,
   },
   activeTab: {
-    backgroundColor: "#260F07",
+    backgroundColor: colours.primary,
   },
   content: {
     marginTop: 20,
@@ -66,10 +65,10 @@ const styles = StyleSheet.create({
   },
   tabText: {
     fontSize: 16,
-    color: "#260F07",
+    color: colours.black,
   },
   activeTabText: {
-    color: "#fff",
+    color: colours.white,
     fontWeight: "bold",
   },
 });

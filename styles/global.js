@@ -8,8 +8,6 @@ export const globalStyles = StyleSheet.create({
   screen: {
     flex: 1,
     padding: 20,
-    justifyContent: "center",
-    alignItems: "center",
     backgroundColor: "#fff",
   },
   form: {
@@ -62,3 +60,15 @@ export const globalStyles = StyleSheet.create({
     marginVertical: 10,
   },
 });
+
+export const colours = {
+  primary: "#4CAF50",
+  secondary: "#FF9800",
+  background: "#F5F5F5",
+  transparent: "transparent",
+  text: "#212121",
+  white: "#FFFFFF",
+  black: "#000000",
+  danger: "#FF5252",
+  success: "#4CAF50",
+};

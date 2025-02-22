@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, TouchableOpacity, View, Text } from "react-native";
+import { colours } from "../../styles/global";
 
 const SecondaryButton = ({ text, onPress }) => {
   return (
@@ -17,14 +18,14 @@ const styles = StyleSheet.create({
   button: {
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: "#260F07",
+    borderColor: colours.primary,
     paddingVertical: 14,
     paddingHorizontal: 10,
     marginHorizontal: 50,
-    backgroundColor: "white",
+    backgroundColor: colours.white,
   },
   buttonText: {
-    color: "#260F07",
+    color: colours.primary,
     fontWeight: "bold",
     textTransform: "uppercase",
     fontSize: 16,

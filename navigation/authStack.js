@@ -3,6 +3,7 @@ import SignInScreen from "../screens/authentication/sign-in";
 import Register from "../screens/authentication/register";
 import PasswordReset from "../screens/authentication/password-reset";
 import NewPassword from "../screens/authentication/new-password";
+import { colours } from "../styles/global";
 
 const Stack = createStackNavigator();
 
@@ -11,8 +12,8 @@ const AuthStack = () => {
     <Stack.Navigator
       initialRouteName="SignIn"
       screenOptions={{
-        headerStyle: { backgroundColor: "#260F07" },
-        headerTintColor: "white",
+        headerStyle: { backgroundColor: colours.primary },
+        headerTintColor: colours.white,
       }}
     >
       <Stack.Screen

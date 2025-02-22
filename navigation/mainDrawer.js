@@ -5,31 +5,22 @@ import MainTabs from "./mainTabs";
 import { useAuth } from "../contexts/AuthContext";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import DrawerMenuButton from "../components/buttons/drawer-menu-button";
-import { globalStyles } from "../styles/global";
+import { colours, globalStyles } from "../styles/global";
 import SecondaryButton from "../components/buttons/secondary-button";
 
 const Drawer = createDrawerNavigator();
 
 // Create Profile section of Drawer
 const ProfileHeader = ({ userName, email, profilePic }) => (
-  <ImageBackground
-    source={require("../assets/backgrounds/dark_wood.jpg")}
-    style={styles.profileHeaderBackground}
-  >
-    <View style={styles.profileContainer}>
-      {profilePic ? (
-        <Image source={{ uri: profilePic }} style={styles.profilePic} />
-      ) : (
-        <FontAwesome5
-          name={"user"}
-          size={25}
-          style={styles.noProfilePicAvatar}
-        />
-      )}
-      <Text style={styles.userName}>{userName}</Text>
-      <Text style={styles.email}>{email}</Text>
-    </View>
-  </ImageBackground>
+  <View style={styles.profileContainer}>
+    {profilePic ? (
+      <Image source={{ uri: profilePic }} style={styles.profilePic} />
+    ) : (
+      <FontAwesome5 name={"user"} size={25} style={styles.noProfilePicAvatar} />
+    )}
+    <Text style={styles.userName}>{userName}</Text>
+    <Text style={styles.email}>{email}</Text>
+  </View>
 );
 
 // Create Content section of Drawer
@@ -124,17 +115,16 @@ export default MainDrawer;
 const styles = StyleSheet.create({
   profileHeaderBackground: {
     width: "100%",
-    height: 200, // Set a fixed height instead of flex: 1
+    height: 200,
     resizeMode: "cover",
-    justifyContent: "center", // Ensures content is centered properly
+    justifyContent: "center",
     alignItems: "center",
   },
 
   profileContainer: {
     padding: 50,
-    marginVertical: 20,
     alignItems: "center",
-    backgroundColor: "transparent",
+    backgroundColor: colours.primary,
   },
   profilePic: {
     width: 80,
@@ -142,16 +132,16 @@ const styles = StyleSheet.create({
     borderRadius: 40,
     marginBottom: 10,
     borderWidth: 2,
-    borderColor: "#fff",
+    borderColor: colours.secondary,
   },
   userName: {
     fontSize: 16,
     fontWeight: "bold",
-    color: "#fff",
+    color: colours.white,
   },
   email: {
     fontSize: 14,
-    color: "#ccc",
+    color: colours.white,
     marginTop: 4,
   },
   noProfilePicIcon: {
@@ -162,6 +152,6 @@ const styles = StyleSheet.create({
   noProfilePicAvatar: {
     borderRadius: 50,
     padding: 20,
-    color: "white",
+    color: colours.white,
   },
 });

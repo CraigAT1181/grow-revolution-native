@@ -1,11 +1,11 @@
 import React from "react";
 import { StyleSheet, TouchableOpacity, View, Text } from "react-native";
-import { globalStyles } from "../../styles/global";
+import { colours } from "../../styles/global";
 import { FlatList } from "react-native-gesture-handler";
 
 const TopMenuBar = ({ tabContent, selectedTab, setSelectedTab }) => {
   return (
-    <View style={styles.container}>
+    <View>
       <FlatList
         data={tabContent}
         horizontal
@@ -35,15 +35,12 @@ const TopMenuBar = ({ tabContent, selectedTab, setSelectedTab }) => {
 export default TopMenuBar;
 
 const styles = StyleSheet.create({
-  // container: {
-  //   backgroundColor: "#260F07",
-  // },
   menuData: {
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
     width: "100%",
-    backgroundColor: "white",
+    backgroundColor: colours.white,
     marginBottom: 20,
   },
   tab: {
@@ -51,11 +48,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingVertical: 10,
     paddingHorizontal: 70,
-    backgroundColor: "white",
+    backgroundColor: colours.white,
     borderWidth: 1,
+    borderColor: colours.secondary,
   },
   activeTab: {
-    backgroundColor: "#260F07",
+    backgroundColor: colours.primary,
   },
   content: {
     marginTop: 20,
@@ -64,10 +62,10 @@ const styles = StyleSheet.create({
   },
   tabText: {
     fontSize: 16,
-    color: "#260F07",
+    color: colours.primary,
   },
   activeTabText: {
-    color: "#fff",
+    color: colours.white,
     fontWeight: "bold",
   },
 });

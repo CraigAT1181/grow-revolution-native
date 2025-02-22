@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, TouchableOpacity, View, Text, Image } from "react-native";
-import { globalStyles } from "../../styles/global";
+import { colours, globalStyles } from "../../styles/global";
 import { FlatList } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center",
     width: "100%",
-    backgroundColor: "transparent",
+    backgroundColor: colours.transparent,
     marginVertical: 20,
   },
   produceButtonContainer: {
@@ -57,6 +57,6 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 25,
     borderWidth: 2,
-    borderColor: "#ccc",
+    borderColor: colours.secondary,
   },
 });
