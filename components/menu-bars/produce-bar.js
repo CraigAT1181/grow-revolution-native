@@ -9,6 +9,9 @@ const ProduceBar = ({ produce }) => {
 
   return (
     <View>
+      <View style={{ alignItems: "center" }}>
+        <Text style={globalStyles.titleText}>Featuring this month</Text>
+      </View>
       <FlatList
         data={produce}
         horizontal

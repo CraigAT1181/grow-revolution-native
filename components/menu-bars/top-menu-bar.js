@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 70,
     backgroundColor: colours.white,
     borderWidth: 1,
+    borderRadius: 10,
     borderColor: colours.secondary,
   },
   activeTab: {

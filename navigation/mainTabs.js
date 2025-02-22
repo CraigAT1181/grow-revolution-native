@@ -1,7 +1,7 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../screens/home";
-import { TouchableOpacity, Image, StyleSheet } from "react-native";
+import { TouchableOpacity, Image, StyleSheet, Text } from "react-native";
 import { useAuth } from "../contexts/AuthContext";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import Community from "../screens/community";
@@ -38,14 +38,19 @@ const MainTabs = ({ drawerNavigation }) => {
               <FontAwesome5
                 name={"user"}
                 size={20}
-                color="#064e3b"
+                color={colours.white}
                 style={styles.noProfilePicIcon}
               />
             )}
           </TouchableOpacity>
         ),
         headerStyle: { backgroundColor: colours.primary },
-        headerTintColor: "white",
+        headerTitleStyle: {
+          fontFamily: "nunito-extra-light",
+          fontSize: 32,
+        },
+        headerTitleAlign: "center",
+        headerTintColor: colours.white,
         tabBarStyle: {
           paddingTop: 5,
         },
@@ -103,9 +108,11 @@ export default MainTabs;
 
 const styles = StyleSheet.create({
   profilePic: {
-    width: 30,
-    height: 30,
+    width: 35,
+    height: 35,
     borderRadius: 50,
+    borderWidth: 1,
+    borderColor: colours.secondary,
     marginRight: 20,
   },
   noProfilePicIcon: {

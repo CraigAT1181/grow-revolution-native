@@ -22,6 +22,8 @@ const App = () => {
         await Font.loadAsync({
           "nunito-regular": require("./assets/fonts/Nunito/static/Nunito-Regular.ttf"),
           "nunito-bold": require("./assets/fonts/Nunito/static/Nunito-Bold.ttf"),
+          "nunito-light": require("./assets/fonts/Nunito/static/Nunito-Light.ttf"),
+          "nunito-extra-light": require("./assets/fonts/Nunito/static/Nunito-ExtraLight.ttf"),
         });
         setFontsLoaded(true);
       } catch (error) {

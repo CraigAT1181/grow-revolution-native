@@ -62,8 +62,8 @@ export const globalStyles = StyleSheet.create({
 });
 
 export const colours = {
-  primary: "#4CAF50",
-  secondary: "#FF9800",
+  primary: "#116530",
+  secondary: "#2c2c2c",
   background: "#F5F5F5",
   transparent: "transparent",
   text: "#212121",
@@ -72,3 +72,6 @@ export const colours = {
   danger: "#FF5252",
   success: "#4CAF50",
 };
+
+export const getAlternateBackground = (index) =>
+  index % 2 === 0 ? "#F5F5F5" : "#FFFFFF";

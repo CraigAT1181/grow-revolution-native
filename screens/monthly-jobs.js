@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useGrow } from "../contexts/GrowContext";
 import { View, Text, StyleSheet } from "react-native";
 import ProduceBar from "../components/menu-bars/produce-bar";
-import { globalStyles } from "../styles/global";
+import { getAlternateBackground, globalStyles } from "../styles/global";
 
 const MonthlyJobs = () => {
   const {
@@ -12,6 +12,8 @@ const MonthlyJobs = () => {
     handleFetchMonthlyJobs,
     selectedMonth,
   } = useGrow();
+
+  const sections = [{ id: 1, component: <ProduceBar produce={produceList} /> }];
 
   useEffect(() => {
     const fetchMonthData = async () => {
@@ -30,10 +32,17 @@ const MonthlyJobs = () => {
     <View style={globalStyles.container}>
       {produceList && (
         <View>
-          <View style={styles.section}>
-            <Text style={globalStyles.titleText}>Featuring this month</Text>
-            <ProduceBar produce={produceList} />
-          </View>
+          {sections.map((section, index) => (
+            <View
+              key={section.id}
+              style={[
+                styles.sectionContainer,
+                { backgroundColor: getAlternateBackground(index) },
+              ]}
+            >
+              {section.component}
+            </View>
+          ))}
         </View>
       )}
     </View>
@@ -43,7 +52,9 @@ const MonthlyJobs = () => {
 export default MonthlyJobs;
 
 const styles = StyleSheet.create({
-  section: {
-    backgroundColor: "white",
+  sectionContainer: {
+    padding: 15,
+    marginBottom: 10,
+    borderRadius: 10,
   },
 });
