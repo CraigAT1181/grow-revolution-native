@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
     height: 80,
     borderRadius: 40,
     marginBottom: 10,
-    borderWidth: 2,
+    borderWidth: 1,
     borderColor: colours.secondary,
   },
   userName: {
