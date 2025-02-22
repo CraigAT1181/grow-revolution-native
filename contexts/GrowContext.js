@@ -18,6 +18,7 @@ const GrowProvider = ({ children }) => {
       }
     };
     init();
+    clearCache();
   }, [months]);
 
   // Function: Fetch months of the year
@@ -77,6 +78,17 @@ const GrowProvider = ({ children }) => {
     } catch (error) {
       console.error("Error fetching monthly jobs:", error);
       throw error;
+    }
+  };
+
+  const clearCache = async () => {
+    try {
+      const keys = await AsyncStorage.getAllKeys();
+      const jobKeys = keys.filter((key) => key.startsWith("monthlyJobs-"));
+      await AsyncStorage.multiRemove(jobKeys);
+      console.log("Cache cleared successfully!");
+    } catch (error) {
+      console.error("Error clearing cache:", error);
     }
   };
 

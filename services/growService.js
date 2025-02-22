@@ -23,12 +23,8 @@ export const fetchMonths = async () => {
 };
 
 export const fetchMonthlyJobs = async (monthId) => {
-  console.log("Month ID received:", monthId);
-
   try {
     const { data } = await api.get(`/grow/months/${monthId}/jobs`);
-
-    console.log("In the Service:", data);
 
     return data;
   } catch (error) {
