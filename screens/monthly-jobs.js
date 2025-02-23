@@ -3,17 +3,15 @@ import { useGrow } from "../contexts/GrowContext";
 import { View, Text, StyleSheet } from "react-native";
 import ProduceBar from "../components/menu-bars/produce-bar";
 import { getAlternateBackground, globalStyles } from "../styles/global";
+import AtAGlance from "../components/panels/at-a-glance";
 
 const MonthlyJobs = () => {
-  const {
-    atAGlance,
-    produceList,
-    monthlyJobs,
-    handleFetchMonthlyJobs,
-    selectedMonth,
-  } = useGrow();
+  const { monthlyJobs, handleFetchMonthlyJobs, selectedMonth } = useGrow();
 
-  const sections = [{ id: 1, component: <ProduceBar produce={produceList} /> }];
+  const sections = [
+    { id: 1, component: <ProduceBar /> },
+    { id: 2, component: <AtAGlance /> },
+  ];
 
   useEffect(() => {
     const fetchMonthData = async () => {
@@ -30,21 +28,19 @@ const MonthlyJobs = () => {
 
   return (
     <View style={globalStyles.container}>
-      {produceList && (
-        <View>
-          {sections.map((section, index) => (
-            <View
-              key={section.id}
-              style={[
-                styles.sectionContainer,
-                { backgroundColor: getAlternateBackground(index) },
-              ]}
-            >
-              {section.component}
-            </View>
-          ))}
-        </View>
-      )}
+      <View>
+        {sections.map((section, index) => (
+          <View
+            key={section.id}
+            style={[
+              styles.sectionContainer,
+              { backgroundColor: getAlternateBackground(index) },
+            ]}
+          >
+            {section.component}
+          </View>
+        ))}
+      </View>
     </View>
   );
 };

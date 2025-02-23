@@ -21,7 +21,7 @@ export const globalStyles = StyleSheet.create({
     padding: 20,
   },
   screen: {
-    flex: 1,
+    flexGrow: 1,
     padding: 20,
     backgroundColor: colours.white,
   },

@@ -3,8 +3,10 @@ import { StyleSheet, TouchableOpacity, View, Text, Image } from "react-native";
 import { colours, globalStyles } from "../../styles/global";
 import { FlatList } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
+import { useGrow } from "../../contexts/GrowContext";
 
-const ProduceBar = ({ produce }) => {
+const ProduceBar = () => {
+  const { produceList } = useGrow();
   const navigation = useNavigation();
 
   return (
@@ -13,7 +15,7 @@ const ProduceBar = ({ produce }) => {
         <Text style={globalStyles.titleText}>Featuring this month</Text>
       </View>
       <FlatList
-        data={produce}
+        data={produceList}
         horizontal
         contentContainerStyle={styles.produceBar}
         showsHorizontalScrollIndicator={false}

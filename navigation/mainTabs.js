@@ -67,7 +67,7 @@ const MainTabs = ({ drawerNavigation }) => {
         }}
       />
       <Tab.Screen
-        name="Grow"
+        name="GrowStack"
         component={GrowStack}
         options={{
           tabBarIcon: ({ size }) => (
