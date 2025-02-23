@@ -31,25 +31,25 @@ export const globalStyles = StyleSheet.create({
   titleText: {
     fontFamily: "nunito-bold",
     fontSize: 18,
-    color: "#333",
+    color: colours.text,
   },
   text: {
     fontFamily: "nunito-regular",
     fontSize: 18,
-    color: "#333",
+    color: colours.text,
   },
   smallText: {
     fontFamily: "nunito-regular",
     fontSize: 14,
-    color: "#333",
+    color: colours.text,
   },
   paragraph: {
-    marginVertical: 8,
+    marginVertical: 12,
     lineHeight: 20,
   },
   input: {
     borderWidth: 1,
-    borderColor: "#ddd",
+    borderColor: colours.secondary,
     padding: 10,
     textAlign: "center",
     fontSize: 18,

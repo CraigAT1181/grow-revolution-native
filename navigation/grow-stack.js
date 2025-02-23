@@ -14,7 +14,7 @@ const GrowStack = () => {
         options={{
           headerShown: true,
           title: "",
-          headerTransparent: true,
+          headerTransparent: false,
         }}
       />
     </Stack.Navigator>
