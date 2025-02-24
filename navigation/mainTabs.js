@@ -74,6 +74,7 @@ const MainTabs = ({ drawerNavigation }) => {
             <FontAwesome5 name="seedling" size={size} color={colours.primary} />
           ),
           tabBarLabel: "",
+          headerTitle: "Grow",
         }}
       />
       <Tab.Screen

@@ -18,7 +18,7 @@ const GrowProvider = ({ children }) => {
       }
     };
     init();
-    clearCache();
+    // clearCache();
   }, [months]);
 
   // Function: Fetch months of the year
