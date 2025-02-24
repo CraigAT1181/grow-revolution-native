@@ -12,6 +12,7 @@ import { NavigationContainer } from "@react-navigation/native";
 // Context
 import { AuthProvider } from "./contexts/AuthContext";
 import { GrowProvider } from "./contexts/GrowContext";
+import { colours } from "./styles/global";
 
 const App = () => {
   const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -48,7 +49,10 @@ const App = () => {
       <AuthProvider>
         <GrowProvider>
           <NavigationContainer linking={linking}>
-            <StatusBar barStyle="light-content" backgroundColor="#260F07" />
+            <StatusBar
+              barStyle="light-content"
+              backgroundColor={colours.primary}
+            />
             <Wrapper />
           </NavigationContainer>
         </GrowProvider>
