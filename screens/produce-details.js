@@ -10,11 +10,10 @@ import { colours, globalStyles } from "../styles/global";
 import { ScrollView } from "react-native-gesture-handler";
 import SowSpec from "../components/panels/sow-spec";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+import PlantingGuide from "../components/panels/planting-guide";
 
 const ProduceDetails = ({ route }) => {
   const { produceItem } = route.params;
-
-  console.log(produceItem);
 
   const [showDesc, setShowDesc] = useState(false);
 
@@ -29,7 +28,7 @@ const ProduceDetails = ({ route }) => {
       keyboardShouldPersistTaps="handled"
     >
       <ImageBackground
-        source={{ uri: produceItem.icon }}
+        source={{ uri: produceItem.image }}
         style={styles.bannerImage}
       >
         <View style={styles.banner}>
@@ -42,6 +41,7 @@ const ProduceDetails = ({ route }) => {
       <TouchableOpacity
         style={{
           marginVertical: 10,
+          marginBottom: 30,
           borderWidth: 1,
           borderRadius: 10,
           borderColor: colours.secondary,
@@ -59,29 +59,53 @@ const ProduceDetails = ({ route }) => {
         </View>
       )}
 
-      <SowSpec produceItem={produceItem} />
+      <SowSpec spec={produceItem.produce_months} />
+      <PlantingGuide
+        depth={produceItem.depth}
+        spacing={produceItem.spacing}
+        rowDistance={produceItem.row_distance}
+      />
 
-      <View style={{ alignItems: "center", marginTop: 30 }}>
+      <View
+        style={{
+          backgroundColor: colours.background,
+          alignContent: "center",
+          padding: 10,
+          borderRadius: 10,
+          marginBottom: 30,
+        }}
+      >
+        <Text style={globalStyles.titleTextCentered}>Harvesting</Text>
+        <Text style={globalStyles.paragraph}>{produceItem.harvesting}</Text>
+      </View>
+
+      <View style={{ alignItems: "center", marginVertical: 10 }}>
         <FontAwesome5 name="map-marker-alt" size={24} color={colours.primary} />
       </View>
       <View style={globalStyles.paragraph}>
         <Text style={globalStyles.text}>{produceItem.location}</Text>
       </View>
-      <View style={{ alignItems: "center", marginTop: 30 }}>
+      <View style={{ alignItems: "center", marginVertical: 10 }}>
         <FontAwesome5 name="info" size={24} color={colours.primary} />
       </View>
       <View style={globalStyles.paragraph}>
         <Text style={globalStyles.text}>{produceItem.tips}</Text>
       </View>
-      <View style={{ alignItems: "center", marginTop: 30 }}>
+      <View style={{ alignItems: "center", marginVertical: 10 }}>
         <FontAwesome5
           name="exclamation-triangle"
           size={24}
           color={colours.primary}
         />
       </View>
+
       <View style={globalStyles.paragraph}>
-        <Text style={globalStyles.text}>{produceItem.troubleshooting}</Text>
+        <Text style={globalStyles.titleTextCentered}>Pests</Text>
+        <Text style={globalStyles.textCentered}>{produceItem.pests}</Text>
+      </View>
+      <View style={globalStyles.paragraph}>
+        <Text style={globalStyles.titleTextCentered}>Diseases</Text>
+        <Text style={globalStyles.textCentered}>{produceItem.diseases}</Text>
       </View>
     </ScrollView>
   );
@@ -94,6 +118,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 250,
     opacity: 0.5,
+    borderRadius: 10,
   },
   banner: {
     flex: 1,

@@ -1,6 +1,8 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import Grow from "../screens/grow";
 import ProduceDetails from "../screens/produce-details";
+import SowDetails from "../screens/sow-details";
+import JobDetails from "../screens/job-details";
 
 const Stack = createStackNavigator();
 
@@ -9,6 +11,15 @@ const GrowStack = () => {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Grow" component={Grow} />
       <Stack.Screen
+        name="SowDetails"
+        component={SowDetails}
+        options={({ route }) => ({
+          headerShown: true,
+          title: route.params.title || "",
+          headerTransparent: false,
+        })}
+      />
+      <Stack.Screen
         name="ProduceDetails"
         component={ProduceDetails}
         options={{
@@ -16,6 +27,15 @@ const GrowStack = () => {
           title: "",
           headerTransparent: false,
         }}
+      />
+      <Stack.Screen
+        name="JobDetails"
+        component={JobDetails}
+        options={({ route }) => ({
+          headerShown: true,
+          title: route.params.title || "",
+          headerTransparent: false,
+        })}
       />
     </Stack.Navigator>
   );

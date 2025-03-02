@@ -71,7 +71,7 @@ const MainTabs = ({ drawerNavigation }) => {
         component={GrowStack}
         options={{
           tabBarIcon: ({ size }) => (
-            <FontAwesome5 name="seedling" size={size} color={colours.primary} />
+            <FontAwesome5 name="leaf" size={size} color={colours.primary} />
           ),
           tabBarLabel: "",
           headerTitle: "Grow",

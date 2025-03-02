@@ -1,13 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { StyleSheet, TouchableOpacity, View, Text } from "react-native";
 import { colours } from "../../styles/global";
 import { FlatList } from "react-native-gesture-handler";
+import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
-const TopMenuBar = ({ tabContent, selectedTab, setSelectedTab }) => {
+const TopMenuBar = ({ selectedTab, setSelectedTab }) => {
+  const topMenu = [
+    {
+      id: 1,
+      icon: <FontAwesome5 name={"calendar"} size={25} />,
+    },
+    {
+      id: 2,
+      icon: <FontAwesome5 name={"search"} size={25} />,
+    },
+  ];
+
   return (
     <View>
       <FlatList
-        data={tabContent}
+        data={topMenu}
         horizontal
         contentContainerStyle={styles.menuData}
         showsHorizontalScrollIndicator={false}
@@ -37,11 +49,12 @@ export default TopMenuBar;
 const styles = StyleSheet.create({
   menuData: {
     flexDirection: "row",
-    justifyContent: "space-around",
+    justifyContent: "space-between",
     alignItems: "center",
     width: "100%",
-    backgroundColor: colours.white,
+    backgroundColor: colours.background,
     marginBottom: 20,
+    padding: 10,
   },
   tab: {
     alignItems: "center",

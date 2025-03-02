@@ -1,13 +1,13 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { fetchMonths, fetchMonthlyJobs } from "../services/growService";
+import { fetchMonths, fetchMonthlyData } from "../services/growService";
 
 const GrowContext = createContext();
 
 const GrowProvider = ({ children }) => {
   const [months, setMonths] = useState([]);
-  const [atAGlance, setAtAGlance] = useState([]);
-  const [monthlyJobs, setMonthlyJobs] = useState([]);
+  const [jobsToDo, setJobsToDo] = useState([]);
+  const [cropsToSow, setCropsToSow] = useState([]);
   const [produceList, setProduceList] = useState([]);
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
 
@@ -18,7 +18,7 @@ const GrowProvider = ({ children }) => {
       }
     };
     init();
-    // clearCache();
+    clearCache();
   }, [months]);
 
   // Function: Fetch months of the year
@@ -32,51 +32,41 @@ const GrowProvider = ({ children }) => {
     }
   };
 
-  // Function: Fetch monthly jobs by month ID
-  const handleFetchMonthlyJobs = async (monthId) => {
+  const handleFetchMonthlyData = async (monthId) => {
     try {
-      // Check AsyncStorage for cached data
-      const cachedData = await AsyncStorage.getItem(`monthlyJobs-${monthId}`);
+      const cachedData = await AsyncStorage.getItem(`monthlyData-${monthId}`);
       if (cachedData) {
         const parsedData = JSON.parse(cachedData);
-        setAtAGlance(parsedData.atAGlance);
-        setProduceList(parsedData.produceList);
-        setMonthlyJobs(parsedData.monthlyJobs);
+        setJobsToDo(parsedData.jobsToDo);
+        setCropsToSow(parsedData.cropsToSow);
+        // setProduceList(parsedData.produceList);
+
         // console.log("parsedDate:", parsedData);
 
         return parsedData;
       }
 
       // Fetch data from API
-      const data = await fetchMonthlyJobs(monthId);
+      const data = await fetchMonthlyData(monthId);
 
-      // Extract job titles for "At A Glance" view
-      const jobTitles = data.produceJobs
-        .map((job) => job.job_title)
-        .concat(data.generalJobs.map((job) => job.job_title));
-
-      // Store jobs together
-      const monthlyJobsData = [...data.produceJobs, ...data.generalJobs];
-
-      // Update state
-      setAtAGlance(jobTitles);
-      setMonthlyJobs(monthlyJobsData);
-      setProduceList(data.produceList);
+      setJobsToDo(data.jobsData);
+      setCropsToSow(data.sowData);
+      // setProduceList(data.produceList);
 
       // // Cache data in AsyncStorage
-      const jobsToCache = {
-        atAGlance: jobTitles,
-        produceList: data.produceList,
-        monthlyJobs: monthlyJobsData,
+      const dataToCache = {
+        jobsToDo: data.jobsData,
+        cropsToSow: data.sowData,
+        // produceList: data.produceList,
       };
       await AsyncStorage.setItem(
-        `monthlyJobs-${monthId}`,
-        JSON.stringify(jobsToCache)
+        `monthlyData-${monthId}`,
+        JSON.stringify(dataToCache)
       );
 
-      return jobsToCache;
+      return dataToCache;
     } catch (error) {
-      console.error("Error fetching monthly jobs:", error);
+      console.error("Error fetching monthly data:", error);
       throw error;
     }
   };
@@ -84,8 +74,8 @@ const GrowProvider = ({ children }) => {
   const clearCache = async () => {
     try {
       const keys = await AsyncStorage.getAllKeys();
-      const jobKeys = keys.filter((key) => key.startsWith("monthlyJobs-"));
-      await AsyncStorage.multiRemove(jobKeys);
+      const dataKeys = keys.filter((key) => key.startsWith("monthlyData-"));
+      await AsyncStorage.multiRemove(dataKeys);
       console.log("Cache cleared successfully!");
     } catch (error) {
       console.error("Error clearing cache:", error);
@@ -96,10 +86,10 @@ const GrowProvider = ({ children }) => {
     <GrowContext.Provider
       value={{
         months,
-        atAGlance,
-        produceList,
-        monthlyJobs,
-        handleFetchMonthlyJobs,
+        jobsToDo,
+        cropsToSow,
+        // produceList,
+        handleFetchMonthlyData,
         selectedMonth,
         setSelectedMonth,
       }}

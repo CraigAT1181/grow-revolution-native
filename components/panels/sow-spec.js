@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text } from "react-native";
 import { colours } from "../../styles/global";
 
-const SowSpec = ({ produceItem }) => {
+const SowSpec = ({ spec }) => {
+  const [data, setData] = useState({
+    sowIndoors: [],
+    sowOutdoors: [],
+    plantOut: [],
+    harvest: [],
+  });
+
   const months = ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"];
   const colors = {
     sowIndoors: "blue",
@@ -11,12 +18,40 @@ const SowSpec = ({ produceItem }) => {
     harvest: "orange",
   };
 
-  const data = {
-    sowIndoors: [0, 1, 2, 3], // Jan-Apr
-    sowOutdoors: [2, 3, 4, 5], // Mar-Jun
-    plantOut: [4, 5, 6], // May-Jul
-    harvest: [7, 8, 9, 10], // Aug-Nov
-  };
+  useEffect(() => {
+    try {
+      const updateSpec = async () => {
+        let newData = {
+          sowIndoors: [],
+          sowOutdoors: [],
+          plantOut: [],
+          harvest: [],
+        };
+
+        spec.forEach((item) => {
+          if (item.action === "sow indoors") {
+            newData.sowIndoors.push(item.month_id);
+          }
+
+          if (item.action === "sow outdoors") {
+            newData.sowOutdoors.push(item.month_id);
+          }
+          if (item.action === "plant out") {
+            newData.plantOut.push(item.month_id);
+          }
+          if (item.action === "harvest") {
+            newData.harvest.push(item.month_id);
+          }
+        });
+
+        setData(newData);
+      };
+
+      updateSpec();
+    } catch (error) {
+      console.error("Unable to update spec:", error);
+    }
+  }, [spec]);
 
   return (
     <View
@@ -24,6 +59,8 @@ const SowSpec = ({ produceItem }) => {
         alignItems: "center",
         backgroundColor: colours.background,
         paddingBottom: 10,
+        borderRadius: 10,
+        marginBottom: 30,
       }}
     >
       <View style={{ flexDirection: "row", marginVertical: 10 }}>

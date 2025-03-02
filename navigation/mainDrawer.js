@@ -54,7 +54,7 @@ const DrawerContent = ({ navigation }) => {
             onPress={() => navigation.navigate("Tabs", { screen: "Home" })}
           />
           <DrawerMenuButton
-            icon={"seedling"}
+            icon={"leaf"}
             text="Grow"
             onPress={() => navigation.navigate("Tabs", { screen: "Grow" })}
           />

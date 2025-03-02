@@ -13,7 +13,7 @@ export const colours = {
 };
 
 export const getAlternateBackground = (index) =>
-  index % 2 === 0 ? "#F5F5F5" : "#FFFFFF";
+  index % 2 === 0 ? colours.background : colours.white;
 
 export const globalStyles = StyleSheet.create({
   container: {
@@ -33,11 +33,24 @@ export const globalStyles = StyleSheet.create({
     fontSize: 18,
     color: colours.text,
   },
-  text: {
-    fontFamily: "nunito-regular",
+  titleTextCentered: {
+    fontFamily: "nunito-bold",
     fontSize: 18,
     color: colours.text,
+    textAlign: "center",
   },
+  text: {
+    fontFamily: "nunito-regular",
+    fontSize: 16,
+    color: colours.text,
+  },
+  textCentered: {
+    fontFamily: "nunito-regular",
+    fontSize: 16,
+    color: colours.text,
+    textAlign: "center",
+  },
+
   smallText: {
     fontFamily: "nunito-regular",
     fontSize: 14,
