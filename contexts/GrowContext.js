@@ -1,6 +1,10 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { fetchMonths, fetchMonthlyData } from "../services/growService";
+import {
+  fetchMonths,
+  fetchMonthlyData,
+  fetchAllProduce,
+} from "../services/growService";
 
 const GrowContext = createContext();
 
@@ -18,7 +22,7 @@ const GrowProvider = ({ children }) => {
       }
     };
     init();
-    clearCache();
+    // clearCache();
   }, [months]);
 
   // Function: Fetch months of the year
@@ -32,6 +36,32 @@ const GrowProvider = ({ children }) => {
     }
   };
 
+  const handleFetchProduceList = async () => {
+    try {
+      const cachedData = await AsyncStorage.getItem(`produceList`);
+      if (cachedData) {
+        const parsedData = JSON.parse(cachedData);
+        setProduceList(parsedData.produceList);
+
+        return parsedData;
+      }
+
+      const data = await fetchAllProduce();
+
+      setProduceList(data);
+
+      const dataToCache = {
+        produceList: data,
+      };
+      await AsyncStorage.setItem("produceList", JSON.stringify(dataToCache));
+
+      return dataToCache;
+    } catch (error) {
+      console.error("Error fetching monthly data:", error);
+      throw error;
+    }
+  };
+
   const handleFetchMonthlyData = async (monthId) => {
     try {
       const cachedData = await AsyncStorage.getItem(`monthlyData-${monthId}`);
@@ -39,7 +69,6 @@ const GrowProvider = ({ children }) => {
         const parsedData = JSON.parse(cachedData);
         setJobsToDo(parsedData.jobsToDo);
         setCropsToSow(parsedData.cropsToSow);
-        // setProduceList(parsedData.produceList);
 
         // console.log("parsedDate:", parsedData);
 
@@ -51,13 +80,11 @@ const GrowProvider = ({ children }) => {
 
       setJobsToDo(data.jobsData);
       setCropsToSow(data.sowData);
-      // setProduceList(data.produceList);
 
       // // Cache data in AsyncStorage
       const dataToCache = {
         jobsToDo: data.jobsData,
         cropsToSow: data.sowData,
-        // produceList: data.produceList,
       };
       await AsyncStorage.setItem(
         `monthlyData-${monthId}`,
@@ -74,7 +101,9 @@ const GrowProvider = ({ children }) => {
   const clearCache = async () => {
     try {
       const keys = await AsyncStorage.getAllKeys();
-      const dataKeys = keys.filter((key) => key.startsWith("monthlyData-"));
+      const dataKeys = keys.filter(
+        (key) => key.startsWith("monthlyData-") || key.match("produceList")
+      );
       await AsyncStorage.multiRemove(dataKeys);
       console.log("Cache cleared successfully!");
     } catch (error) {
@@ -88,7 +117,8 @@ const GrowProvider = ({ children }) => {
         months,
         jobsToDo,
         cropsToSow,
-        // produceList,
+        produceList,
+        handleFetchProduceList,
         handleFetchMonthlyData,
         selectedMonth,
         setSelectedMonth,

@@ -4,6 +4,8 @@ import MonthBar from "../components/menu-bars/month-bar";
 import TopMenuBar from "../components/menu-bars/top-menu-bar";
 import MonthlyData from "./monthly-data";
 import { FlatList } from "react-native-gesture-handler";
+import EncyclopediaGrid from "../components/grids/encyclopedia-grid";
+import GrowSearch from "./grow-search";
 
 const Grow = () => {
   const [selectedTab, setSelectedTab] = useState(1);
@@ -12,8 +14,6 @@ const Grow = () => {
     { id: "monthBar", component: <MonthBar /> },
     { id: "monthlyData", component: <MonthlyData /> },
   ]);
-
-  const encyclopediaSections = useMemo(() => []);
 
   return (
     <View>
@@ -25,6 +25,7 @@ const Grow = () => {
           renderItem={({ item }) => item.component}
         />
       )}
+      {selectedTab === 2 && <GrowSearch />}
     </View>
   );
 };
