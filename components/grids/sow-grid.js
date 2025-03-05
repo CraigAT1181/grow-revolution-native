@@ -4,6 +4,7 @@ import { colours, globalStyles } from "../../styles/global";
 import { FlatList } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 import ToggleViewButton from "../buttons/toggle-view-button";
+import ProduceCard from "../cards/produce-card";
 
 const SowGrid = ({ array }) => {
   const navigation = useNavigation();
@@ -20,7 +21,6 @@ const SowGrid = ({ array }) => {
       {showGrid && (
         <FlatList
           data={array}
-          //   contentContainerStyle={styles.produceBar}
           keyExtractor={(item) => item.sow_id}
           numColumns={2}
           renderItem={({ item }) => (
@@ -33,15 +33,11 @@ const SowGrid = ({ array }) => {
                   })
                 }
               >
-                <Image
-                  source={{ uri: item.produce[0].image }}
-                  style={styles.produceButton}
-                  resizeMode="contain"
+                <ProduceCard
+                  title={item.name[0].toUpperCase() + item.name.slice(1)}
+                  image={item.produce[0].image}
                 />
               </TouchableOpacity>
-              <Text style={styles.produceText}>
-                {item.name[0].toUpperCase() + item.name.slice(1)}
-              </Text>
             </View>
           )}
           columnWrapperStyle={styles.row}
@@ -59,12 +55,8 @@ const styles = StyleSheet.create({
   },
   gridItem: {
     flex: 1,
-    backgroundColor: colours.background,
-    margin: 2,
-    padding: 20,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 25,
+    backgroundColor: colours.transparent,
+    margin: 4,
   },
   produceButtonContainer: {
     alignItems: "center",

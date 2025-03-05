@@ -4,11 +4,11 @@ import { View, StyleSheet } from "react-native";
 import { globalStyles } from "../styles/global";
 import SowGrid from "../components/grids/sow-grid";
 import JobGrid from "../components/grids/job-grid";
+import { FlatList } from "react-native-gesture-handler";
 
 const MonthlyData = () => {
   const { cropsToSow, jobsToDo, handleFetchMonthlyData, selectedMonth } =
     useGrow();
-  console.log(cropsToSow);
 
   const sections = [
     { id: 1, component: <SowGrid array={cropsToSow} /> },
@@ -30,13 +30,12 @@ const MonthlyData = () => {
 
   return (
     <View style={globalStyles.container}>
-      <View>
-        {sections.map((section) => (
-          <View key={section.id} style={[styles.sectionContainer]}>
-            {section.component}
-          </View>
-        ))}
-      </View>
+      <FlatList
+        data={sections}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => item.component}
+        ListFooterComponent={<View style={{ height: 70 }} />}
+      />
     </View>
   );
 };

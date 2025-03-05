@@ -17,14 +17,6 @@ const ToggleViewButton = ({ title, showGrid, setShowGrid }) => {
           style={styles.icon}
         />
       </TouchableOpacity>
-      {/* <View
-        style={{
-          height: 1,
-          backgroundColor: "gray",
-          width: "100%",
-          marginVertical: 10,
-        }}
-      /> */}
     </View>
   );
 };
@@ -32,7 +24,7 @@ const ToggleViewButton = ({ title, showGrid, setShowGrid }) => {
 const styles = StyleSheet.create({
   container: {
     alignItems: "start",
-    // marginTop: 20,
+    marginVertical: 20,
   },
   button: {
     flexDirection: "row",
@@ -42,8 +34,8 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 20,
     borderRadius: 8,
-    elevation: 4, // Adds shadow on Android
-    shadowColor: "#000", // Adds shadow on iOS
+    elevation: 4,
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 2,

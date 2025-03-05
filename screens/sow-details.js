@@ -5,11 +5,12 @@ import { globalStyles } from "../styles/global";
 
 const SowDetails = ({ route }) => {
   const { sowItem } = route.params;
-  console.log(sowItem);
 
   return (
     <View style={globalStyles.screen}>
-      <Text style={globalStyles.paragraph}>{sowItem.description}</Text>
+      <View style={globalStyles.textContainer}>
+        <Text style={globalStyles.textCentered}>{sowItem.description}</Text>
+      </View>
       <ProduceBar produce={sowItem.produce} />
     </View>
   );

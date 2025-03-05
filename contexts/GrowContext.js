@@ -70,8 +70,6 @@ const GrowProvider = ({ children }) => {
         setJobsToDo(parsedData.jobsToDo);
         setCropsToSow(parsedData.cropsToSow);
 
-        // console.log("parsedDate:", parsedData);
-
         return parsedData;
       }
 

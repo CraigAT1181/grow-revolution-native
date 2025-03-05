@@ -14,11 +14,12 @@ import PlantingGuide from "../components/panels/planting-guide";
 
 const ProduceDetails = ({ route }) => {
   const { produceItem } = route.params;
+  console.log("Produce-item:", produceItem);
 
   const [showDesc, setShowDesc] = useState(false);
 
   const handleShowDesc = () => {
-    setShowDesc(!showDesc);
+    setShowDesc((prev) => !prev);
   };
 
   return (
@@ -60,52 +61,62 @@ const ProduceDetails = ({ route }) => {
       )}
 
       <SowSpec spec={produceItem.produce_months} />
+
       <PlantingGuide
         depth={produceItem.depth}
         spacing={produceItem.spacing}
         rowDistance={produceItem.row_distance}
       />
 
-      <View
-        style={{
-          backgroundColor: colours.background,
-          alignContent: "center",
-          padding: 10,
-          borderRadius: 10,
-          marginBottom: 30,
-        }}
-      >
-        <Text style={globalStyles.titleTextCentered}>Harvesting</Text>
-        <Text style={globalStyles.paragraph}>{produceItem.harvesting}</Text>
+      {/* SOWING CARD */}
+
+      <View style={globalStyles.textContainer}>
+        <Text style={globalStyles.titleTextCentered}>Sowing / Planting</Text>
+        <Text style={globalStyles.textCentered}>{produceItem.sowing}</Text>
       </View>
 
-      <View style={{ alignItems: "center", marginVertical: 10 }}>
+      {/* HARVESTING CARD */}
+
+      <View style={globalStyles.textContainer}>
+        <Text style={globalStyles.titleTextCentered}>Harvesting</Text>
+        <Text style={globalStyles.textCentered}>{produceItem.harvesting}</Text>
+      </View>
+
+      {/* LOCATION CARD */}
+
+      <View style={globalStyles.textContainer}>
         <FontAwesome5 name="map-marker-alt" size={24} color={colours.primary} />
+        <View style={globalStyles.paragraph}>
+          <Text style={globalStyles.textCentered}>{produceItem.location}</Text>
+        </View>
       </View>
-      <View style={globalStyles.paragraph}>
-        <Text style={globalStyles.text}>{produceItem.location}</Text>
-      </View>
-      <View style={{ alignItems: "center", marginVertical: 10 }}>
+
+      {/* TIPS CARD */}
+
+      <View style={globalStyles.textContainer}>
         <FontAwesome5 name="info" size={24} color={colours.primary} />
+        <View style={globalStyles.paragraph}>
+          <Text style={globalStyles.textCentered}>{produceItem.tips}</Text>
+        </View>
       </View>
-      <View style={globalStyles.paragraph}>
-        <Text style={globalStyles.text}>{produceItem.tips}</Text>
-      </View>
-      <View style={{ alignItems: "center", marginVertical: 10 }}>
+
+      {/* PESTS & DISEASES CARD */}
+
+      <View style={globalStyles.textContainer}>
         <FontAwesome5
           name="exclamation-triangle"
           size={24}
           color={colours.primary}
         />
-      </View>
 
-      <View style={globalStyles.paragraph}>
-        <Text style={globalStyles.titleTextCentered}>Pests</Text>
-        <Text style={globalStyles.textCentered}>{produceItem.pests}</Text>
-      </View>
-      <View style={globalStyles.paragraph}>
-        <Text style={globalStyles.titleTextCentered}>Diseases</Text>
-        <Text style={globalStyles.textCentered}>{produceItem.diseases}</Text>
+        <View style={globalStyles.paragraph}>
+          <Text style={globalStyles.titleTextCentered}>Pests</Text>
+          <Text style={globalStyles.textCentered}>{produceItem.pests}</Text>
+        </View>
+        <View style={globalStyles.paragraph}>
+          <Text style={globalStyles.titleTextCentered}>Diseases</Text>
+          <Text style={globalStyles.textCentered}>{produceItem.diseases}</Text>
+        </View>
       </View>
     </ScrollView>
   );

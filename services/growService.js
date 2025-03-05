@@ -45,7 +45,6 @@ export const fetchMonthlyData = async (monthId) => {
 export const fetchAllProduce = async () => {
   try {
     const { data } = await api.get("/grow/produce");
-    console.log("Data:", data);
 
     return data;
   } catch (error) {

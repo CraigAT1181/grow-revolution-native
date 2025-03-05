@@ -1,12 +1,21 @@
 import React, { useState } from "react";
-import { StyleSheet, TouchableOpacity, View, Text, Image } from "react-native";
+import {
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  Text,
+  Image,
+  SafeAreaView,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
 import { colours, globalStyles } from "../../styles/global";
 import { FlatList } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
+import ProduceCard from "../cards/produce-card";
 
 const EncyclopediaGrid = ({ array }) => {
   const navigation = useNavigation();
-  console.log("Array", array);
 
   const sortedArray = array.sort((a, b) => a.name.localeCompare(b.name));
 
@@ -14,24 +23,20 @@ const EncyclopediaGrid = ({ array }) => {
     <View>
       <FlatList
         data={sortedArray}
-        // contentContainerStyle={{ marginBottom: 100, paddingBottom: 100 }}
+        contentContainerStyle={globalStyles.container}
         keyExtractor={(item) => item.produce_id}
         numColumns={2}
         renderItem={({ item }) => (
           <View style={styles.gridItem}>
             <TouchableOpacity
-              onPress={() =>
-                navigation.navigate("ProduceDetails", { produceItem: item })
-              }
+              onPress={() => {
+                navigation.navigate("ProduceDetails", { produceItem: item });
+              }}
             >
-              <Image
-                source={{ uri: item.image }}
-                style={styles.produceButton}
-                resizeMode="contain"
+              <ProduceCard
+                title={item.name[0].toUpperCase() + item.name.slice(1)}
+                image={item.image}
               />
-              <Text style={globalStyles.textCentered}>
-                {item.name[0].toUpperCase() + item.name.slice(1)}
-              </Text>
             </TouchableOpacity>
           </View>
         )}
@@ -50,13 +55,13 @@ const styles = StyleSheet.create({
   },
   gridItem: {
     flex: 1,
-    backgroundColor: colours.white,
+    backgroundColor: colours.transparent,
     margin: 4,
-    padding: 10,
+    // padding: 10,
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 25,
-    elevation: 2,
+    // borderRadius: 25,
+    // elevation: 2,
   },
   produceButtonContainer: {
     alignItems: "center",

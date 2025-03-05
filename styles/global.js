@@ -38,6 +38,7 @@ export const globalStyles = StyleSheet.create({
     fontSize: 18,
     color: colours.text,
     textAlign: "center",
+    marginBottom: 10,
   },
   text: {
     fontFamily: "nunito-regular",
@@ -50,7 +51,6 @@ export const globalStyles = StyleSheet.create({
     color: colours.text,
     textAlign: "center",
   },
-
   smallText: {
     fontFamily: "nunito-regular",
     fontSize: 14,
@@ -59,6 +59,15 @@ export const globalStyles = StyleSheet.create({
   paragraph: {
     marginVertical: 12,
     lineHeight: 20,
+  },
+  textContainer: {
+    marginTop: 20,
+    marginHorizontal: 10,
+    padding: 20,
+    alignItems: "center",
+    backgroundColor: colours.white,
+    borderRadius: 10,
+    elevation: 4,
   },
   input: {
     borderWidth: 1,

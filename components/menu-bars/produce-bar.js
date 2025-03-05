@@ -1,19 +1,12 @@
 import React from "react";
-import { StyleSheet, TouchableOpacity, View, Text, Image } from "react-native";
-import { colours, globalStyles } from "../../styles/global";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { colours } from "../../styles/global";
 import { FlatList } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
-import { useGrow } from "../../contexts/GrowContext";
+import ProduceCard from "../cards/produce-card";
 
 const ProduceBar = ({ produce }) => {
-  // const { cropsToSow } = useGrow();
-  // console.log("cropsToSow:", cropsToSow);
-
   const navigation = useNavigation();
-
-  // const produceList = cropsToSow.flatMap((item) => item.produce);
-
-  // console.log("produceList:", produceList);
 
   return (
     <FlatList
@@ -30,15 +23,11 @@ const ProduceBar = ({ produce }) => {
               navigation.navigate("ProduceDetails", { produceItem: item })
             }
           >
-            <Image
-              source={{ uri: item.image }}
-              style={styles.produceButton}
-              resizeMode="contain"
+            <ProduceCard
+              title={item.name[0].toUpperCase() + item.name.slice(1)}
+              image={item.image}
             />
           </TouchableOpacity>
-          <Text style={styles.produceText}>
-            {item.name[0].toUpperCase() + item.name.slice(1)}
-          </Text>
         </View>
       )}
     />

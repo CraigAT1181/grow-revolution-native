@@ -12,7 +12,7 @@ const GrowSearch = () => {
   }, []);
 
   return (
-    <View style={globalStyles.screen}>
+    <View>
       <EncyclopediaGrid array={produceList} />
     </View>
   );

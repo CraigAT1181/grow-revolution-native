@@ -3,9 +3,13 @@ import { View, Text } from "react-native";
 import { colours } from "../../styles/global";
 
 const SowSpec = ({ spec }) => {
+  console.log("Spec:", spec);
+
   const [data, setData] = useState({
     sowIndoors: [],
+    sowUnderCover: [],
     sowOutdoors: [],
+    transplant: [],
     plantOut: [],
     harvest: [],
   });
@@ -13,7 +17,9 @@ const SowSpec = ({ spec }) => {
   const months = ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"];
   const colors = {
     sowIndoors: "blue",
+    sowUnderCover: "red",
     sowOutdoors: "green",
+    transplant: "cyan",
     plantOut: "purple",
     harvest: "orange",
   };
@@ -23,7 +29,9 @@ const SowSpec = ({ spec }) => {
       const updateSpec = async () => {
         let newData = {
           sowIndoors: [],
+          sowUnderCover: [],
           sowOutdoors: [],
+          transplant: [],
           plantOut: [],
           harvest: [],
         };
@@ -32,9 +40,14 @@ const SowSpec = ({ spec }) => {
           if (item.action === "sow indoors") {
             newData.sowIndoors.push(item.month_id);
           }
-
+          if (item.action === "sow undercover") {
+            newData.sowUnderCover.push(item.month_id);
+          }
           if (item.action === "sow outdoors") {
             newData.sowOutdoors.push(item.month_id);
+          }
+          if (item.action === "transplant") {
+            newData.transplant.push(item.month_id);
           }
           if (item.action === "plant out") {
             newData.plantOut.push(item.month_id);
@@ -96,13 +109,21 @@ const SowSpec = ({ spec }) => {
         ))}
       </View>
 
-      <View style={{ flexDirection: "row", marginTop: 10 }}>
+      <View
+        style={{
+          flexDirection: "row",
+          flexWrap: "wrap",
+          justifyContent: "center",
+          marginTop: 10,
+        }}
+      >
         {Object.keys(colors).map((key) => (
           <View
             key={key}
             style={{
               flexDirection: "row",
               alignItems: "center",
+              marginVertical: 1,
               marginHorizontal: 5,
             }}
           >
@@ -115,7 +136,7 @@ const SowSpec = ({ spec }) => {
               }}
             />
             <Text style={{ fontSize: 12 }}>
-              {key.replace(/([A-Z])/g, " $1")}
+              {key[0].toUpperCase() + key.slice(1).replace(/([A-Z])/g, " $1")}
             </Text>
           </View>
         ))}

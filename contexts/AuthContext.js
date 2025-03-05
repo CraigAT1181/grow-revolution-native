@@ -18,8 +18,6 @@ const AuthProvider = ({ children }) => {
         const storedUser = await AsyncStorage.getItem("user");
 
         if (storedUser) {
-          console.log("Stored User:", storedUser);
-
           const parsedData = JSON.parse(storedUser);
 
           setUser(parsedData);
