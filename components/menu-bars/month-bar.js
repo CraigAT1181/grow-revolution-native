@@ -1,26 +1,18 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { StyleSheet, TouchableOpacity, View, Text } from "react-native";
-import { colours, globalStyles } from "../../styles/global";
+import { theme } from "../../styles/global";
 import { FlatList } from "react-native-gesture-handler";
 import { useGrow } from "../../contexts/GrowContext";
 
 const MonthBar = () => {
   const { months, selectedMonth, setSelectedMonth } = useGrow();
 
-  const monthIntro = useMemo(() => {
-    return months.find((month) => month.month_id === selectedMonth)
-      .introduction;
-  }, [selectedMonth, months]);
-
   return (
-    <View>
+    <View style={styles.container}>
       <FlatList
         data={months}
         horizontal
-        contentContainerStyle={{
-          backgroundColor: colours.background,
-          padding: 4,
-        }}
+        contentContainerStyle={styles.menuData}
         showsHorizontalScrollIndicator={false}
         keyExtractor={(item) => item.month_id}
         renderItem={({ item }) => (
@@ -42,9 +34,6 @@ const MonthBar = () => {
           </TouchableOpacity>
         )}
       />
-      <View style={styles.content}>
-        <Text style={globalStyles.textCentered}>{monthIntro}</Text>
-      </View>
     </View>
   );
 };
@@ -52,36 +41,29 @@ const MonthBar = () => {
 export default MonthBar;
 
 const styles = StyleSheet.create({
-  tab: {
-    paddingVertical: 10,
-    paddingHorizontal: 15,
-    marginHorizontal: 2,
-    backgroundColor: colours.white,
-    width: 110,
-    elevation: 4,
-    borderColor: colours.secondary,
-    borderTopStartRadius: 25,
-    borderTopEndRadius: 25,
+  container: {
+    backgroundColor: theme.colors.background,
+  },
+  menuData: {
+    justifyContent: "space-evenly",
     alignItems: "center",
+    backgroundColor: theme.colors.background,
+  },
+  tab: {
+    paddingVertical: 15,
+    paddingHorizontal: 15,
+    width: 110,
   },
   activeTab: {
-    backgroundColor: colours.primary,
-  },
-  content: {
-    marginTop: 20,
-    marginHorizontal: 10,
-    padding: 20,
-    alignItems: "center",
-    backgroundColor: colours.white,
-    borderRadius: 10,
-    elevation: 4,
+    backgroundColor: theme.colors.primary,
   },
   tabText: {
     fontSize: 16,
-    color: colours.black,
+    color: theme.colors.textOnBackground,
+    textAlign: "center",
   },
   activeTabText: {
-    color: colours.white,
-    fontWeight: "bold",
+    color: theme.colors.textOnPrimary,
+    fontFamily: "nunito-bold",
   },
 });
