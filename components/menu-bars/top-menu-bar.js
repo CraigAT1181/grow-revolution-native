@@ -1,45 +1,53 @@
-import React, { useEffect } from "react";
-import { StyleSheet, TouchableOpacity, View, Text } from "react-native";
-import { colours } from "../../styles/global";
-import { FlatList } from "react-native-gesture-handler";
+import React from "react";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { theme } from "../../styles/global";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
 const TopMenuBar = ({ selectedTab, setSelectedTab }) => {
-  const topMenu = [
+  const tabIcons = [
     {
       id: 1,
-      icon: <FontAwesome5 name={"calendar"} size={25} />,
+      tabIcon: (
+        <FontAwesome5
+          name={"calendar"}
+          size={25}
+          color={
+            selectedTab === 1
+              ? theme.colors.textOnPrimary
+              : theme.colors.primary
+          }
+        />
+      ),
     },
     {
       id: 2,
-      icon: <FontAwesome5 name={"search"} size={25} />,
+      tabIcon: (
+        <FontAwesome5
+          name={"search"}
+          size={25}
+          color={
+            selectedTab === 2
+              ? theme.colors.textOnPrimary
+              : theme.colors.primary
+          }
+        />
+      ),
     },
   ];
 
   return (
-    <View>
-      <FlatList
-        data={topMenu}
-        horizontal
-        contentContainerStyle={styles.menuData}
-        showsHorizontalScrollIndicator={false}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
+    <View style={styles.container}>
+      <View style={styles.menuData}>
+        {tabIcons.map((item) => (
           <TouchableOpacity
+            key={item.id}
             style={[styles.tab, selectedTab === item.id && styles.activeTab]}
             onPress={() => setSelectedTab(item.id)}
           >
-            <Text
-              style={[
-                styles.tabText,
-                selectedTab === item.id && styles.activeTabText,
-              ]}
-            >
-              {item.icon}
-            </Text>
+            <View style={styles.iconContainer}>{item.tabIcon}</View>
           </TouchableOpacity>
-        )}
-      />
+        ))}
+      </View>
     </View>
   );
 };
@@ -47,39 +55,28 @@ const TopMenuBar = ({ selectedTab, setSelectedTab }) => {
 export default TopMenuBar;
 
 const styles = StyleSheet.create({
+  container: {
+    width: "100%",
+  },
   menuData: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-evenly",
     alignItems: "center",
     width: "100%",
-    backgroundColor: colours.background,
-    marginBottom: 20,
-    padding: 10,
+    backgroundColor: theme.colors.background,
   },
   tab: {
+    flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    paddingVertical: 10,
-    paddingHorizontal: 70,
-    backgroundColor: colours.white,
-    borderWidth: 1,
-    borderRadius: 10,
-    borderColor: colours.secondary,
+    paddingVertical: 15,
+    backgroundColor: theme.colors.background,
   },
   activeTab: {
-    backgroundColor: colours.primary,
+    backgroundColor: theme.colors.primary,
   },
-  content: {
-    marginTop: 20,
-    padding: 20,
+  iconContainer: {
+    justifyContent: "center",
     alignItems: "center",
-  },
-  tabText: {
-    fontSize: 16,
-    color: colours.primary,
-  },
-  activeTabText: {
-    color: colours.white,
-    fontWeight: "bold",
   },
 });
