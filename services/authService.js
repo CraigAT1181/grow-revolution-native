@@ -1,19 +1,32 @@
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { enableLegacyWebImplementation } from "react-native-gesture-handler";
+import NetInfo from "@react-native-community/netinfo";
 
-const api = axios.create({
-  // baseURL: "http://10.0.2.2:3000", // Mobile
-  // baseURL: "http://192.168.0.106:3000", // Home
-  baseURL: "http://192.168.1.127:3000", // Dad's
-  // baseURL: "http://192.168.102.43:3000",
-});
+const getBaseURL = async () => {
+  const state = await NetInfo.fetch();
 
-export default api;
+  if (state.details && state.details.ipAddress) {
+    const localIP = state.details.ipAddress;
+    console.log("Detected IP:", localIP);
+
+    if (localIP.startsWith("192.168.0.")) return "http://192.168.0.106:3000"; // Home
+    if (localIP.startsWith("192.168.1.")) return "http://192.168.1.127:3000"; // Dad's
+    if (localIP.startsWith("192.168.167.")) return "http://192.168.167.43:3000"; // Work
+  }
+
+  return "http://10.0.2.2:3000"; // Default for mobile emulator
+};
+
+const createApi = async () => {
+  const baseURL = await getBaseURL();
+  return axios.create({ baseURL });
+};
+export default createApi;
 
 /* USER */
 
 export const handleSignin = async (email, password) => {
+  const api = await createApi();
   try {
     const { data: user } = await api.post("/auth/signin", {
       email,
@@ -39,6 +52,7 @@ export const handleSignin = async (email, password) => {
 };
 
 export const handleSignout = async () => {
+  const api = await createApi();
   try {
     await api.post("/auth/signout");
 
@@ -51,6 +65,7 @@ export const handleSignout = async () => {
 };
 
 export const handleRegister = async (formData) => {
+  const api = await createApi();
   try {
     const config = {
       headers: {
@@ -75,6 +90,7 @@ export const handleRegister = async (formData) => {
 };
 
 export const handlePasswordResetRequest = async (email) => {
+  const api = await createApi();
   try {
     console.log("Email received:", email);
 
