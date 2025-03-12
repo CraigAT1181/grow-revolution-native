@@ -1,7 +1,6 @@
 import React from "react";
 import { StyleSheet, TouchableOpacity, View, Text } from "react-native";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
-import { colours } from "../../styles/global";
 import { theme } from "../../styles/global";
 
 const DrawerMenuButton = ({ icon, text, onPress }) => {

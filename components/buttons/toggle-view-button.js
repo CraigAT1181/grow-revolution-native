@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
-import { colours, globalStyles } from "../../styles/global";
+import { theme } from "../../styles/global";
 
 const ToggleViewButton = ({ title, showGrid, setShowGrid }) => {
   return (
@@ -10,16 +10,22 @@ const ToggleViewButton = ({ title, showGrid, setShowGrid }) => {
         style={styles.button}
         onPress={() => setShowGrid(!showGrid)}
       >
-        <Text style={globalStyles.text}>{title}</Text>
-        <FontAwesome5
-          name={showGrid ? "chevron-up" : "chevron-down"}
-          size={16}
-          style={styles.icon}
-        />
+        <View>
+          <Text style={styles.buttonText}>{title}</Text>
+        </View>
+        <View>
+          <FontAwesome5
+            name={showGrid ? "chevron-up" : "chevron-down"}
+            size={16}
+            style={styles.icon}
+          />
+        </View>
       </TouchableOpacity>
     </View>
   );
 };
+
+export default ToggleViewButton;
 
 const styles = StyleSheet.create({
   container: {
@@ -28,9 +34,9 @@ const styles = StyleSheet.create({
   },
   button: {
     flexDirection: "row",
-    justifyContent: "space-around",
+    justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: colours.background,
+    backgroundColor: theme.colors.secondary,
     paddingVertical: 12,
     paddingHorizontal: 20,
     borderRadius: 8,
@@ -41,26 +47,10 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
   },
   buttonText: {
-    color: colours.text,
-    marginRight: 20,
+    color: theme.colors.textOnPrimary,
+    fontFamily: "nunito-bold",
   },
-  content: {
-    marginTop: 10,
-    padding: 15,
-    backgroundColor: "#f9f9f9",
-    borderRadius: 8,
-    width: "90%",
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 2,
-    elevation: 2,
-  },
-  contentText: {
-    fontSize: 16,
-    color: "#333",
+  icon: {
+    color: theme.colors.textOnPrimary,
   },
 });
-
-export default ToggleViewButton;
