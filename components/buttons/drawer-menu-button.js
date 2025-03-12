@@ -2,13 +2,14 @@ import React from "react";
 import { StyleSheet, TouchableOpacity, View, Text } from "react-native";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { colours } from "../../styles/global";
+import { theme } from "../../styles/global";
 
 const DrawerMenuButton = ({ icon, text, onPress }) => {
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.button}>
         <View style={styles.iconContainer}>
-          <FontAwesome5 name={icon} size={25} color={colours.primary} />
+          <FontAwesome5 name={icon} size={25} color={theme.colors.primary} />
         </View>
         <View>
           <Text style={styles.text}>{text}</Text>
@@ -35,6 +36,6 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 18,
     fontWeight: "bold",
-    color: colours.primary,
+    color: theme.colors.primary,
   },
 });
