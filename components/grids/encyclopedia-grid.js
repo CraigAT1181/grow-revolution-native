@@ -1,15 +1,6 @@
-import React, { useState } from "react";
-import {
-  StyleSheet,
-  TouchableOpacity,
-  View,
-  Text,
-  Image,
-  SafeAreaView,
-  KeyboardAvoidingView,
-  Platform,
-} from "react-native";
-import { colours, globalStyles } from "../../styles/global";
+import React from "react";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { globalStyles } from "../../styles/global";
 import { FlatList } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 import ProduceCard from "../cards/produce-card";
@@ -30,7 +21,7 @@ const EncyclopediaGrid = ({ array }) => {
           <View style={styles.gridItem}>
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate("ProduceDetails", { produceItem: item });
+                navigation.navigate("ProduceDetails", { item: item });
               }}
             >
               <ProduceCard
@@ -40,8 +31,7 @@ const EncyclopediaGrid = ({ array }) => {
             </TouchableOpacity>
           </View>
         )}
-        columnWrapperStyle={styles.row}
-        ListFooterComponent={<View style={{ height: 170 }} />} // Footer space
+        ListFooterComponent={<View style={{ height: 120 }} />} // Footer space
       />
     </View>
   );
@@ -50,38 +40,10 @@ const EncyclopediaGrid = ({ array }) => {
 export default EncyclopediaGrid;
 
 const styles = StyleSheet.create({
-  row: {
-    justifyContent: "space-between",
-  },
   gridItem: {
     flex: 1,
-    backgroundColor: colours.transparent,
-    margin: 4,
-    // padding: 10,
+    marginVertical: 10,
     alignItems: "center",
     justifyContent: "center",
-    // borderRadius: 25,
-    // elevation: 2,
-  },
-  produceButtonContainer: {
-    alignItems: "center",
-    justifyContent: "center",
-    marginHorizontal: 0,
-  },
-  produceButton: {
-    width: 120,
-    height: 120,
-    borderRadius: 25,
-    marginHorizontal: 6,
-    marginBottom: 6,
-    resizeMode: "contain",
-  },
-  produceText: {
-    maxWidth: 80,
-    textAlign: "center",
-    marginTop: 10,
-    fontSize: 12,
-    flexWrap: "wrap",
-    wordBreak: "break-word",
   },
 });

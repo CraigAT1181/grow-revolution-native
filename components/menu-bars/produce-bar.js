@@ -1,36 +1,39 @@
 import React from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
-import { colours } from "../../styles/global";
+import { theme } from "../../styles/global";
 import { FlatList } from "react-native-gesture-handler";
-import { useNavigation } from "@react-navigation/native";
 import ProduceCard from "../cards/produce-card";
 
-const ProduceBar = ({ produce }) => {
-  const navigation = useNavigation();
-
+const ProduceBar = ({ produce, selectedItem, setSelectedItem }) => {
   return (
-    <FlatList
-      data={produce}
-      horizontal
-      contentContainerStyle={styles.produceBar}
-      nestedScrollEnabled={true}
-      showsHorizontalScrollIndicator={false}
-      keyExtractor={(item) => item.produce_id}
-      renderItem={({ item }) => (
-        <View style={styles.produceButtonContainer}>
-          <TouchableOpacity
-            onPress={() =>
-              navigation.navigate("ProduceDetails", { produceItem: item })
-            }
+    <View>
+      <FlatList
+        data={produce}
+        horizontal
+        contentContainerStyle={[styles.produceBar, { flexGrow: 1 }]}
+        nestedScrollEnabled={true}
+        showsHorizontalScrollIndicator={false}
+        keyExtractor={(item) => item.produce_id}
+        renderItem={({ item, index }) => (
+          <View
+            style={[
+              styles.produceButtonContainer,
+              selectedItem === index && styles.selectedProduce,
+            ]}
           >
-            <ProduceCard
-              title={item.name[0].toUpperCase() + item.name.slice(1)}
-              image={item.image}
-            />
-          </TouchableOpacity>
-        </View>
-      )}
-    />
+            <TouchableOpacity
+              activeOpacity={1}
+              onPress={() => setSelectedItem(index)}
+            >
+              <ProduceCard
+                title={item.name[0].toUpperCase() + item.name.slice(1)}
+                image={item.image}
+              />
+            </TouchableOpacity>
+          </View>
+        )}
+      />
+    </View>
   );
 };
 
@@ -40,13 +43,28 @@ const styles = StyleSheet.create({
   produceBar: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: colours.transparent,
-    marginVertical: 20,
+    backgroundColor: theme.colors.background,
+    paddingTop: 10,
   },
   produceButtonContainer: {
     alignItems: "center",
     justifyContent: "center",
     marginHorizontal: 12,
+  },
+  selectedProduce: {
+    borderRadius: 10,
+    borderColor: theme.colors.secondary,
+
+    /* iOS */
+    shadowColor: theme.colors.secondary,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+
+    /* Android */
+    elevation: 6,
+    borderBottomWidth: 3,
+    borderRightWidth: 3,
   },
   produceButton: {
     width: 100,

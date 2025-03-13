@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import * as Linking from "expo-linking";
 import { useAuth } from "../contexts/AuthContext";
 import MainDrawer from "../navigation/mainDrawer";

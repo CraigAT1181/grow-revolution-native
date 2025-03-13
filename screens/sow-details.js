@@ -1,17 +1,25 @@
-import React from "react";
-import { View, Text } from "react-native";
+import React, { useState } from "react";
+import { View } from "react-native";
 import ProduceBar from "../components/menu-bars/produce-bar";
-import { globalStyles } from "../styles/global";
+import ProduceDetails from "./produce-details";
 
 const SowDetails = ({ route }) => {
-  const { sowItem } = route.params;
+  const { produce } = route.params;
+  const [selectedItem, setSelectedItem] = useState(0);
+  console.log("selectedItem", selectedItem);
 
   return (
-    <View style={globalStyles.screen}>
-      <View style={globalStyles.textContainer}>
-        <Text style={globalStyles.textCentered}>{sowItem.description}</Text>
+    <View style={{ flex: 1 }}>
+      <View>
+        <ProduceBar
+          produce={produce}
+          selectedItem={selectedItem}
+          setSelectedItem={setSelectedItem}
+        />
       </View>
-      <ProduceBar produce={sowItem.produce} />
+      <View style={{ flex: 1 }}>
+        <ProduceDetails produceItem={produce[selectedItem]} />
+      </View>
     </View>
   );
 };

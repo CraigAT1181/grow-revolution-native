@@ -1,20 +1,17 @@
 import React, { useState } from "react";
-import { StyleSheet, TouchableOpacity, View, Text, Image } from "react-native";
-import { colours, globalStyles } from "../../styles/global";
+import { StyleSheet, View } from "react-native";
+import { colours, theme } from "../../styles/global";
 import { FlatList } from "react-native-gesture-handler";
-import { useNavigation } from "@react-navigation/native";
 import ToggleViewButton from "../buttons/toggle-view-button";
-import ProduceCard from "../cards/produce-card";
+import PlantCard from "../cards/PlantCard";
 
 const SowGrid = ({ array }) => {
-  const navigation = useNavigation();
-
-  const [showGrid, setShowGrid] = useState(true);
+  const [showGrid, setShowGrid] = useState(false);
 
   return (
-    <View>
+    <View style={styles.container}>
       <ToggleViewButton
-        title={"Crops to sow"}
+        title={"Crops to sow this month"}
         showGrid={showGrid}
         setShowGrid={setShowGrid}
       />
@@ -22,25 +19,18 @@ const SowGrid = ({ array }) => {
         <FlatList
           data={array}
           keyExtractor={(item) => item.sow_id}
-          numColumns={2}
           renderItem={({ item }) => (
-            <View style={styles.gridItem}>
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate("SowDetails", {
-                    sowItem: item,
-                    title: item.name,
-                  })
-                }
-              >
-                <ProduceCard
-                  title={item.name[0].toUpperCase() + item.name.slice(1)}
-                  image={item.produce[0].image}
-                />
-              </TouchableOpacity>
+            <View>
+              <PlantCard
+                plant={{
+                  produce: item.produce,
+                  image: item.produce[0].image,
+                  name: item.name[0].toUpperCase() + item.name.slice(1),
+                  description: item.description,
+                }}
+              />
             </View>
           )}
-          columnWrapperStyle={styles.row}
         />
       )}
     </View>
@@ -50,6 +40,9 @@ const SowGrid = ({ array }) => {
 export default SowGrid;
 
 const styles = StyleSheet.create({
+  container: {
+    padding: theme.spacing.small,
+  },
   row: {
     justifyContent: "space-between",
   },

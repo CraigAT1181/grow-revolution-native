@@ -1,5 +1,70 @@
 import { StyleSheet } from "react-native";
 
+export const theme = {
+  colors: {
+    // 🌱 Primary Colors (Earthy Green Tones)
+    primary: "#405743", // Deep forest green (main brand color)
+    primaryLight: "#60AD5E", // Lighter green (hover/active states)
+    primaryDark: "#1B5E20", // Darker green (buttons, emphasis)
+
+    // 🌾 Secondary & Accent Colors (Brown & Soil Tones)
+    secondary: "#51413E", // Rich soil brown
+    secondaryLight: "#BE9C91", // Light clay brown
+    secondaryDark: "#5F4339", // Deep earthy brown
+
+    // ✨ Accent Colors (Warm Highlights)
+    accent: "#FFC107", // Warm golden yellow (for highlights)
+    accentLight: "#FFD54F", // Lighter golden yellow
+    accentDark: "#FFA000", // Darker orange-yellow (for warnings)
+
+    // 🎨 Background & Surface Colors
+    background: "#FFFFFF", // White (main app background)
+    backgroundDark: "#263238", // Deep slate grey (dark mode bg)
+    surface: "#FFEAC9", // Cream (cards, modals, input fields)
+    surfaceDark: "#37474F", // Darker surface for contrast
+
+    // ✍️ Text Colors (High Readability)
+    textPrimary: "#212121", // Dark grey-black (main text)
+    textSecondary: "#616161", // Medium grey (subtext, labels)
+    textOnPrimary: "#FFFFFF", // White (for text on green backgrounds)
+    textOnSecondary: "#FFEAC9", // Cream (for text on brown backgrounds)
+    textOnBackground: "#263238", // Dark blue-grey (for contrast)
+
+    // 🚦 Status & Feedback Colors
+    success: "#4CAF50", // Vibrant green (successful actions)
+    warning: "#FFA726", // Orange (warnings)
+    error: "#D32F2F", // Deep red (errors)
+    info: "#29B6F6", // Sky blue (information messages)
+
+    // 🛠️ Utility Colors (Borders, Dividers, Shadows)
+    border: "#BDBDBD", // Soft grey (for input borders)
+    shadow: "#00000040", // Subtle shadow (for depth)
+    divider: "#9E9E9E", // Medium grey (section dividers)
+  },
+
+  spacing: {
+    small: 8,
+    medium: 16,
+    large: 24,
+  },
+
+  typography: {
+    title: {
+      fontSize: 24,
+      fontWeight: "bold",
+      color: "#212121",
+    },
+    body: {
+      fontSize: 18,
+      fontFamily: "nunito-light",
+    },
+    caption: {
+      fontSize: 12,
+      color: "#9E9E9E",
+    },
+  },
+};
+
 export const colours = {
   primary: "#116530",
   secondary: "#2c2c2c",
@@ -19,9 +84,10 @@ export const globalStyles = StyleSheet.create({
   container: {
     flexGrow: 1,
     padding: 20,
+    backgroundColor: theme.colors.background,
   },
   screen: {
-    flexGrow: 1,
+    // flexGrow: 1,
     padding: 20,
     backgroundColor: colours.white,
   },

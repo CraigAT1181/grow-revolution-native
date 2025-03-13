@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
-import { colours, globalStyles } from "../../styles/global";
+import { theme } from "../../styles/global";
 
 const ProduceCard = ({ title, image }) => {
   return (
@@ -29,32 +29,34 @@ export default ProduceCard;
 const styles = StyleSheet.create({
   card: {
     width: 150,
-    height: 180,
-    backgroundColor: "white",
+    height: 100,
+    backgroundColor: theme.colors.background,
     borderRadius: 10,
     overflow: "hidden",
-    elevation: 3,
-    shadowColor: "#000",
+
+    elevation: 4,
+
+    shadowColor: theme.colors.primary,
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
+    shadowRadius: 6,
   },
   imageContainer: {
-    flex: 1,
+    height: 60,
+    width: 150,
   },
   image: {
     width: "100%",
     height: "100%",
   },
   titleContainer: {
-    height: 40, // Fixed height for the title section
+    height: 40,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#f8f8f8", // Light background for contrast
+    backgroundColor: theme.colors.background,
   },
   title: {
     fontSize: 14,
-    fontWeight: "bold",
+    fontFamily: "nunito-bold",
     textAlign: "center",
   },
 });

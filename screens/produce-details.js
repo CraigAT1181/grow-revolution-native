@@ -1,123 +1,79 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  ImageBackground,
-  TouchableOpacity,
-} from "react-native";
-import { colours, globalStyles } from "../styles/global";
+import { View, Text, StyleSheet, ImageBackground } from "react-native";
+import { theme, globalStyles } from "../styles/global";
 import { ScrollView } from "react-native-gesture-handler";
 import SowSpec from "../components/panels/sow-spec";
-import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import PlantingGuide from "../components/panels/planting-guide";
+import ProduceDetailsMenu from "../components/menu-bars/produce-details-menu";
+import ProduceBar from "../components/menu-bars/produce-bar";
 
-const ProduceDetails = ({ route }) => {
-  const { produceItem } = route.params;
-  console.log("Produce-item:", produceItem);
-
-  const [showDesc, setShowDesc] = useState(false);
-
-  const handleShowDesc = () => {
-    setShowDesc((prev) => !prev);
-  };
+const ProduceDetails = ({ produceItem, route }) => {
+  const item = route?.params?.item || produceItem;
+  const [selectedTab, setSelectedTab] = useState(1);
+  console.log(item);
 
   return (
     <ScrollView
-      contentContainerStyle={globalStyles.screen}
+      contentContainerStyle={globalStyles.container}
       showsVerticalScrollIndicator={false}
       keyboardShouldPersistTaps="handled"
     >
-      <ImageBackground
-        source={{ uri: produceItem.image }}
-        style={styles.bannerImage}
-      >
-        <View style={styles.banner}>
-          <Text style={styles.bannerText}>
-            {produceItem.name[0].toUpperCase() + produceItem.name.slice(1)}
-          </Text>
-        </View>
-      </ImageBackground>
-
-      <TouchableOpacity
-        style={{
-          marginVertical: 10,
-          marginBottom: 30,
-          borderWidth: 1,
-          borderRadius: 10,
-          borderColor: colours.secondary,
-          paddingVertical: 4,
-          alignItems: "center",
-        }}
-        onPress={handleShowDesc}
-      >
-        <Text>See description</Text>
-      </TouchableOpacity>
-
-      {showDesc && (
-        <View style={globalStyles.paragraph}>
-          <Text style={globalStyles.text}>{produceItem.description}</Text>
-        </View>
+      {route?.params?.item && (
+        <ImageBackground
+          source={{ uri: item.image }}
+          style={styles.bannerImage}
+        >
+          <View style={styles.banner}>
+            <Text style={styles.bannerText}>
+              {item.name[0].toUpperCase() + item.name.slice(1)}
+            </Text>
+          </View>
+        </ImageBackground>
       )}
 
-      <SowSpec spec={produceItem.produce_months} />
+      <View>
+        <Text style={[globalStyles.textCentered, { marginBottom: 10 }]}>
+          {item.description}
+        </Text>
+      </View>
 
-      <PlantingGuide
-        depth={produceItem.depth}
-        spacing={produceItem.spacing}
-        rowDistance={produceItem.row_distance}
+      <ProduceDetailsMenu
+        selectedTab={selectedTab}
+        setSelectedTab={setSelectedTab}
       />
 
-      {/* SOWING CARD */}
+      <View>
+        {selectedTab === 1 && (
+          <View>
+            <SowSpec spec={item.produce_months} />
+            <PlantingGuide
+              depth={item.depth}
+              spacing={item.spacing}
+              rowDistance={item.row_distance}
+            />
+            <View style={globalStyles.paragraph}>
+              <Text style={globalStyles.titleTextCentered}>Location</Text>
+              <Text style={globalStyles.textCentered}>{item.location}</Text>
+            </View>
+            <View style={globalStyles.paragraph}>
+              <Text style={globalStyles.titleTextCentered}>Sowing</Text>
+              <Text style={globalStyles.textCentered}>{item.sowing}</Text>
+            </View>
+            <View style={globalStyles.paragraph}>
+              <Text style={globalStyles.titleTextCentered}>Quick Tip</Text>
+              <Text style={globalStyles.textCentered}>{item.tips}</Text>
+            </View>
+          </View>
+        )}
 
-      <View style={globalStyles.textContainer}>
-        <Text style={globalStyles.titleTextCentered}>Sowing / Planting</Text>
-        <Text style={globalStyles.textCentered}>{produceItem.sowing}</Text>
+        {selectedTab === 2 && (
+          <View>
+            <Text style={globalStyles.textCentered}>{item.harvesting}</Text>
+          </View>
+        )}
       </View>
 
-      {/* HARVESTING CARD */}
-
-      <View style={globalStyles.textContainer}>
-        <Text style={globalStyles.titleTextCentered}>Harvesting</Text>
-        <Text style={globalStyles.textCentered}>{produceItem.harvesting}</Text>
-      </View>
-
-      {/* LOCATION CARD */}
-
-      <View style={globalStyles.textContainer}>
-        <FontAwesome5 name="map-marker-alt" size={24} color={colours.primary} />
-        <View style={globalStyles.paragraph}>
-          <Text style={globalStyles.textCentered}>{produceItem.location}</Text>
-        </View>
-      </View>
-
-      {/* TIPS CARD */}
-
-      <View style={globalStyles.textContainer}>
-        <FontAwesome5 name="info" size={24} color={colours.primary} />
-        <View style={globalStyles.paragraph}>
-          <Text style={globalStyles.textCentered}>{produceItem.tips}</Text>
-        </View>
-      </View>
-
-      {/* PESTS & DISEASES CARD */}
-
-      <View style={globalStyles.textContainer}>
-        <FontAwesome5
-          name="exclamation-triangle"
-          size={24}
-          color={colours.primary}
-        />
-
-        <View style={globalStyles.paragraph}>
-          <Text style={globalStyles.titleTextCentered}>Pests</Text>
-          <Text style={globalStyles.textCentered}>{produceItem.pests}</Text>
-        </View>
-        <View style={globalStyles.paragraph}>
-          <Text style={globalStyles.titleTextCentered}>Diseases</Text>
-          <Text style={globalStyles.textCentered}>{produceItem.diseases}</Text>
-        </View>
-      </View>
+      {selectedTab === 3 && <ProduceBar produce={item.companions} />}
     </ScrollView>
   );
 };
@@ -127,9 +83,10 @@ export default ProduceDetails;
 const styles = StyleSheet.create({
   bannerImage: {
     width: "100%",
-    height: 250,
+    height: 150,
     opacity: 0.5,
     borderRadius: 10,
+    marginBottom: 10,
   },
   banner: {
     flex: 1,
@@ -137,12 +94,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   bannerText: {
-    backgroundColor: colours.white,
+    backgroundColor: theme.colors.background,
     padding: 10,
     paddingHorizontal: 30,
-    fontSize: 32,
+    fontSize: 28,
     fontFamily: "nunito-bold",
-    borderWidth: 1,
-    borderColor: colours.secondary,
+    borderRadius: 10,
+    borderColor: theme.colors.secondary,
   },
 });

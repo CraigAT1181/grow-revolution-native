@@ -1,11 +1,11 @@
 import React from "react";
-import { View, StyleSheet, Image, Text, ImageBackground } from "react-native";
+import { View, StyleSheet, Image, Text } from "react-native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import MainTabs from "./mainTabs";
 import { useAuth } from "../contexts/AuthContext";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import DrawerMenuButton from "../components/buttons/drawer-menu-button";
-import { colours, globalStyles } from "../styles/global";
+import { theme } from "../styles/global";
 import SecondaryButton from "../components/buttons/secondary-button";
 
 const Drawer = createDrawerNavigator();
@@ -47,7 +47,13 @@ const DrawerContent = ({ navigation }) => {
         />
 
         {/* Menu Items */}
-        <View style={{ marginTop: 20 }}>
+        <View
+          style={{
+            flexGrow: 1,
+            paddingVertical: 20,
+            backgroundColor: theme.colors.background,
+          }}
+        >
           <DrawerMenuButton
             icon={"home"}
             text="Home"
@@ -78,9 +84,6 @@ const DrawerContent = ({ navigation }) => {
             text="Notifications"
             onPress={() => navigation.navigate("Tabs", { screen: "#" })}
           />
-          <View style={globalStyles.hrContainer}>
-            <View style={globalStyles.hr}></View>
-          </View>
           <DrawerMenuButton
             icon={"cog"}
             text="Settings"
@@ -89,7 +92,15 @@ const DrawerContent = ({ navigation }) => {
         </View>
       </View>
       {/* Sign-Out Section */}
-      <View style={{ padding: 20 }}>
+      <View
+        style={{
+          flexGrow: 1,
+          justifyContent: "center",
+          alignContent: "center",
+          paddingHorizontal: 50,
+          backgroundColor: theme.colors.background,
+        }}
+      >
         <SecondaryButton text="Sign Out" onPress={signout} />
       </View>
     </View>
@@ -124,24 +135,24 @@ const styles = StyleSheet.create({
   profileContainer: {
     padding: 50,
     alignItems: "center",
-    backgroundColor: colours.primary,
+    backgroundColor: theme.colors.primary,
   },
   profilePic: {
     width: 80,
     height: 80,
     borderRadius: 40,
     marginBottom: 10,
-    borderWidth: 1,
-    borderColor: colours.secondary,
+    borderWidth: 2,
+    borderColor: theme.colors.secondary,
   },
   userName: {
     fontSize: 16,
     fontWeight: "bold",
-    color: colours.white,
+    color: theme.colors.background,
   },
   email: {
     fontSize: 14,
-    color: colours.white,
+    color: theme.colors.background,
     marginTop: 4,
   },
   noProfilePicIcon: {
@@ -152,6 +163,6 @@ const styles = StyleSheet.create({
   noProfilePicAvatar: {
     borderRadius: 50,
     padding: 20,
-    color: colours.white,
+    color: theme.colors.textOnPrimary,
   },
 });

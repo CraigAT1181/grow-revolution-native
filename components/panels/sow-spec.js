@@ -3,8 +3,6 @@ import { View, Text } from "react-native";
 import { colours } from "../../styles/global";
 
 const SowSpec = ({ spec }) => {
-  console.log("Spec:", spec);
-
   const [data, setData] = useState({
     sowIndoors: [],
     sowUnderCover: [],

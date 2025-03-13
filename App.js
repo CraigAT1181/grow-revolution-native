@@ -12,7 +12,7 @@ import { NavigationContainer } from "@react-navigation/native";
 // Context
 import { AuthProvider } from "./contexts/AuthContext";
 import { GrowProvider } from "./contexts/GrowContext";
-import { colours } from "./styles/global";
+import { theme } from "./styles/global";
 
 const App = () => {
   const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -51,7 +51,7 @@ const App = () => {
           <NavigationContainer linking={linking}>
             <StatusBar
               barStyle="light-content"
-              backgroundColor={colours.primary}
+              backgroundColor={theme.colors.primary}
             />
             <Wrapper />
           </NavigationContainer>
@@ -74,6 +74,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#fff",
+    backgroundColor: theme.colors.background,
   },
 });
