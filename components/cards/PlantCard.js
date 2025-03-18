@@ -1,11 +1,10 @@
 import React from "react";
 import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
-import { Card, Title, Paragraph, Button } from "react-native-paper";
 import { theme } from "../../styles/global";
 import { useNavigation } from "@react-navigation/native";
 
 const PlantCard = ({ plant }) => {
-  // console.log(plant);
+  console.log(plant);
 
   const navigation = useNavigation();
 

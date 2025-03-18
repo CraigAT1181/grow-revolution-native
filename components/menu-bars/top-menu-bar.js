@@ -1,54 +1,29 @@
 import React from "react";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
 import { theme } from "../../styles/global";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+import { useNavigation } from "@react-navigation/native";
 
-const TopMenuBar = ({ selectedTab, setSelectedTab }) => {
-  const tabIcons = [
-    {
-      id: 1,
-      tabIcon: (
-        <FontAwesome5
-          name={"calendar"}
-          size={25}
-          color={
-            selectedTab === 1
-              ? theme.colors.textOnPrimary
-              : theme.colors.primary
-          }
-        />
-      ),
-    },
-    {
-      id: 2,
-      tabIcon: (
-        <FontAwesome5
-          name={"search"}
-          size={25}
-          color={
-            selectedTab === 2
-              ? theme.colors.textOnPrimary
-              : theme.colors.primary
-          }
-        />
-      ),
-    },
-  ];
+const TopMenuBar = () => {
+  const navigation = useNavigation();
 
   return (
-    <View style={styles.container}>
-      <View style={styles.menuData}>
-        {tabIcons.map((item) => (
-          <TouchableOpacity
-            key={item.id}
-            style={[styles.tab, selectedTab === item.id && styles.activeTab]}
-            onPress={() => setSelectedTab(item.id)}
-          >
-            <View style={styles.iconContainer}>{item.tabIcon}</View>
-          </TouchableOpacity>
-        ))}
-      </View>
-    </View>
+    <TouchableOpacity
+      style={{
+        zIndex: 200,
+        width: 30,
+        position: "absolute",
+        right: 10,
+        top: 50,
+      }}
+      onPress={() => navigation.navigate("GrowSearch")}
+    >
+      <FontAwesome5
+        name={"search"}
+        size={22}
+        color={theme.colors.textOnPrimary}
+      />
+    </TouchableOpacity>
   );
 };
 

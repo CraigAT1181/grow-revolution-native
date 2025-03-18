@@ -3,6 +3,7 @@ import Grow from "../screens/grow";
 import ProduceDetails from "../screens/produce-details";
 import SowDetails from "../screens/sow-details";
 import JobDetails from "../screens/job-details";
+import GrowSearch from "../screens/grow-search";
 
 const Stack = createStackNavigator();
 
@@ -45,6 +46,15 @@ const GrowStack = () => {
         options={({ route }) => ({
           headerShown: true,
           title: route.params.title || "",
+          headerTransparent: false,
+        })}
+      />
+      <Stack.Screen
+        name="GrowSearch"
+        component={GrowSearch}
+        options={({ route }) => ({
+          headerShown: true,
+          // title: route.params.title || "",
           headerTransparent: false,
         })}
       />

@@ -17,9 +17,9 @@ const SowDetails = ({ route }) => {
           setSelectedItem={setSelectedItem}
         />
       </View>
-      <View style={{ flex: 1 }}>
+      {/* <View style={{ flex: 1 }}>
         <ProduceDetails produceItem={produce[selectedItem]} />
-      </View>
+      </View> */}
     </View>
   );
 };

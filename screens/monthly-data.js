@@ -2,12 +2,9 @@ import React, { useMemo, useEffect, useState } from "react";
 import { useGrow } from "../contexts/GrowContext";
 import { View, Text, StyleSheet, ImageBackground } from "react-native";
 import { theme } from "../styles/global";
-import SowGrid from "../components/grids/sow-grid";
-import JobGrid from "../components/grids/job-grid";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
 import PlantCard from "../components/cards/PlantCard";
 import ToggleViewButton from "../components/buttons/toggle-view-button";
-import { SafeAreaView } from "react-native-safe-area-context";
 import MonthBar from "../components/menu-bars/month-bar";
 
 const MonthlyData = () => {
@@ -21,11 +18,6 @@ const MonthlyData = () => {
 
   const [showSowContainer, setShowSowContainer] = useState(false);
   const [showJobsContainer, setShowJobsContainer] = useState(false);
-
-  const sections = [
-    { id: 1, component: <SowGrid array={cropsToSow} /> },
-    { id: 2, component: <JobGrid array={jobsToDo} /> },
-  ];
 
   const monthIntro = useMemo(() => {
     return months.find((month) => month.month_id === selectedMonth)
@@ -52,18 +44,14 @@ const MonthlyData = () => {
         contentContainerStyle={{ flexGrow: 1 }}
         keyboardShouldPersistTaps="handled"
       >
-        {/* <View style={styles.introContainer}> */}
         <ImageBackground
           source={require("../assets/backgrounds/green_background.jpg")}
           style={styles.background}
           resizeMode="cover"
         >
           <MonthBar />
-          {/* <View style={styles.monthIntroBackground}>
-          </View> */}
         </ImageBackground>
-        {/* </View> */}
-        {/* <View style={styles.mainContainerWrapper}> */}
+
         <View style={styles.mainContainer}>
           <Text
             style={[
@@ -74,7 +62,7 @@ const MonthlyData = () => {
           >
             {monthIntro}
           </Text>
-          {/* <View style={styles.sowContainer}> */}
+
           <ToggleViewButton
             title={"Sow or plant this month"}
             showContainer={showSowContainer}
@@ -100,8 +88,7 @@ const MonthlyData = () => {
               )}
             />
           )}
-          {/* </View> */}
-          {/* <View style={styles.jobsContainer}> */}
+
           <ToggleViewButton
             title={"Jobs to do this month"}
             showContainer={showJobsContainer}
@@ -117,21 +104,11 @@ const MonthlyData = () => {
                 <View style={styles.cardContainer}>
                   <Text>{item.job_title}</Text>
                   <Text>{item.job_description}</Text>
-                  {/* <PlantCard
-                    plant={{
-                      produce: item.produce,
-                      image: item.produce[0].image,
-                      name: item.name[0].toUpperCase() + item.name.slice(1),
-                      description: item.description,
-                      /> 
-                      }} */}
                 </View>
               )}
             />
           )}
-          {/* </View> */}
         </View>
-        {/* </View> */}
       </ScrollView>
     </View>
   );
@@ -149,7 +126,7 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "center",
     alignItems: "center",
-    paddingTop: 40, // Pushes content down from the top
+    paddingTop: 40,
   },
   introContainer: {
     flexShrink: 0,
@@ -160,12 +137,12 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: "rgba(0, 0, 0, 0.6)",
     padding: 16,
-    marginHorizontal: 20, // Prevents touching the edges
-    alignSelf: "center", // Aligns to the top left
-    maxWidth: "90%", // Avoids stretching too wide
+    marginHorizontal: 20,
+    alignSelf: "center",
+    maxWidth: "90%",
   },
   monthIntro: {
-    color: "#fff", // Ensures contrast on dark background
+    color: "#fff",
     fontSize: 16,
     fontFmaily: "nunito-SemiBold",
     textAlign: "center",
@@ -178,7 +155,6 @@ const styles = StyleSheet.create({
     padding: 20,
     marginTop: -20,
   },
-  sowContainer: {},
   menuData: {
     justifyContent: "space-evenly",
     alignItems: "center",
@@ -186,5 +162,4 @@ const styles = StyleSheet.create({
   cardContainer: {
     paddingHorizontal: 6,
   },
-  jobsContainer: {},
 });

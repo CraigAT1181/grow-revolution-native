@@ -7,24 +7,17 @@ import MonthlyData from "./monthly-data";
 import GrowSearch from "./grow-search";
 
 const Grow = () => {
-  const [selectedTab, setSelectedTab] = useState(1);
-
   return (
     <View style={{ flex: 1 }}>
-      {/* <TopMenuBar selectedTab={selectedTab} setSelectedTab={setSelectedTab} /> */}
+      <View style={{ position: "relative" }}>
+        <TopMenuBar />
+      </View>
 
-      {selectedTab === 1 && (
+      <View style={{ flex: 1 }}>
         <View style={{ flex: 1 }}>
-          {/* <View style={{ flexShrink: 1 }}>
-            <MonthBar />
-          </View> */}
-          <View style={{ flex: 1 }}>
-            <MonthlyData />
-          </View>
+          <MonthlyData />
         </View>
-      )}
-
-      {selectedTab === 2 && <GrowSearch />}
+      </View>
     </View>
   );
 };
