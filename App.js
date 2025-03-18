@@ -50,8 +50,9 @@ const App = () => {
         <GrowProvider>
           <NavigationContainer linking={linking}>
             <StatusBar
+              translucent
               barStyle="light-content"
-              backgroundColor={theme.colors.primary}
+              backgroundColor={"transparent"}
             />
             <Wrapper />
           </NavigationContainer>

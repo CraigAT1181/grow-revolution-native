@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
-import { colours, theme } from "../../styles/global";
 import { FlatList } from "react-native-gesture-handler";
+import { colours, theme } from "../../styles/global";
 import ToggleViewButton from "../buttons/toggle-view-button";
 import PlantCard from "../cards/PlantCard";
 
@@ -19,8 +19,10 @@ const SowGrid = ({ array }) => {
         <FlatList
           data={array}
           keyExtractor={(item) => item.sow_id}
+          numColumns={2}
+          columnWrapperStyle={styles.row} // Adds space between columns
           renderItem={({ item }) => (
-            <View>
+            <View style={styles.gridItem}>
               <PlantCard
                 plant={{
                   produce: item.produce,
@@ -44,31 +46,10 @@ const styles = StyleSheet.create({
     padding: theme.spacing.small,
   },
   row: {
-    justifyContent: "space-between",
+    justifyContent: "space-between", // Ensures even spacing between columns
   },
   gridItem: {
-    flex: 1,
-    backgroundColor: colours.transparent,
-    margin: 4,
-  },
-  produceButtonContainer: {
-    alignItems: "center",
-    justifyContent: "center",
-    marginHorizontal: 0,
-  },
-  produceButton: {
-    width: 150,
-    height: 150,
-    borderRadius: 25,
-    marginHorizontal: 6,
-    resizeMode: "cover",
-  },
-  produceText: {
-    maxWidth: 80,
-    textAlign: "center",
-    marginTop: 10,
-    fontSize: 12,
-    flexWrap: "wrap",
-    wordBreak: "break-word",
+    flex: 1, // Ensures equal width distribution
+    margin: 5, // Adds spacing between items
   },
 });

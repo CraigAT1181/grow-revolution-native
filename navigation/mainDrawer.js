@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, StyleSheet, Image, Text } from "react-native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import MainTabs from "./mainTabs";
@@ -13,18 +13,26 @@ const Drawer = createDrawerNavigator();
 // Create Profile section of Drawer
 const ProfileHeader = ({ userName, email, profilePic }) => (
   <View style={styles.profileContainer}>
-    {profilePic ? (
-      <Image source={{ uri: profilePic }} style={styles.profilePic} />
-    ) : (
-      <FontAwesome5 name={"user"} size={25} style={styles.noProfilePicAvatar} />
-    )}
-    <Text style={styles.userName}>{userName}</Text>
-    <Text style={styles.email}>{email}</Text>
+    <View style={{ position: "absolute", bottom: "-50", zIndex: 2 }}>
+      {profilePic ? (
+        <Image source={{ uri: profilePic }} style={styles.profilePic} />
+      ) : (
+        <FontAwesome5
+          name={"user"}
+          size={25}
+          style={styles.noProfilePicAvatar}
+        />
+      )}
+    </View>
+    <View style={{ paddingVertical: 20 }}>
+      <Text style={styles.userName}>{userName}</Text>
+      {/* <Text style={styles.email}>{email}</Text> */}
+    </View>
   </View>
 );
 
 // Create Content section of Drawer
-const DrawerContent = ({ navigation }) => {
+const DrawerContent = ({ setSelectedTab, navigation }) => {
   const { user, signout } = useAuth();
 
   let encodedProfilePic = null;
@@ -51,28 +59,41 @@ const DrawerContent = ({ navigation }) => {
           style={{
             flexGrow: 1,
             paddingVertical: 20,
+            marginTop: 50,
             backgroundColor: theme.colors.background,
           }}
         >
           <DrawerMenuButton
             icon={"home"}
             text="Home"
-            onPress={() => navigation.navigate("Tabs", { screen: "Home" })}
+            onPress={() => {
+              setSelectedTab(0);
+              navigation.navigate("Tabs", { screen: "Home" });
+            }}
           />
           <DrawerMenuButton
             icon={"leaf"}
             text="Grow"
-            onPress={() => navigation.navigate("Tabs", { screen: "Grow" })}
+            onPress={() => {
+              setSelectedTab(1);
+              navigation.navigate("Tabs", { screen: "GrowStack" });
+            }}
           />
           <DrawerMenuButton
             icon={"users"}
             text="Community"
-            onPress={() => navigation.navigate("Tabs", { screen: "Community" })}
+            onPress={() => {
+              setSelectedTab(2);
+              navigation.navigate("Tabs", { screen: "Community" });
+            }}
           />
           <DrawerMenuButton
             icon={"newspaper"}
             text="Ads"
-            onPress={() => navigation.navigate("Tabs", { screen: "AdPage" })}
+            onPress={() => {
+              setSelectedTab(3);
+              navigation.navigate("Tabs", { screen: "AdPage" });
+            }}
           />
           <DrawerMenuButton
             icon={"envelope"}
@@ -109,13 +130,19 @@ const DrawerContent = ({ navigation }) => {
 
 // Import DrawerContent from above and return the MainTabs component in screen.
 const MainDrawer = () => {
+  const [selectedTab, setSelectedTab] = useState();
+
   return (
     <Drawer.Navigator
-      drawerContent={(props) => <DrawerContent {...props} />}
+      drawerContent={(props) => (
+        <DrawerContent setSelectedTab={setSelectedTab} {...props} />
+      )}
       screenOptions={{ headerShown: false }}
     >
       <Drawer.Screen name="Tabs">
-        {({ navigation }) => <MainTabs drawerNavigation={navigation} />}
+        {() => (
+          <MainTabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
+        )}
       </Drawer.Screen>
     </Drawer.Navigator>
   );

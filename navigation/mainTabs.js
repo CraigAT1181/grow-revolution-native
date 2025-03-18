@@ -1,50 +1,50 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../screens/home";
-import { TouchableOpacity, Image, StyleSheet } from "react-native";
-import { useAuth } from "../contexts/AuthContext";
+import { TouchableOpacity, StyleSheet } from "react-native";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import Community from "../screens/community";
 import AdPage from "../screens/ad-page";
 import GrowStack from "./grow-stack";
 import { theme } from "../styles/global";
+import { useNavigation } from "@react-navigation/native";
 
 const Tab = createBottomTabNavigator();
 
-const MainTabs = ({ drawerNavigation }) => {
-  const { user } = useAuth();
+const MainTabs = ({ selectedTab, setSelectedTab }) => {
+  const navigation = useNavigation();
 
-  let encodedProfilePic = null;
-
-  if (user.profile_pic !== null) {
-    const profilePic = user.profile_pic;
-    encodedProfilePic = encodeURI(profilePic);
-  }
+  const getIconColour = (tabIndex) => {
+    return tabIndex === 0
+      ? theme.colors.textOnPrimary
+      : tabIndex === 1
+      ? theme.colors.textOnPrimary
+      : null;
+  };
 
   return (
     <Tab.Navigator
       screenOptions={{
         headerLeft: () => (
           <TouchableOpacity
-            onPress={() => drawerNavigation.toggleDrawer()}
+            onPress={() => navigation.toggleDrawer()}
             style={{ marginLeft: 15 }}
           >
-            {encodedProfilePic ? (
-              <Image
-                source={{ uri: encodedProfilePic }}
-                style={styles.profilePic}
-              />
-            ) : (
-              <FontAwesome5
-                name={"user"}
-                size={20}
-                color={theme.colors.textOnPrimary}
-                style={styles.noProfilePicIcon}
-              />
-            )}
+            <FontAwesome5
+              name={"bars"}
+              size={20}
+              color={getIconColour(selectedTab)}
+              style={styles.noProfilePicIcon}
+            />
           </TouchableOpacity>
         ),
-        headerStyle: { backgroundColor: theme.colors.primary },
+        headerTransparent: true,
+        headerStyle: {
+          backgroundColor: "transparent",
+          elevation: 0,
+          shadowOpacity: 0,
+        },
+        headerTitle: "",
         headerTitleStyle: {
           fontFamily: "nunito-extra-light",
           fontSize: 32,
@@ -59,59 +59,112 @@ const MainTabs = ({ drawerNavigation }) => {
       <Tab.Screen
         name="Home"
         component={Home}
-        options={{
+        options={({ navigation }) => ({
           tabBarIcon: ({ size }) => (
             <FontAwesome5
               name="home"
               size={size}
-              color={theme.colors.primary}
+              color={
+                selectedTab === 0
+                  ? theme.colors.primary
+                  : theme.colors.secondaryLight
+              }
             />
           ),
           tabBarLabel: "",
-        }}
+          tabBarButton: (props) => (
+            <TouchableOpacity
+              {...props}
+              onPress={() => {
+                setSelectedTab(0);
+                navigation.navigate("Home");
+              }}
+            />
+          ),
+        })}
       />
       <Tab.Screen
         name="GrowStack"
         component={GrowStack}
-        options={{
+        options={({ navigation }) => ({
           tabBarIcon: ({ size }) => (
             <FontAwesome5
               name="leaf"
               size={size}
-              color={theme.colors.primary}
+              color={
+                selectedTab === 1
+                  ? theme.colors.primary
+                  : theme.colors.secondaryLight
+              }
             />
           ),
           tabBarLabel: "",
-          headerTitle: "Grow",
-        }}
+          tabBarButton: (props) => (
+            <TouchableOpacity
+              {...props}
+              onPress={() => {
+                setSelectedTab(1);
+                navigation.navigate("GrowStack");
+              }}
+            />
+          ),
+
+          headerTitle: "",
+        })}
       />
       <Tab.Screen
         name="Community"
         component={Community}
-        options={{
+        options={({ navigation }) => ({
           tabBarIcon: ({ size }) => (
             <FontAwesome5
               name="users"
               size={size}
-              color={theme.colors.primary}
+              color={
+                selectedTab === 2
+                  ? theme.colors.primary
+                  : theme.colors.secondaryLight
+              }
             />
           ),
           tabBarLabel: "",
-        }}
+          tabBarButton: (props) => (
+            <TouchableOpacity
+              {...props}
+              onPress={() => {
+                setSelectedTab(2);
+                navigation.navigate("Community");
+              }}
+            />
+          ),
+        })}
       />
       <Tab.Screen
         name="Ads"
         component={AdPage}
-        options={{
+        options={({ navigation }) => ({
           tabBarIcon: ({ size }) => (
             <FontAwesome5
               name="newspaper"
               size={size}
-              color={theme.colors.primary}
+              color={
+                selectedTab === 3
+                  ? theme.colors.primary
+                  : theme.colors.secondaryLight
+              }
             />
           ),
           tabBarLabel: "",
-        }}
+          tabBarButton: (props) => (
+            <TouchableOpacity
+              {...props}
+              onPress={() => {
+                setSelectedTab(3);
+                navigation.navigate("Ads");
+              }}
+            />
+          ),
+        })}
       />
     </Tab.Navigator>
   );

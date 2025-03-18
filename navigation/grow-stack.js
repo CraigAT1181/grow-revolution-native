@@ -8,7 +8,18 @@ const Stack = createStackNavigator();
 
 const GrowStack = () => {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+        headerTransparent: true,
+
+        // headerStyle: {
+        //   backgroundColor: "transparent",
+        //   elevation: 0,
+        //   shadowOpacity: 0,
+        // },
+      }}
+    >
       <Stack.Screen name="Grow" component={Grow} />
       <Stack.Screen
         name="SowDetails"

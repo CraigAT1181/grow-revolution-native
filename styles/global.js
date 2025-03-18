@@ -3,14 +3,11 @@ import { StyleSheet } from "react-native";
 export const theme = {
   colors: {
     // 🌱 Primary Colors (Earthy Green Tones)
-    primary: "#405743", // Deep forest green (main brand color)
-    primaryLight: "#60AD5E", // Lighter green (hover/active states)
-    primaryDark: "#1B5E20", // Darker green (buttons, emphasis)
+    primary: "#405743",
 
-    // 🌾 Secondary & Accent Colors (Brown & Soil Tones)
-    secondary: "#51413E", // Rich soil brown
-    secondaryLight: "#BE9C91", // Light clay brown
-    secondaryDark: "#5F4339", // Deep earthy brown
+    // 🌾 Secondary & Accent Colors
+    secondary: "#424949",
+    secondaryLight: "#8D9696",
 
     // ✨ Accent Colors (Warm Highlights)
     accent: "#FFC107", // Warm golden yellow (for highlights)
@@ -20,8 +17,6 @@ export const theme = {
     // 🎨 Background & Surface Colors
     background: "#FFFFFF", // White (main app background)
     backgroundDark: "#263238", // Deep slate grey (dark mode bg)
-    surface: "#FFEAC9", // Cream (cards, modals, input fields)
-    surfaceDark: "#37474F", // Darker surface for contrast
 
     // ✍️ Text Colors (High Readability)
     textPrimary: "#212121", // Dark grey-black (main text)
@@ -51,12 +46,14 @@ export const theme = {
   typography: {
     title: {
       fontSize: 24,
-      fontWeight: "bold",
+      fontFamily: "nunito-SemiBold",
       color: "#212121",
     },
     body: {
       fontSize: 18,
       fontFamily: "nunito-light",
+      lineHeight: 28,
+      textAlign: "start",
     },
     caption: {
       fontSize: 12,
@@ -84,12 +81,20 @@ export const globalStyles = StyleSheet.create({
   container: {
     flexGrow: 1,
     padding: 20,
+    backgroundColor: theme.colors.secondary,
+  },
+  titleContainer: {
+    backgroundColor: theme.colors.secondary,
+  },
+  contentContainer: {
     backgroundColor: theme.colors.background,
+    borderTopStartRadius: 18,
+    borderTopRightRadius: 18,
   },
   screen: {
-    // flexGrow: 1,
+    flex: 1,
     padding: 20,
-    backgroundColor: colours.white,
+    backgroundColor: theme.colors.background,
   },
   form: {
     flex: 1,
