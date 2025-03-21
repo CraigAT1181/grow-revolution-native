@@ -3,7 +3,7 @@ import { useGrow } from "../contexts/GrowContext";
 import { View, Text, StyleSheet, ImageBackground } from "react-native";
 import { theme } from "../styles/global";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
-import PlantCard from "../components/cards/PlantCard";
+import PlantGroupCard from "../components/cards/PlantGroupCard";
 import ToggleViewButton from "../components/buttons/toggle-view-button";
 import MonthBar from "../components/menu-bars/month-bar";
 
@@ -38,45 +38,46 @@ const MonthlyData = () => {
   }, [selectedMonth]);
 
   return (
-    <View style={{ flex: 1 }}>
-      <ScrollView
-        style={styles.container}
-        contentContainerStyle={{ flexGrow: 1 }}
-        keyboardShouldPersistTaps="handled"
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={{ flexGrow: 1 }}
+      keyboardShouldPersistTaps="handled"
+    >
+      <ImageBackground
+        source={require("../assets/backgrounds/green_background.jpg")}
+        style={styles.background}
+        resizeMode="cover"
       >
-        <ImageBackground
-          source={require("../assets/backgrounds/green_background.jpg")}
-          style={styles.background}
-          resizeMode="cover"
+        <MonthBar />
+      </ImageBackground>
+
+      <View style={styles.mainContainer}>
+        <Text
+          style={[
+            styles.monthIntro,
+            theme.typography.body,
+            { color: theme.colors.textOnBackground },
+          ]}
         >
-          <MonthBar />
-        </ImageBackground>
+          {monthIntro}
+        </Text>
 
-        <View style={styles.mainContainer}>
-          <Text
-            style={[
-              styles.monthIntro,
-              theme.typography.body,
-              { color: theme.colors.textOnBackground },
-            ]}
-          >
-            {monthIntro}
-          </Text>
-
-          <ToggleViewButton
-            title={"Sow or plant this month"}
-            showContainer={showSowContainer}
-            setShowContainer={setShowSowContainer}
-          />
-          {showSowContainer && (
+        <ToggleViewButton
+          title={"Sow or plant this month"}
+          showContainer={showSowContainer}
+          setShowContainer={setShowSowContainer}
+        />
+        {showSowContainer && (
+          <View style={{ minHeight: 220 }}>
             <FlatList
               data={cropsToSow}
               keyExtractor={(item) => item.sow_id}
               horizontal
+              showsHorizontalScrollIndicator={false}
               contentContainerStyle={styles.menuData}
               renderItem={({ item }) => (
                 <View style={styles.cardContainer}>
-                  <PlantCard
+                  <PlantGroupCard
                     plant={{
                       produce: item.produce,
                       image: item.produce[0].image,
@@ -87,30 +88,30 @@ const MonthlyData = () => {
                 </View>
               )}
             />
-          )}
+          </View>
+        )}
 
-          <ToggleViewButton
-            title={"Jobs to do this month"}
-            showContainer={showJobsContainer}
-            setShowContainer={setShowJobsContainer}
+        <ToggleViewButton
+          title={"Jobs to do this month"}
+          showContainer={showJobsContainer}
+          setShowContainer={setShowJobsContainer}
+        />
+        {showJobsContainer && (
+          <FlatList
+            data={jobsToDo}
+            keyExtractor={(item) => item.job_id}
+            horizontal
+            contentContainerStyle={styles.menuData}
+            renderItem={({ item }) => (
+              <View style={styles.cardContainer}>
+                <Text>{item.job_title}</Text>
+                <Text>{item.job_description}</Text>
+              </View>
+            )}
           />
-          {showJobsContainer && (
-            <FlatList
-              data={jobsToDo}
-              keyExtractor={(item) => item.job_id}
-              horizontal
-              contentContainerStyle={styles.menuData}
-              renderItem={({ item }) => (
-                <View style={styles.cardContainer}>
-                  <Text>{item.job_title}</Text>
-                  <Text>{item.job_description}</Text>
-                </View>
-              )}
-            />
-          )}
-        </View>
-      </ScrollView>
-    </View>
+        )}
+      </View>
+    </ScrollView>
   );
 };
 
@@ -133,14 +134,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.background,
     padding: 20,
   },
-  monthIntroBackground: {
-    borderRadius: 10,
-    backgroundColor: "rgba(0, 0, 0, 0.6)",
-    padding: 16,
-    marginHorizontal: 20,
-    alignSelf: "center",
-    maxWidth: "90%",
-  },
+
   monthIntro: {
     color: "#fff",
     fontSize: 16,
@@ -156,10 +150,12 @@ const styles = StyleSheet.create({
     marginTop: -20,
   },
   menuData: {
-    justifyContent: "space-evenly",
+    height: "auto",
     alignItems: "center",
   },
   cardContainer: {
     paddingHorizontal: 6,
+    width: 200,
+    height: "auto",
   },
 });

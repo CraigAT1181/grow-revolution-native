@@ -10,7 +10,6 @@ import ProduceBar from "../components/menu-bars/produce-bar";
 const ProduceDetails = ({ produceItem, route }) => {
   const item = route?.params?.item || produceItem;
   const [selectedTab, setSelectedTab] = useState(1);
-  console.log(item);
 
   return (
     <ScrollView
@@ -18,18 +17,13 @@ const ProduceDetails = ({ produceItem, route }) => {
       showsVerticalScrollIndicator={false}
       keyboardShouldPersistTaps="handled"
     >
-      {route?.params?.item && (
-        <ImageBackground
-          source={{ uri: item.image }}
-          style={styles.bannerImage}
-        >
-          <View style={styles.banner}>
-            <Text style={styles.bannerText}>
-              {item.name[0].toUpperCase() + item.name.slice(1)}
-            </Text>
-          </View>
-        </ImageBackground>
-      )}
+      <ImageBackground source={{ uri: item.image }} style={styles.bannerImage}>
+        <View style={styles.banner}>
+          <Text style={styles.bannerText}>
+            {item.name[0].toUpperCase() + item.name.slice(1)}
+          </Text>
+        </View>
+      </ImageBackground>
 
       <View>
         <Text style={[globalStyles.textCentered, { marginBottom: 10 }]}>
@@ -73,7 +67,7 @@ const ProduceDetails = ({ produceItem, route }) => {
         )}
       </View>
 
-      {selectedTab === 3 && <ProduceBar produce={item.companions} />}
+      {/* {selectedTab === 3 && <ProduceBar produce={item.companions} />*/}
     </ScrollView>
   );
 };

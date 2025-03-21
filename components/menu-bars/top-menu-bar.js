@@ -13,7 +13,7 @@ const TopMenuBar = () => {
         zIndex: 200,
         width: 30,
         position: "absolute",
-        right: 10,
+        left: 25,
         top: 50,
       }}
       onPress={() => navigation.navigate("GrowSearch")}

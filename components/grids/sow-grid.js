@@ -3,7 +3,7 @@ import { StyleSheet, View } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import { colours, theme } from "../../styles/global";
 import ToggleViewButton from "../buttons/toggle-view-button";
-import PlantCard from "../cards/PlantCard";
+import PlantGroupCard from "../cards/PlantGroupCard";
 
 const SowGrid = ({ array }) => {
   const [showGrid, setShowGrid] = useState(false);
@@ -23,7 +23,7 @@ const SowGrid = ({ array }) => {
           columnWrapperStyle={styles.row} // Adds space between columns
           renderItem={({ item }) => (
             <View style={styles.gridItem}>
-              <PlantCard
+              <PlantGroupCard
                 plant={{
                   produce: item.produce,
                   image: item.produce[0].image,

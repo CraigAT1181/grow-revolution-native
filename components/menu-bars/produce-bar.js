@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { theme } from "../../styles/global";
 import { FlatList } from "react-native-gesture-handler";
-import ProduceCard from "../cards/produce-card";
+import PlantCard from "../cards/PlantCard";
 
 const ProduceBar = ({ produce, selectedItem, setSelectedItem }) => {
   return (
@@ -25,7 +25,7 @@ const ProduceBar = ({ produce, selectedItem, setSelectedItem }) => {
               activeOpacity={1}
               onPress={() => setSelectedItem(index)}
             >
-              <ProduceCard
+              <PlantCard
                 title={item.name[0].toUpperCase() + item.name.slice(1)}
                 image={item.image}
               />

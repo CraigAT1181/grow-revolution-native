@@ -3,7 +3,7 @@ import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { globalStyles } from "../../styles/global";
 import { FlatList } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
-import ProduceCard from "../cards/produce-card";
+import PlantCard from "../cards/PlantCard";
 
 const EncyclopediaGrid = ({ array }) => {
   const navigation = useNavigation();
@@ -14,7 +14,7 @@ const EncyclopediaGrid = ({ array }) => {
     <View>
       <FlatList
         data={sortedArray}
-        contentContainerStyle={globalStyles.container}
+        // contentContainerStyle={globalStyles.container}
         keyExtractor={(item) => item.produce_id}
         numColumns={2}
         renderItem={({ item }) => (
@@ -24,14 +24,15 @@ const EncyclopediaGrid = ({ array }) => {
                 navigation.navigate("ProduceDetails", { item: item });
               }}
             >
-              <ProduceCard
+              {/* <PlantCard
                 title={item.name[0].toUpperCase() + item.name.slice(1)}
                 image={item.image}
-              />
+              /> */}
             </TouchableOpacity>
           </View>
         )}
-        ListFooterComponent={<View style={{ height: 120 }} />} // Footer space
+
+        // ListFooterComponent={<View style={{ height: 120 }} />}
       />
     </View>
   );
@@ -45,5 +46,6 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: "blue",
   },
 });

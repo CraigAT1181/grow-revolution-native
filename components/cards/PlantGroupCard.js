@@ -1,47 +1,47 @@
 import React from "react";
-import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 import { theme } from "../../styles/global";
 import { useNavigation } from "@react-navigation/native";
 
-const PlantCard = ({ produce }) => {
+const PlantGroupCard = ({ plant }) => {
+  // console.log("ProduceGroup:", plant);
+
   const navigation = useNavigation();
 
   const shortenedTitle =
-    produce.name.length >= 25
-      ? `${produce.name.slice(0, 25)}...`
-      : produce.name;
+    plant.name.length >= 25 ? `${plant.name.slice(0, 25)}...` : plant.name;
 
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate("ProduceDetails", { item: produce })}
+      onPress={() =>
+        navigation.navigate("SowDetails", {
+          produce: plant.produce,
+          name: plant.name,
+          description: plant.description,
+        })
+      }
     >
       <View style={styles.card}>
         <View style={styles.imageContainer}>
           <Image
-            source={{ uri: produce.image }}
+            source={{ uri: plant.image }}
             style={styles.image}
             resizeMode="cover"
           />
         </View>
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>
-            {shortenedTitle[0].toUpperCase() + shortenedTitle.slice(1)}
-          </Text>
-          {produce.family && (
-            <Text style={styles.subTitle}>{produce.family}</Text>
-          )}
+          <Text style={styles.title}>{`${shortenedTitle}`}</Text>
         </View>
       </View>
     </TouchableOpacity>
   );
 };
 
-export default PlantCard;
-
 const styles = StyleSheet.create({
   card: {
-    flex: 1,
     height: 220,
+    width: "100%",
+    marginVertical: theme.spacing.medium,
     backgroundColor: theme.colors.background,
     borderRadius: 10,
     overflow: "hidden",
@@ -49,14 +49,13 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     height: 160,
-    minWidth: "100%",
+    width: "100%",
   },
   image: {
     height: "100%",
     width: "100%",
   },
   titleContainer: {
-    minWidth: "100%",
     height: 60,
     paddingHorizontal: 14,
     alignItems: "center",
@@ -68,10 +67,6 @@ const styles = StyleSheet.create({
     fontFamily: "nunito-bold",
     textAlign: "center",
   },
-  subTitle: {
-    color: theme.colors.textPrimary,
-    fontSize: 12,
-    fontFamily: "nunito-light",
-    textAlign: "center",
-  },
 });
+
+export default PlantGroupCard;

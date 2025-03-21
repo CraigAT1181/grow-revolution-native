@@ -25,7 +25,7 @@ const MainTabs = ({ selectedTab, setSelectedTab }) => {
   return (
     <Tab.Navigator
       screenOptions={{
-        headerLeft: () => (
+        headerRight: () => (
           <TouchableOpacity
             onPress={() => navigation.toggleDrawer()}
             style={{ marginLeft: 15 }}

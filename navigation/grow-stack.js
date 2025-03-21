@@ -4,10 +4,14 @@ import ProduceDetails from "../screens/produce-details";
 import SowDetails from "../screens/sow-details";
 import JobDetails from "../screens/job-details";
 import GrowSearch from "../screens/grow-search";
+import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+import { TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 const Stack = createStackNavigator();
 
 const GrowStack = () => {
+  const navigation = useNavigation();
   return (
     <Stack.Navigator
       screenOptions={{
@@ -27,8 +31,17 @@ const GrowStack = () => {
         component={SowDetails}
         options={({ route }) => ({
           headerShown: true,
+
+          headerBackImage: () => (
+            <FontAwesome5
+              name="arrow-left"
+              size={20}
+              color="white"
+              style={{ top: 30, left: 20 }}
+            />
+          ),
           title: route.params.title || "",
-          headerTransparent: false,
+          headerTransparent: true,
         })}
       />
       <Stack.Screen
