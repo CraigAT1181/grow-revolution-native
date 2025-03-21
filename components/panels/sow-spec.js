@@ -1,58 +1,30 @@
 import React, { useState, useEffect } from "react";
 import { View, Text } from "react-native";
 import { colours } from "../../styles/global";
+import { object } from "yup";
 
 const SowSpec = ({ spec }) => {
-  const [data, setData] = useState({
-    sowIndoors: [],
-    sowUnderCover: [],
-    sowOutdoors: [],
-    transplant: [],
-    plantOut: [],
-    harvest: [],
-  });
+  const [data, setData] = useState({});
 
   const months = ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"];
   const colors = {
-    sowIndoors: "blue",
-    sowUnderCover: "red",
-    sowOutdoors: "green",
-    transplant: "cyan",
-    plantOut: "purple",
-    harvest: "orange",
+    "sow indoors": "#7AA2E3", // Soft Cornflower Blue
+    "sow undercover": "#E6A4B4", // Muted Rose
+    "sow outdoors": "#9BCF53", // Sage Green
+    transplant: "#A3D8F4", // Light Sky Blue
+    "plant out": "#C49BBB", // Dusty Lavender
+    harvest: "#EEC373", // Warm Goldenrod
   };
+  // console.log("spec", spec);
 
   useEffect(() => {
     try {
       const updateSpec = async () => {
-        let newData = {
-          sowIndoors: [],
-          sowUnderCover: [],
-          sowOutdoors: [],
-          transplant: [],
-          plantOut: [],
-          harvest: [],
-        };
+        let newData = {};
 
-        spec.forEach((item) => {
-          if (item.action === "sow indoors") {
-            newData.sowIndoors.push(item.month_id);
-          }
-          if (item.action === "sow undercover") {
-            newData.sowUnderCover.push(item.month_id);
-          }
-          if (item.action === "sow outdoors") {
-            newData.sowOutdoors.push(item.month_id);
-          }
-          if (item.action === "transplant") {
-            newData.transplant.push(item.month_id);
-          }
-          if (item.action === "plant out") {
-            newData.plantOut.push(item.month_id);
-          }
-          if (item.action === "harvest") {
-            newData.harvest.push(item.month_id);
-          }
+        spec.forEach(({ action, month_id }) => {
+          if (!newData[action]) newData[action] = [];
+          newData[action].push(month_id);
         });
 
         setData(newData);
@@ -62,6 +34,7 @@ const SowSpec = ({ spec }) => {
     } catch (error) {
       console.error("Unable to update spec:", error);
     }
+    console.log("data", data);
   }, [spec]);
 
   return (
@@ -94,10 +67,11 @@ const SowSpec = ({ spec }) => {
                   <View
                     key={key}
                     style={{
-                      width: 20,
-                      height: 12,
+                      width: 14,
+                      height: 14,
+                      borderRadius: 7,
                       backgroundColor: colors[key],
-                      marginVertical: 1,
+                      marginVertical: 2,
                     }}
                   />
                 ) : null
@@ -115,7 +89,7 @@ const SowSpec = ({ spec }) => {
           marginTop: 10,
         }}
       >
-        {Object.keys(colors).map((key) => (
+        {Object.keys(data).map((key) => (
           <View
             key={key}
             style={{
@@ -127,8 +101,9 @@ const SowSpec = ({ spec }) => {
           >
             <View
               style={{
-                width: 10,
-                height: 10,
+                width: 8,
+                height: 8,
+                borderRadius: 4,
                 backgroundColor: colors[key],
                 marginRight: 5,
               }}
