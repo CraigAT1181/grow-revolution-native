@@ -11,11 +11,7 @@ const ProduceDetailsMenu = ({ selectedTab, setSelectedTab }) => {
         <FontAwesome5
           name={"seedling"}
           size={25}
-          color={
-            selectedTab === 1
-              ? theme.colors.textOnPrimary
-              : theme.colors.secondary
-          }
+          color={theme.colors.secondary}
         />
       ),
       label: "Planting",
@@ -23,15 +19,7 @@ const ProduceDetailsMenu = ({ selectedTab, setSelectedTab }) => {
     {
       id: 2,
       tabIcon: (
-        <FontAwesome5
-          name={"cut"}
-          size={25}
-          color={
-            selectedTab === 2
-              ? theme.colors.textOnPrimary
-              : theme.colors.secondary
-          }
-        />
+        <FontAwesome5 name={"cut"} size={25} color={theme.colors.secondary} />
       ),
       label: "Harvesting",
     },
@@ -41,14 +29,32 @@ const ProduceDetailsMenu = ({ selectedTab, setSelectedTab }) => {
         <FontAwesome5
           name={"handshake"}
           size={25}
-          color={
-            selectedTab === 3
-              ? theme.colors.textOnPrimary
-              : theme.colors.secondary
-          }
+          color={theme.colors.secondary}
         />
       ),
       label: "Companions",
+    },
+    {
+      id: 4,
+      tabIcon: (
+        <FontAwesome5
+          name={"hand-holding-medical"}
+          size={25}
+          color={theme.colors.secondary}
+        />
+      ),
+      label: "Care",
+    },
+    {
+      id: 5,
+      tabIcon: (
+        <FontAwesome5
+          name={"mortar-pestle"}
+          size={25}
+          color={theme.colors.secondary}
+        />
+      ),
+      label: "Uses",
     },
   ];
   return (
@@ -57,21 +63,10 @@ const ProduceDetailsMenu = ({ selectedTab, setSelectedTab }) => {
         {menuIcons.map((item) => (
           <TouchableOpacity
             key={item.id}
-            style={[
-              styles.tab,
-              selectedTab === item.id
-                ? item.id === 1
-                  ? styles.activeTabOne
-                  : item.id === 2
-                  ? styles.activeTabTwo
-                  : item.id === 3
-                  ? styles.activeTabThree
-                  : null
-                : null,
-            ]}
+            style={[styles.tab, selectedTab === item.id && styles.activeTab]}
             onPress={() => setSelectedTab(item.id)}
           >
-            <View style={styles.iconContainer}>{item.tabIcon}</View>
+            <View>{item.tabIcon}</View>
             <Text
               style={[
                 styles.tabText,
@@ -105,34 +100,20 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     paddingVertical: 15,
-    marginVertical: 5,
+    marginTop: 5,
+    marginBottom: 15,
   },
-  activeTabOne: {
-    backgroundColor: theme.colors.secondary,
-    elevation: 6,
-    borderTopStartRadius: 10,
-  },
-  activeTabTwo: {
-    backgroundColor: theme.colors.secondary,
-    elevation: 6,
-  },
-  activeTabThree: {
-    backgroundColor: theme.colors.secondary,
-    elevation: 6,
-    borderTopEndRadius: 10,
+  activeTab: {
+    borderBottomWidth: 2,
+    borderBottomColor: theme.colors.secondary,
   },
   tabText: {
-    fontSize: 14,
+    fontSize: 11,
     color: theme.colors.secondary,
     marginTop: 5,
     fontFamily: "nunito-normal",
   },
   activeTabText: {
-    color: theme.colors.background,
     fontFamily: "nunito-bold",
-  },
-  iconContainer: {
-    justifyContent: "center",
-    alignItems: "center",
   },
 });
