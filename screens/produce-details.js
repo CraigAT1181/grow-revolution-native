@@ -1,20 +1,41 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, ImageBackground } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ImageBackground,
+  TouchableOpacity,
+} from "react-native";
 import { theme, globalStyles } from "../styles/global";
 import { ScrollView } from "react-native-gesture-handler";
 import SowSpec from "../components/panels/sow-spec";
 import PlantingGuide from "../components/panels/planting-guide";
 import ProduceDetailsMenu from "../components/menu-bars/produce-details-menu";
-import ProduceBar from "../components/menu-bars/produce-bar";
+import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
 const ProduceDetails = ({ produceItem, route }) => {
   const item = route?.params?.item || produceItem;
   const [selectedTab, setSelectedTab] = useState(1);
+  const [contentTabA, setContentTabA] = useState(0);
+  const [contentTabB, setContentTabB] = useState(0);
+  const [contentTabC, setContentTabC] = useState(0);
+
+  const toggleContentA = () => {
+    setContentTabA(!contentTabA);
+  };
+
+  const toggleContentB = () => {
+    setContentTabB(!contentTabB);
+  };
+
+  const toggleContentC = () => {
+    setContentTabC(!contentTabC);
+  };
 
   return (
     <ScrollView
-      contentContainerStyle={globalStyles.container}
-      showsVerticalScrollIndicator={false}
+      style={styles.container}
+      contentContainerStyle={{ flexGrow: 1 }}
       keyboardShouldPersistTaps="handled"
     >
       <ImageBackground source={{ uri: item.image }} style={styles.bannerImage}>
@@ -26,9 +47,7 @@ const ProduceDetails = ({ produceItem, route }) => {
       </ImageBackground>
 
       <View>
-        <Text style={[globalStyles.textCentered, { marginBottom: 10 }]}>
-          {item.description}
-        </Text>
+        <Text style={styles.description}>{item.description}</Text>
       </View>
 
       <ProduceDetailsMenu
@@ -45,6 +64,94 @@ const ProduceDetails = ({ produceItem, route }) => {
               spacing={item.spacing}
               rowDistance={item.row_distance}
             />
+
+            <View style={{ marginBottom: 20 }}>
+              <View>
+                <TouchableOpacity
+                  style={{
+                    paddingVertical: 10,
+                    paddingHorizontal: 20,
+                    borderWidth: 1,
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                  }}
+                  onPress={() => toggleContentA()}
+                >
+                  <View>
+                    <Text>Location</Text>
+                  </View>
+                  <View>
+                    <FontAwesome5
+                      name={contentTabA === 0 ? "chevron-up" : "chevron-down"}
+                      size={16}
+                      style={styles.icon}
+                    />
+                  </View>
+                </TouchableOpacity>
+                {contentTabA && (
+                  <View>
+                    <Text>{item.location}</Text>
+                  </View>
+                )}
+              </View>
+              <View>
+                <TouchableOpacity
+                  style={{
+                    paddingVertical: 10,
+                    paddingHorizontal: 20,
+                    borderWidth: 1,
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                  }}
+                  onPress={() => toggleContentB()}
+                >
+                  <View>
+                    <Text>Sowing</Text>
+                  </View>
+                  <View>
+                    <FontAwesome5
+                      name={contentTabB === 1 ? "chevron-up" : "chevron-down"}
+                      size={16}
+                      style={styles.icon}
+                    />
+                  </View>
+                </TouchableOpacity>
+                {contentTabB && (
+                  <View>
+                    <Text>{item.sowing}</Text>
+                  </View>
+                )}
+              </View>
+              <View>
+                <TouchableOpacity
+                  style={{
+                    paddingVertical: 10,
+                    paddingHorizontal: 20,
+                    borderWidth: 1,
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                  }}
+                  onPress={() => toggleContentC()}
+                >
+                  <View>
+                    <Text>Tips</Text>
+                  </View>
+                  <View>
+                    <FontAwesome5
+                      name={contentTabC === 2 ? "chevron-up" : "chevron-down"}
+                      size={16}
+                      style={styles.icon}
+                    />
+                  </View>
+                </TouchableOpacity>
+                {contentTabC && (
+                  <View>
+                    <Text>{item.tips}</Text>
+                  </View>
+                )}
+              </View>
+            </View>
+            {/* 
             <View style={globalStyles.paragraph}>
               <Text style={globalStyles.titleTextCentered}>Location</Text>
               <Text style={globalStyles.textCentered}>{item.location}</Text>
@@ -56,7 +163,7 @@ const ProduceDetails = ({ produceItem, route }) => {
             <View style={globalStyles.paragraph}>
               <Text style={globalStyles.titleTextCentered}>Quick Tip</Text>
               <Text style={globalStyles.textCentered}>{item.tips}</Text>
-            </View>
+            </View> */}
           </View>
         )}
 
@@ -75,25 +182,38 @@ const ProduceDetails = ({ produceItem, route }) => {
 export default ProduceDetails;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: theme.colors.background,
+  },
   bannerImage: {
+    minHeight: 400,
     width: "100%",
-    height: 150,
-    opacity: 0.5,
-    borderRadius: 10,
-    marginBottom: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingTop: 40,
   },
   banner: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: "rgba(0,0,0,0.5)",
+    padding: 10,
+    width: 220,
+    borderRadius: 10,
   },
   bannerText: {
-    backgroundColor: theme.colors.background,
+    fontFamily: "nunito-thin",
+    fontSize: 32,
+    color: theme.colors.textOnPrimary,
+    textAlign: "center",
+  },
+  description: {
+    fontSize: 18,
+    fontFamily: "nunito-regular",
+    textAlign: "center",
+    lineHeight: 25,
+    marginVertical: 20,
     padding: 10,
-    paddingHorizontal: 30,
-    fontSize: 28,
-    fontFamily: "nunito-bold",
-    borderRadius: 10,
-    borderColor: theme.colors.secondary,
+  },
+  icon: {
+    color: theme.colors.textOnBackground,
   },
 });

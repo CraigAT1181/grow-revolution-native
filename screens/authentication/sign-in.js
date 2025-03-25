@@ -46,7 +46,7 @@ const SignInScreen = ({ navigation }) => {
   }, []);
 
   return (
-    <View style={globalStyles.container}>
+    <View style={globalStyles.screen}>
       <View style={globalStyles.form}>
         <Formik
           initialValues={{

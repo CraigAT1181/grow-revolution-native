@@ -4,7 +4,12 @@ import { globalStyles } from "../styles/global";
 
 const AdPage = () => {
   return (
-    <View style={globalStyles.screen}>
+    <View
+      style={[
+        globalStyles.screen,
+        { justifyContent: "center", alignItems: "center" },
+      ]}
+    >
       <Text style={globalStyles.text}>Ad screen.</Text>
     </View>
   );

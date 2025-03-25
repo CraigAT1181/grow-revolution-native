@@ -81,7 +81,7 @@ export const globalStyles = StyleSheet.create({
   container: {
     flexGrow: 1,
     padding: 20,
-    backgroundColor: theme.colors.secondary,
+    backgroundColor: theme.colors.background,
   },
   titleContainer: {
     backgroundColor: theme.colors.secondary,

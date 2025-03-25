@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, TouchableOpacity, View, Text } from "react-native";
-import { colours } from "../../styles/global";
+import { theme } from "../../styles/global";
 
 const PrimaryButton = ({ text, onPress, loading }) => {
   return (
@@ -21,10 +21,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginHorizontal: 50,
     marginVertical: 10,
-    backgroundColor: colours.primary,
+    backgroundColor: theme.colors.primary,
   },
   buttonText: {
-    color: colours.white,
+    color: theme.colors.textOnPrimary,
     fontWeight: "bold",
     textTransform: "uppercase",
     fontSize: 16,

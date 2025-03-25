@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   FlatList,
   View,
@@ -7,8 +7,6 @@ import {
   StyleSheet,
   ImageBackground,
 } from "react-native";
-import ProduceBar from "../components/menu-bars/produce-bar";
-import ProduceDetails from "./produce-details";
 import PlantCard from "../components/cards/PlantCard";
 import { theme } from "../styles/global";
 
@@ -74,13 +72,20 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: "nunito-thin",
     fontSize: 32,
-    color: "white",
+    color: theme.colors.textOnPrimary,
     textAlign: "center",
   },
   description: {
     fontSize: 18,
     fontFamily: "nunito-regular",
     textAlign: "center",
+    description: {
+      fontSize: 18,
+      fontFamily: "nunito-regular",
+      textAlign: "center",
+      lineHeight: 25,
+      marginVertical: 20,
+    },
     lineHeight: 25,
     marginVertical: 20,
   },
