@@ -63,14 +63,14 @@ const ProduceDetailsMenu = ({ selectedTab, setSelectedTab }) => {
         {menuIcons.map((item) => (
           <TouchableOpacity
             key={item.id}
-            style={[styles.tab, selectedTab === item.id && styles.activeTab]}
-            onPress={() => setSelectedTab(item.id)}
+            style={[styles.tab, selectedTab === item.label && styles.activeTab]}
+            onPress={() => setSelectedTab(item.label)}
           >
             <View>{item.tabIcon}</View>
             <Text
               style={[
                 styles.tabText,
-                selectedTab === item.id && styles.activeTabText,
+                selectedTab === item.label && styles.activeTabText,
               ]}
             >
               {item.label}

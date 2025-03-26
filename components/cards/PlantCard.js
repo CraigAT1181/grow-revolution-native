@@ -28,7 +28,7 @@ const PlantCard = ({ produce }) => {
             {shortenedTitle[0].toUpperCase() + shortenedTitle.slice(1)}
           </Text>
           {produce.family && (
-            <Text style={styles.subTitle}>{produce.family}</Text>
+            <Text style={styles.subTitle}>{produce.category}</Text>
           )}
         </View>
       </View>

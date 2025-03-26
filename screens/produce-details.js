@@ -5,6 +5,7 @@ import {
   StyleSheet,
   ImageBackground,
   TouchableOpacity,
+  FlatList,
 } from "react-native";
 import { theme, globalStyles } from "../styles/global";
 import { ScrollView } from "react-native-gesture-handler";
@@ -12,10 +13,11 @@ import SowSpec from "../components/panels/sow-spec";
 import PlantingGuide from "../components/panels/planting-guide";
 import ProduceDetailsMenu from "../components/menu-bars/produce-details-menu";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+import PlantCard from "../components/cards/PlantCard";
 
 const ProduceDetails = ({ produceItem, route }) => {
   const item = route?.params?.item || produceItem;
-  const [selectedTab, setSelectedTab] = useState(1);
+  const [selectedTab, setSelectedTab] = useState("Planting");
   const [contentTabA, setContentTabA] = useState(0);
   const [contentTabB, setContentTabB] = useState(0);
   const [contentTabC, setContentTabC] = useState(0);
@@ -55,8 +57,8 @@ const ProduceDetails = ({ produceItem, route }) => {
         setSelectedTab={setSelectedTab}
       />
 
-      <View>
-        {selectedTab === 1 && (
+      <View style={{ minHeight: 500 }}>
+        {selectedTab === "Planting" && (
           <View>
             <SowSpec spec={item.produce_months} />
             <PlantingGuide
@@ -71,110 +73,163 @@ const ProduceDetails = ({ produceItem, route }) => {
                   style={{
                     paddingVertical: 10,
                     paddingHorizontal: 20,
-                    borderWidth: 1,
+                    elevation: 1,
                     flexDirection: "row",
                     justifyContent: "space-between",
                   }}
                   onPress={() => toggleContentA()}
                 >
-                  <View>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                    }}
+                  >
+                    <View
+                      style={{
+                        width: 40,
+                        alignItems: "center",
+                        marginRight: 10,
+                      }}
+                    >
+                      <FontAwesome5 name={"map-marker"} size={16} />
+                    </View>
                     <Text>Location</Text>
                   </View>
                   <View>
                     <FontAwesome5
-                      name={contentTabA === 0 ? "chevron-up" : "chevron-down"}
+                      name={contentTabA ? "chevron-up" : "chevron-down"}
                       size={16}
-                      style={styles.icon}
+                      style={styles.chevron}
                     />
                   </View>
                 </TouchableOpacity>
                 {contentTabA && (
-                  <View>
-                    <Text>{item.location}</Text>
+                  <View style={{ paddingVertical: 10, paddingHorizontal: 30 }}>
+                    <Text>
+                      {item.location ?? "No location information available."}
+                    </Text>
                   </View>
                 )}
               </View>
+              <View style={styles.hr} />
               <View>
                 <TouchableOpacity
                   style={{
                     paddingVertical: 10,
                     paddingHorizontal: 20,
-                    borderWidth: 1,
+                    elevation: 1,
                     flexDirection: "row",
                     justifyContent: "space-between",
                   }}
                   onPress={() => toggleContentB()}
                 >
-                  <View>
-                    <Text>Sowing</Text>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                    }}
+                  >
+                    <View
+                      style={{
+                        width: 40,
+                        alignItems: "center",
+                        marginRight: 10,
+                      }}
+                    >
+                      <FontAwesome5 name={"seedling"} size={16} />
+                    </View>
+                    <Text>Propagation</Text>
                   </View>
                   <View>
                     <FontAwesome5
-                      name={contentTabB === 1 ? "chevron-up" : "chevron-down"}
+                      name={contentTabB ? "chevron-up" : "chevron-down"}
                       size={16}
-                      style={styles.icon}
+                      style={styles.chevron}
                     />
                   </View>
                 </TouchableOpacity>
                 {contentTabB && (
-                  <View>
-                    <Text>{item.sowing}</Text>
+                  <View style={{ paddingVertical: 10, paddingHorizontal: 30 }}>
+                    <Text>
+                      {item.sowing ?? "No sowing information available."}
+                    </Text>
                   </View>
                 )}
               </View>
+              <View style={styles.hr} />
               <View>
                 <TouchableOpacity
                   style={{
                     paddingVertical: 10,
                     paddingHorizontal: 20,
-                    borderWidth: 1,
+                    elevation: 1,
                     flexDirection: "row",
                     justifyContent: "space-between",
                   }}
                   onPress={() => toggleContentC()}
                 >
-                  <View>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                    }}
+                  >
+                    <View
+                      style={{
+                        width: 40,
+                        alignItems: "center",
+                        marginRight: 10,
+                      }}
+                    >
+                      <FontAwesome5 name={"exclamation"} size={16} />
+                    </View>
                     <Text>Tips</Text>
                   </View>
                   <View>
                     <FontAwesome5
-                      name={contentTabC === 2 ? "chevron-up" : "chevron-down"}
+                      name={contentTabC ? "chevron-up" : "chevron-down"}
                       size={16}
-                      style={styles.icon}
+                      style={styles.chevron}
                     />
                   </View>
                 </TouchableOpacity>
                 {contentTabC && (
-                  <View>
-                    <Text>{item.tips}</Text>
+                  <View style={{ paddingVertical: 10, paddingHorizontal: 30 }}>
+                    <Text>{item.tips ?? "No tips information available."}</Text>
                   </View>
                 )}
               </View>
             </View>
-            {/* 
-            <View style={globalStyles.paragraph}>
-              <Text style={globalStyles.titleTextCentered}>Location</Text>
-              <Text style={globalStyles.textCentered}>{item.location}</Text>
-            </View>
-            <View style={globalStyles.paragraph}>
-              <Text style={globalStyles.titleTextCentered}>Sowing</Text>
-              <Text style={globalStyles.textCentered}>{item.sowing}</Text>
-            </View>
-            <View style={globalStyles.paragraph}>
-              <Text style={globalStyles.titleTextCentered}>Quick Tip</Text>
-              <Text style={globalStyles.textCentered}>{item.tips}</Text>
-            </View> */}
           </View>
         )}
 
-        {selectedTab === 2 && (
+        {selectedTab === "Harvesting" && (
           <View>
             <Text style={globalStyles.textCentered}>{item.harvesting}</Text>
           </View>
         )}
-      </View>
 
-      {/* {selectedTab === 3 && <ProduceBar produce={item.companions} />*/}
+        {selectedTab === "Companions" && (
+          <View style={{ minHeight: 220 }}>
+            <FlatList
+              data={item.companions}
+              keyExtractor={(item) => item.produce_id}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={styles.menuData}
+              renderItem={({ item }) => (
+                <View style={styles.cardContainer}>
+                  <PlantCard produce={item} />
+                </View>
+              )}
+            />
+          </View>
+        )}
+
+        {/* {
+          selectedTab === "Care" && (
+
+          )
+        } */}
+      </View>
     </ScrollView>
   );
 };
@@ -213,7 +268,19 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     padding: 10,
   },
-  icon: {
+  chevron: {
     color: theme.colors.textOnBackground,
+  },
+  cardContainer: {
+    paddingHorizontal: 6,
+    width: 200,
+    height: "auto",
+  },
+  hr: {
+    height: 1,
+    width: "80%",
+    alignSelf: "center",
+    marginVertical: 10,
+    backgroundColor: "#ccc",
   },
 });

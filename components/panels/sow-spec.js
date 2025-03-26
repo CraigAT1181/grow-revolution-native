@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, Text } from "react-native";
-import { colours } from "../../styles/global";
-import { object } from "yup";
+import { theme } from "../../styles/global";
 
 const SowSpec = ({ spec }) => {
   const [data, setData] = useState({});
@@ -41,7 +40,7 @@ const SowSpec = ({ spec }) => {
     <View
       style={{
         alignItems: "center",
-        backgroundColor: colours.background,
+        backgroundColor: theme.colors.background,
         paddingBottom: 10,
         borderRadius: 10,
         marginBottom: 30,
@@ -63,7 +62,7 @@ const SowSpec = ({ spec }) => {
               }}
             >
               {Object.keys(data).map((key) =>
-                data[key].includes(index) ? (
+                Array.isArray(data[key]) && data[key].includes(index) ? (
                   <View
                     key={key}
                     style={{
