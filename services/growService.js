@@ -32,7 +32,6 @@ export const fetchMonthlyJobs = async (monthId) => {
 export const fetchMonthlyData = async (monthId) => {
   try {
     const { data } = await api.get(`/grow/months/${monthId}/data`);
-    console.log("monthly data:", data);
 
     return data;
   } catch (error) {
@@ -43,6 +42,16 @@ export const fetchMonthlyData = async (monthId) => {
 export const fetchAllProduce = async () => {
   try {
     const { data } = await api.get("/grow/produce");
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const fetchProduceById = async (produceId) => {
+  try {
+    const { data } = await api.get(`/grow/produce/${produceId}`);
 
     return data;
   } catch (error) {

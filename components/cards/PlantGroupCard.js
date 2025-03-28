@@ -4,8 +4,6 @@ import { theme } from "../../styles/global";
 import { useNavigation } from "@react-navigation/native";
 
 const PlantGroupCard = ({ plant }) => {
-  // console.log("ProduceGroup:", plant);
-
   const navigation = useNavigation();
 
   const shortenedTitle =

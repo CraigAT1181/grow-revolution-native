@@ -4,6 +4,7 @@ import {
   fetchMonths,
   fetchMonthlyData,
   fetchAllProduce,
+  fetchProduceById,
 } from "../services/growService";
 
 const GrowContext = createContext();
@@ -14,6 +15,7 @@ const GrowProvider = ({ children }) => {
   const [cropsToSow, setCropsToSow] = useState([]);
   const [produceList, setProduceList] = useState([]);
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
+  const [currentItem, setCurrentItem] = useState();
 
   useEffect(() => {
     const init = async () => {
@@ -96,6 +98,19 @@ const GrowProvider = ({ children }) => {
     }
   };
 
+  const handleFetchCurrentItem = async (produceId) => {
+    try {
+      const data = await fetchProduceById(produceId);
+
+      setCurrentItem(data);
+
+      return data;
+    } catch (error) {
+      console.error("Error fetching current item:", error);
+      throw error;
+    }
+  };
+
   const clearCache = async () => {
     try {
       const keys = await AsyncStorage.getAllKeys();
@@ -120,6 +135,8 @@ const GrowProvider = ({ children }) => {
         handleFetchMonthlyData,
         selectedMonth,
         setSelectedMonth,
+        currentItem,
+        handleFetchCurrentItem,
       }}
     >
       {children}

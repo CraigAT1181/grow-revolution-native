@@ -8,7 +8,10 @@ import {
   FlatList,
 } from "react-native";
 import { theme, globalStyles } from "../styles/global";
-import { ScrollView } from "react-native-gesture-handler";
+import {
+  enableLegacyWebImplementation,
+  ScrollView,
+} from "react-native-gesture-handler";
 import SowSpec from "../components/panels/sow-spec";
 import PlantingGuide from "../components/panels/planting-guide";
 import ProduceDetailsMenu from "../components/menu-bars/produce-details-menu";
@@ -18,21 +21,18 @@ import PlantCard from "../components/cards/PlantCard";
 const ProduceDetails = ({ produceItem, route }) => {
   const item = route?.params?.item || produceItem;
   const [selectedTab, setSelectedTab] = useState("Planting");
-  const [contentTabA, setContentTabA] = useState(0);
-  const [contentTabB, setContentTabB] = useState(0);
-  const [contentTabC, setContentTabC] = useState(0);
 
-  const toggleContentA = () => {
-    setContentTabA(!contentTabA);
-  };
+  // State to manage visibility of each section
+  const [contentTabA, setContentTabA] = useState(false);
+  const [contentTabB, setContentTabB] = useState(false);
+  const [contentTabC, setContentTabC] = useState(false);
 
-  const toggleContentB = () => {
-    setContentTabB(!contentTabB);
-  };
+  // Toggle functions for each section
+  const toggleContentA = () => setContentTabA(!contentTabA);
+  const toggleContentB = () => setContentTabB(!contentTabB);
+  const toggleContentC = () => setContentTabC(!contentTabC);
 
-  const toggleContentC = () => {
-    setContentTabC(!contentTabC);
-  };
+  console.log("Produce Item:", item);
 
   return (
     <ScrollView
@@ -49,7 +49,7 @@ const ProduceDetails = ({ produceItem, route }) => {
       </ImageBackground>
 
       <View>
-        <Text style={styles.description}>{item.description}</Text>
+        <Text style={styles.text}>{item.description}</Text>
       </View>
 
       <ProduceDetailsMenu
@@ -66,137 +66,37 @@ const ProduceDetails = ({ produceItem, route }) => {
               spacing={item.spacing}
               rowDistance={item.row_distance}
             />
-
             <View style={{ marginBottom: 20 }}>
-              <View>
-                <TouchableOpacity
-                  style={{
-                    paddingVertical: 10,
-                    paddingHorizontal: 20,
-                    elevation: 1,
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                  }}
-                  onPress={() => toggleContentA()}
-                >
-                  <View
-                    style={{
-                      flexDirection: "row",
-                    }}
-                  >
-                    <View
-                      style={{
-                        width: 40,
-                        alignItems: "center",
-                        marginRight: 10,
-                      }}
-                    >
-                      <FontAwesome5 name={"map-marker"} size={16} />
-                    </View>
-                    <Text>Location</Text>
-                  </View>
-                  <View>
-                    <FontAwesome5
-                      name={contentTabA ? "chevron-up" : "chevron-down"}
-                      size={16}
-                      style={styles.chevron}
-                    />
-                  </View>
-                </TouchableOpacity>
-                {contentTabA && (
-                  <View style={{ paddingVertical: 10, paddingHorizontal: 30 }}>
-                    <Text>
-                      {item.location ?? "No location information available."}
-                    </Text>
-                  </View>
-                )}
-              </View>
+              {/* Location Section */}
+              <SectionToggle
+                title="Location"
+                icon="map-marker"
+                content={item.location}
+                isVisible={contentTabA}
+                toggleVisibility={toggleContentA}
+              />
+
               <View style={styles.hr} />
-              <View>
-                <TouchableOpacity
-                  style={{
-                    paddingVertical: 10,
-                    paddingHorizontal: 20,
-                    elevation: 1,
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                  }}
-                  onPress={() => toggleContentB()}
-                >
-                  <View
-                    style={{
-                      flexDirection: "row",
-                    }}
-                  >
-                    <View
-                      style={{
-                        width: 40,
-                        alignItems: "center",
-                        marginRight: 10,
-                      }}
-                    >
-                      <FontAwesome5 name={"seedling"} size={16} />
-                    </View>
-                    <Text>Propagation</Text>
-                  </View>
-                  <View>
-                    <FontAwesome5
-                      name={contentTabB ? "chevron-up" : "chevron-down"}
-                      size={16}
-                      style={styles.chevron}
-                    />
-                  </View>
-                </TouchableOpacity>
-                {contentTabB && (
-                  <View style={{ paddingVertical: 10, paddingHorizontal: 30 }}>
-                    <Text>
-                      {item.sowing ?? "No sowing information available."}
-                    </Text>
-                  </View>
-                )}
-              </View>
+
+              {/* Propagation Section */}
+              <SectionToggle
+                title="Propagation"
+                icon="seedling"
+                content={item.sowing}
+                isVisible={contentTabB}
+                toggleVisibility={toggleContentB}
+              />
+
               <View style={styles.hr} />
-              <View>
-                <TouchableOpacity
-                  style={{
-                    paddingVertical: 10,
-                    paddingHorizontal: 20,
-                    elevation: 1,
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                  }}
-                  onPress={() => toggleContentC()}
-                >
-                  <View
-                    style={{
-                      flexDirection: "row",
-                    }}
-                  >
-                    <View
-                      style={{
-                        width: 40,
-                        alignItems: "center",
-                        marginRight: 10,
-                      }}
-                    >
-                      <FontAwesome5 name={"exclamation"} size={16} />
-                    </View>
-                    <Text>Tips</Text>
-                  </View>
-                  <View>
-                    <FontAwesome5
-                      name={contentTabC ? "chevron-up" : "chevron-down"}
-                      size={16}
-                      style={styles.chevron}
-                    />
-                  </View>
-                </TouchableOpacity>
-                {contentTabC && (
-                  <View style={{ paddingVertical: 10, paddingHorizontal: 30 }}>
-                    <Text>{item.tips ?? "No tips information available."}</Text>
-                  </View>
-                )}
-              </View>
+
+              {/* Tips Section */}
+              <SectionToggle
+                title="Tips"
+                icon="exclamation"
+                content={item.tips}
+                isVisible={contentTabC}
+                toggleVisibility={toggleContentC}
+              />
             </View>
           </View>
         )}
@@ -208,33 +108,96 @@ const ProduceDetails = ({ produceItem, route }) => {
         )}
 
         {selectedTab === "Companions" && (
-          <View style={{ minHeight: 220 }}>
-            <FlatList
-              data={item.companions}
-              keyExtractor={(item) => item.produce_id}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              contentContainerStyle={styles.menuData}
-              renderItem={({ item }) => (
-                <View style={styles.cardContainer}>
-                  <PlantCard produce={item} />
-                </View>
-              )}
-            />
+          <View>
+            <View style={{ minHeight: 220 }}>
+              <FlatList
+                data={item.companionList}
+                keyExtractor={(item) => item.produce_id}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={styles.menuData}
+                renderItem={({ item }) => (
+                  <View style={styles.cardContainer}>
+                    <PlantCard produce={item} />
+                  </View>
+                )}
+              />
+            </View>
+            <View>
+              <Text style={styles.text}>{item.companions}</Text>
+            </View>
           </View>
         )}
 
-        {/* {
-          selectedTab === "Care" && (
+        {selectedTab === "Care" && (
+          <View>
+            <Text style={styles.text}>{item.care}</Text>
+          </View>
+        )}
 
-          )
-        } */}
+        {selectedTab === "Uses" && (
+          <View>
+            {item.uses.map((use) => (
+              <View
+                key={use.name}
+                style={{
+                  alignItems: "center",
+
+                  padding: 10,
+                  margin: 10,
+                }}
+              >
+                <FontAwesome5
+                  name={use.uses.icon}
+                  size={48}
+                  style={styles.useIcon}
+                />
+                <Text style={[styles.text, { fontFamily: "nunito-bold" }]}>
+                  {use.uses.name}
+                </Text>
+                <Text style={styles.text}>{use.description}</Text>
+              </View>
+            ))}
+          </View>
+        )}
       </View>
     </ScrollView>
   );
 };
 
 export default ProduceDetails;
+
+const SectionToggle = ({
+  title,
+  icon,
+  content,
+  isVisible,
+  toggleVisibility,
+}) => {
+  return (
+    <View style={styles.section}>
+      <TouchableOpacity style={styles.toggleButton} onPress={toggleVisibility}>
+        <View style={styles.titleContainer}>
+          <View style={styles.iconContainer}>
+            <FontAwesome5 name={icon} size={16} />
+          </View>
+          <Text style={styles.titleText}>{title}</Text>
+        </View>
+
+        <FontAwesome5
+          name={isVisible ? "chevron-up" : "chevron-down"}
+          size={16}
+          style={styles.chevron}
+        />
+      </TouchableOpacity>
+      {isVisible && (
+        <View style={styles.content}>
+          <Text>{content ?? "No information available."}</Text>
+        </View>
+      )}
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -260,7 +223,7 @@ const styles = StyleSheet.create({
     color: theme.colors.textOnPrimary,
     textAlign: "center",
   },
-  description: {
+  text: {
     fontSize: 18,
     fontFamily: "nunito-regular",
     textAlign: "center",
@@ -268,19 +231,47 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     padding: 10,
   },
-  chevron: {
-    color: theme.colors.textOnBackground,
+  section: {
+    marginBottom: 10,
   },
+  toggleButton: {
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    elevation: 1,
+  },
+  titleContainer: {
+    flexDirection: "row",
+  },
+  titleText: {
+    fontSize: 16,
+  },
+  iconContainer: {
+    width: 40,
+    alignItems: "center",
+    marginRight: 10,
+  },
+  chevron: {
+    marginLeft: 10,
+  },
+  content: {
+    paddingVertical: 10,
+    paddingHorizontal: 30,
+  },
+
   cardContainer: {
     paddingHorizontal: 6,
     width: 200,
     height: "auto",
   },
   hr: {
-    height: 1,
-    width: "80%",
-    alignSelf: "center",
+    borderBottomWidth: 1,
+    borderColor: "#ddd",
     marginVertical: 10,
-    backgroundColor: "#ccc",
+  },
+  useIcon: {
+    color: theme.colors.secondary,
   },
 });

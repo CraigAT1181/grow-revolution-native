@@ -9,7 +9,6 @@ const GrowSearch = () => {
   useEffect(() => {
     handleFetchProduceList();
   }, []);
-  console.log(produceList);
 
   const sortedList = produceList.sort((a, b) => a.name.localeCompare(b.name));
 

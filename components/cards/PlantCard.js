@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { theme } from "../../styles/global";
 import { useNavigation } from "@react-navigation/native";
+import { useGrow } from "../../contexts/GrowContext";
 
 const PlantCard = ({ produce }) => {
   const navigation = useNavigation();

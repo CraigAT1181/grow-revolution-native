@@ -14,7 +14,6 @@ const SowSpec = ({ spec }) => {
     "plant out": "#C49BBB", // Dusty Lavender
     harvest: "#EEC373", // Warm Goldenrod
   };
-  // console.log("spec", spec);
 
   useEffect(() => {
     try {
@@ -33,7 +32,6 @@ const SowSpec = ({ spec }) => {
     } catch (error) {
       console.error("Unable to update spec:", error);
     }
-    console.log("data", data);
   }, [spec]);
 
   return (
