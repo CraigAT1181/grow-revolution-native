@@ -30,9 +30,8 @@ Grow Revolution is a mobile app designed to empower individuals and communities 
 
 ## 📂 Repo Structure
 
-```bash
+```
 grow-revolution-native/
-|
 ├── assets/          # Images, fonts, etc.
 ├── components/      # Reusable UI components
 ├── contexts/        # Global context providers
@@ -43,3 +42,29 @@ grow-revolution-native/
 ├── app.json         # Expo config
 ├── package.json
 └── README.md
+
+```
+
+## 🧪 Getting Started
+
+### Clone the repo
+
+- git clone https://github.com/CraigAT1181/grow-revolution-native.git
+- cd grow-revolution-native
+
+### Install dependencies
+
+- npm install
+
+### Start her up!
+
+- npm start
+- Press 'a' to connect to a USB-connected mobile phone with expo installed
+- Ensure that the backend is running (see below).
+
+---
+
+## 🌐 Related Repositories
+
+🔧 [Grow Revolution API (NestJS Backend)](https://github.com/CraigAT1181/grow-revolution-nest.git)
+
