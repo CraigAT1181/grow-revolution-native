@@ -66,13 +66,13 @@ const styles = StyleSheet.create({
   title: {
     color: theme.colors.textPrimary,
     fontSize: 16,
-    fontFamily: "nunito-bold",
+    fontFamily: "bold",
     textAlign: "center",
   },
   subTitle: {
     color: theme.colors.textPrimary,
     fontSize: 12,
-    fontFamily: "nunito-light",
+    fontFamily: "light",
     textAlign: "center",
   },
 });

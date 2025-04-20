@@ -22,101 +22,97 @@ const NewPassword = ({ accessToken }) => {
   const [error, setError] = useState(null);
 
   return (
-    <View style={globalStyles.container}>
-      <View style={globalStyles.form}>
-        <Formik
-          initialValues={{
-            email: "",
-            password: "",
-            repeatPassword: "",
-          }}
-          onSubmit={async (values) => {
-            setIsLoading(true);
-            try {
-              console.log(values);
-            } catch (error) {
-              const errorMessage =
-                error.response?.data?.message ||
-                error.message ||
-                "An unexpected error occured, please try again.";
-              setError(errorMessage);
-            } finally {
-              setIsLoading(false);
-            }
-          }}
-          validationSchema={validationSchema}
-        >
-          {(formikProps) => (
+    <View style={globalStyles.form}>
+      <Formik
+        initialValues={{
+          email: "",
+          password: "",
+          repeatPassword: "",
+        }}
+        onSubmit={async (values) => {
+          setIsLoading(true);
+          try {
+            console.log(values);
+          } catch (error) {
+            const errorMessage =
+              error.response?.data?.message ||
+              error.message ||
+              "An unexpected error occured, please try again.";
+            setError(errorMessage);
+          } finally {
+            setIsLoading(false);
+          }
+        }}
+        validationSchema={validationSchema}
+      >
+        {(formikProps) => (
+          <View>
+            <Text>Email</Text>
+            <TextInput
+              style={globalStyles.input}
+              onChangeText={formikProps.handleChange("email")}
+              value={formikProps.values.email}
+              onBlur={formikProps.handleBlur("email")}
+              onEndEditing={(e) =>
+                formikProps.setFieldValue("email", e.nativeEvent.text)
+              }
+            />
+            <Text style={globalStyles.errorText}>
+              {formikProps.touched.email && formikProps.errors.email}
+            </Text>
             <View>
-              <Text>Email</Text>
+              <Text>Password</Text>
               <TextInput
                 style={globalStyles.input}
-                onChangeText={formikProps.handleChange("email")}
-                value={formikProps.values.email}
-                onBlur={formikProps.handleBlur("email")}
-                onEndEditing={(e) =>
-                  formikProps.setFieldValue("email", e.nativeEvent.text)
-                }
+                onChangeText={formikProps.handleChange("password")}
+                value={formikProps.values.password}
+                onBlur={formikProps.handleBlur("password")}
+                secureTextEntry={!passwordVisible}
               />
-              <Text style={globalStyles.errorText}>
-                {formikProps.touched.email && formikProps.errors.email}
-              </Text>
-              <View>
-                <Text>Password</Text>
-                <TextInput
-                  style={globalStyles.input}
-                  onChangeText={formikProps.handleChange("password")}
-                  value={formikProps.values.password}
-                  onBlur={formikProps.handleBlur("password")}
-                  secureTextEntry={!passwordVisible}
+              <TouchableOpacity
+                style={styles.iconContainer}
+                onPress={() => setPasswordVisible(!passwordVisible)}
+              >
+                <FontAwesome5
+                  name={passwordVisible ? "eye" : "eye-slash"}
+                  size={20}
+                  color="gray"
                 />
-                <TouchableOpacity
-                  style={styles.iconContainer}
-                  onPress={() => setPasswordVisible(!passwordVisible)}
-                >
-                  <FontAwesome5
-                    name={passwordVisible ? "eye" : "eye-slash"}
-                    size={20}
-                    color="gray"
-                  />
-                </TouchableOpacity>
-              </View>
-              <View>
-                <Text>Re-enter Password</Text>
-                <TextInput
-                  style={globalStyles.input}
-                  onChangeText={formikProps.handleChange("repeatPassword")}
-                  value={formikProps.values.repeatPassword}
-                  onBlur={formikProps.handleBlur("repeatPassword")}
-                  secureTextEntry={!repeatPasswordVisible}
-                />
-                <TouchableOpacity
-                  style={styles.iconContainer}
-                  onPress={() =>
-                    setRepeatPasswordVisible(!repeatPasswordVisible)
-                  }
-                >
-                  <FontAwesome5
-                    name={repeatPasswordVisible ? "eye" : "eye-slash"}
-                    size={20}
-                    color="gray"
-                  />
-                </TouchableOpacity>
-              </View>
-              <Text style={globalStyles.errorText}>
-                {formikProps.touched.repeatPassword &&
-                  formikProps.errors.repeatPassword}
-              </Text>
-              {error && <Text style={globalStyles.errorText}>{error}</Text>}
-              <PrimaryButton
-                text="Confirm"
-                onPress={formikProps.handleSubmit}
-                loading={isLoading}
-              />
+              </TouchableOpacity>
             </View>
-          )}
-        </Formik>
-      </View>
+            <View>
+              <Text>Re-enter Password</Text>
+              <TextInput
+                style={globalStyles.input}
+                onChangeText={formikProps.handleChange("repeatPassword")}
+                value={formikProps.values.repeatPassword}
+                onBlur={formikProps.handleBlur("repeatPassword")}
+                secureTextEntry={!repeatPasswordVisible}
+              />
+              <TouchableOpacity
+                style={styles.iconContainer}
+                onPress={() => setRepeatPasswordVisible(!repeatPasswordVisible)}
+              >
+                <FontAwesome5
+                  name={repeatPasswordVisible ? "eye" : "eye-slash"}
+                  size={20}
+                  color="gray"
+                />
+              </TouchableOpacity>
+            </View>
+            <Text style={globalStyles.errorText}>
+              {formikProps.touched.repeatPassword &&
+                formikProps.errors.repeatPassword}
+            </Text>
+            {error && <Text style={globalStyles.errorText}>{error}</Text>}
+            <PrimaryButton
+              text="Confirm"
+              onPress={formikProps.handleSubmit}
+              loading={isLoading}
+            />
+          </View>
+        )}
+      </Formik>
     </View>
   );
 };

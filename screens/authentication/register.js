@@ -119,146 +119,144 @@ const Register = ({ navigation }) => {
 
   return (
     <ScrollView
-      contentContainerStyle={globalStyles.container}
+      contentContainerStyle={globalStyles.scrollContainer}
       showsVerticalScrollIndicator={false}
       keyboardShouldPersistTaps="handled"
     >
-      <View>
-        <View style={styles.form}>
-          <Formik
-            initialValues={{
-              email: "",
-              password: "",
-              username: "",
-              location: "",
-            }}
-            onSubmit={async (values) => {
-              setIsLoading(true);
-              setSubmitError(null);
-              try {
-                await packUserDetails(
-                  values.email,
-                  values.password,
-                  values.username,
-                  values.location,
-                  profilePic
-                );
-              } catch (error) {
-                console.log(`Error: ${error}`);
-                setSubmitError(error);
-              } finally {
-                setIsLoading(false);
-              }
-            }}
-            validationSchema={validationSchema}
-          >
-            {(formikProps) => (
+      <View style={globalStyles.form}>
+        <Formik
+          initialValues={{
+            email: "",
+            password: "",
+            username: "",
+            location: "",
+          }}
+          onSubmit={async (values) => {
+            setIsLoading(true);
+            setSubmitError(null);
+            try {
+              await packUserDetails(
+                values.email,
+                values.password,
+                values.username,
+                values.location,
+                profilePic
+              );
+            } catch (error) {
+              console.log(`Error: ${error}`);
+              setSubmitError(error);
+            } finally {
+              setIsLoading(false);
+            }
+          }}
+          validationSchema={validationSchema}
+        >
+          {(formikProps) => (
+            <View>
+              <Text>Email</Text>
+              <TextInput
+                style={globalStyles.input}
+                onChangeText={formikProps.handleChange("email")}
+                value={formikProps.values.email}
+                onBlur={formikProps.handleBlur("email")}
+              />
+              <Text style={globalStyles.errorText}>
+                {formikProps.touched.email && formikProps.errors.email}
+              </Text>
               <View>
-                <Text>Email</Text>
+                <Text>Password</Text>
                 <TextInput
                   style={globalStyles.input}
-                  onChangeText={formikProps.handleChange("email")}
-                  value={formikProps.values.email}
-                  onBlur={formikProps.handleBlur("email")}
+                  onChangeText={formikProps.handleChange("password")}
+                  value={formikProps.values.password}
+                  onBlur={formikProps.handleBlur("password")}
+                  secureTextEntry={!passwordVisible}
                 />
-                <Text style={globalStyles.errorText}>
-                  {formikProps.touched.email && formikProps.errors.email}
-                </Text>
-                <View>
-                  <Text>Password</Text>
-                  <TextInput
-                    style={globalStyles.input}
-                    onChangeText={formikProps.handleChange("password")}
-                    value={formikProps.values.password}
-                    onBlur={formikProps.handleBlur("password")}
-                    secureTextEntry={!passwordVisible}
+                <TouchableOpacity
+                  style={styles.iconContainer}
+                  onPress={() => setPasswordVisible(!passwordVisible)}
+                >
+                  <FontAwesome5
+                    name={passwordVisible ? "eye" : "eye-slash"}
+                    size={20}
+                    color="gray"
                   />
-                  <TouchableOpacity
-                    style={styles.iconContainer}
-                    onPress={() => setPasswordVisible(!passwordVisible)}
-                  >
+                </TouchableOpacity>
+              </View>
+              <Text style={globalStyles.errorText}>
+                {formikProps.touched.password && formikProps.errors.password}
+              </Text>
+              <View>
+                <Text>Username</Text>
+                <TextInput
+                  style={globalStyles.input}
+                  placeholder=""
+                  onChangeText={formikProps.handleChange("username")}
+                  value={formikProps.values.username}
+                  onBlur={formikProps.handleBlur("username")}
+                />
+                <Text style={styles.usernameAt}>@</Text>
+              </View>
+              <Text style={globalStyles.errorText}>
+                {formikProps.touched.username && formikProps.errors.username}
+              </Text>
+              <Text>Location</Text>
+              <TextInput
+                style={globalStyles.input}
+                onChangeText={formikProps.handleChange("location")}
+                value={formikProps.values.location}
+                onBlur={formikProps.handleBlur("location")}
+              />
+              <Text style={globalStyles.errorText}>
+                {formikProps.touched.location && formikProps.errors.location}
+              </Text>
+
+              {profilePic ? (
+                <View style={styles.profilePicInput}>
+                  <TouchableOpacity onPress={pickImage}>
+                    <Image
+                      source={profilePic ? { uri: profilePic } : null}
+                      style={styles.profileImage}
+                    />
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => setProfilePic(null)}>
+                    <Text style={globalStyles.errorText}>Remove</Text>
+                  </TouchableOpacity>
+                </View>
+              ) : (
+                <View style={styles.profilePicInput}>
+                  <Text>No profile picture chosen</Text>
+                  <TouchableOpacity onPress={pickImage}>
                     <FontAwesome5
-                      name={passwordVisible ? "eye" : "eye-slash"}
-                      size={20}
+                      name={"camera"}
+                      size={80}
                       color="gray"
+                      style={styles.cameraIcon}
                     />
                   </TouchableOpacity>
                 </View>
-                <Text style={globalStyles.errorText}>
-                  {formikProps.touched.password && formikProps.errors.password}
-                </Text>
-                <View>
-                  <Text>Username</Text>
-                  <TextInput
-                    style={globalStyles.input}
-                    placeholder=""
-                    onChangeText={formikProps.handleChange("username")}
-                    value={formikProps.values.username}
-                    onBlur={formikProps.handleBlur("username")}
-                  />
-                  <Text style={styles.usernameAt}>@</Text>
-                </View>
-                <Text style={globalStyles.errorText}>
-                  {formikProps.touched.username && formikProps.errors.username}
-                </Text>
-                <Text>Location</Text>
-                <TextInput
-                  style={globalStyles.input}
-                  onChangeText={formikProps.handleChange("location")}
-                  value={formikProps.values.location}
-                  onBlur={formikProps.handleBlur("location")}
-                />
-                <Text style={globalStyles.errorText}>
-                  {formikProps.touched.location && formikProps.errors.location}
-                </Text>
-
-                {profilePic ? (
-                  <View style={styles.profilePicInput}>
-                    <TouchableOpacity onPress={pickImage}>
-                      <Image
-                        source={profilePic ? { uri: profilePic } : null}
-                        style={styles.profileImage}
-                      />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => setProfilePic(null)}>
-                      <Text style={globalStyles.errorText}>Remove</Text>
-                    </TouchableOpacity>
-                  </View>
-                ) : (
-                  <View style={styles.profilePicInput}>
-                    <Text>No profile picture chosen</Text>
-                    <TouchableOpacity onPress={pickImage}>
-                      <FontAwesome5
-                        name={"camera"}
-                        size={80}
-                        color="gray"
-                        style={styles.cameraIcon}
-                      />
-                    </TouchableOpacity>
-                  </View>
-                )}
-                {submitError && (
-                  <Text style={globalStyles.errorText}>{submitError}</Text>
-                )}
-                <PrimaryButton
-                  text="Confirm"
-                  onPress={formikProps.handleSubmit}
-                  loading={isLoading}
-                />
-              </View>
-            )}
-          </Formik>
-        </View>
-        {!isKeyboardVisible && (
-          <View style={globalStyles.authBottomButtonPanel}>
-            <Text style={styles.signinText}>Already have an account?</Text>
-            <SecondaryButton
-              text={"Sign In"}
-              onPress={() => navigation.replace("SignIn")}
-            />
-          </View>
-        )}
+              )}
+              {submitError && (
+                <Text style={globalStyles.errorText}>{submitError}</Text>
+              )}
+              <PrimaryButton
+                text="Confirm"
+                onPress={formikProps.handleSubmit}
+                loading={isLoading}
+              />
+            </View>
+          )}
+        </Formik>
       </View>
+      {!isKeyboardVisible && (
+        <View style={styles.SigninButtonContainer}>
+          <Text style={styles.signinText}>Already have an account?</Text>
+          <SecondaryButton
+            text={"Sign In"}
+            onPress={() => navigation.replace("SignIn")}
+          />
+        </View>
+      )}
     </ScrollView>
   );
 };
@@ -314,4 +312,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 10,
   },
+  SigninButtonContainer: { padding: 20 },
 });

@@ -77,11 +77,11 @@ const styles = StyleSheet.create({
   },
   description: {
     fontSize: 18,
-    fontFamily: "nunito-regular",
+    fontFamily: "regular",
     textAlign: "center",
     description: {
       fontSize: 18,
-      fontFamily: "nunito-regular",
+      fontFamily: "regular",
       textAlign: "center",
       lineHeight: 25,
       marginVertical: 20,

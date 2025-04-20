@@ -11,49 +11,37 @@ import { useNavigation } from "@react-navigation/native";
 
 const Tab = createBottomTabNavigator();
 
-const MainTabs = ({ selectedTab, setSelectedTab }) => {
+const MainTabs = ({ selectedTab = 0, setSelectedTab }) => {
   const navigation = useNavigation();
-
-  const getIconColour = (tabIndex) => {
-    return tabIndex === 0
-      ? theme.colors.textOnPrimary
-      : tabIndex === 1
-      ? theme.colors.textOnPrimary
-      : null;
-  };
 
   return (
     <Tab.Navigator
       screenOptions={{
-        headerRight: () => (
+        headerLeft: () => (
           <TouchableOpacity
             onPress={() => navigation.toggleDrawer()}
-            style={{ marginLeft: 15 }}
+            style={styles.drawerToggleButton}
           >
             <FontAwesome5
               name={"bars"}
               size={20}
-              color={getIconColour(selectedTab)}
-              style={styles.noProfilePicIcon}
+              color={theme.colors.textOnBackground}
             />
           </TouchableOpacity>
         ),
-        headerTransparent: true,
+        headerShown: true,
+        headerTransparent: false,
         headerStyle: {
-          backgroundColor: "transparent",
+          backgroundColor: theme.colors.background,
           elevation: 0,
-          shadowOpacity: 0,
         },
         headerTitle: "",
         headerTitleStyle: {
-          fontFamily: "nunito-extra-light",
+          fontFamily: "extralight",
           fontSize: 32,
         },
         headerTitleAlign: "center",
         headerTintColor: theme.colors.textOnPrimary,
-        tabBarStyle: {
-          paddingTop: 5,
-        },
       }}
     >
       <Tab.Screen
@@ -145,7 +133,7 @@ const MainTabs = ({ selectedTab, setSelectedTab }) => {
         options={({ navigation }) => ({
           tabBarIcon: ({ size }) => (
             <FontAwesome5
-              name="newspaper"
+              name="book-open"
               size={size}
               color={
                 selectedTab === 3
@@ -173,16 +161,7 @@ const MainTabs = ({ selectedTab, setSelectedTab }) => {
 export default MainTabs;
 
 const styles = StyleSheet.create({
-  profilePic: {
-    width: 35,
-    height: 35,
-    borderRadius: 50,
-    borderWidth: 1,
-    borderColor: theme.colors.secondary,
-    marginRight: 20,
-  },
-  noProfilePicIcon: {
-    borderRadius: 50,
-    marginRight: 20,
+  drawerToggleButton: {
+    marginLeft: 20,
   },
 });

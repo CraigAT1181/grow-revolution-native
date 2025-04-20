@@ -5,7 +5,7 @@ import MainTabs from "./mainTabs";
 import { useAuth } from "../contexts/AuthContext";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import DrawerMenuButton from "../components/buttons/drawer-menu-button";
-import { theme } from "../styles/global";
+import { theme, globalStyles } from "../styles/global";
 import SecondaryButton from "../components/buttons/secondary-button";
 
 const Drawer = createDrawerNavigator();
@@ -13,7 +13,7 @@ const Drawer = createDrawerNavigator();
 // Create Profile section of Drawer
 const ProfileHeader = ({ userName, email, profilePic }) => (
   <View style={styles.profileContainer}>
-    <View style={{ position: "absolute", bottom: "-50", zIndex: 2 }}>
+    <View>
       {profilePic ? (
         <Image source={{ uri: profilePic }} style={styles.profilePic} />
       ) : (
@@ -24,9 +24,9 @@ const ProfileHeader = ({ userName, email, profilePic }) => (
         />
       )}
     </View>
-    <View style={{ paddingVertical: 20 }}>
+    <View style={styles.userInfoContainer}>
       <Text style={styles.userName}>{userName}</Text>
-      {/* <Text style={styles.email}>{email}</Text> */}
+      <Text style={styles.email}>{email}</Text>
     </View>
   </View>
 );
@@ -45,8 +45,8 @@ const DrawerContent = ({ setSelectedTab, navigation }) => {
   const email = user.email;
 
   return (
-    <View style={{ flex: 1 }}>
-      <View style={{ flexGrow: 1 }}>
+    <View style={globalStyles.viewContainer}>
+      <View>
         {/* Profile Section */}
         <ProfileHeader
           userName={userName}
@@ -55,14 +55,7 @@ const DrawerContent = ({ setSelectedTab, navigation }) => {
         />
 
         {/* Menu Items */}
-        <View
-          style={{
-            flexGrow: 1,
-            paddingVertical: 20,
-            marginTop: 50,
-            backgroundColor: theme.colors.background,
-          }}
-        >
+        <View>
           <DrawerMenuButton
             icon={"home"}
             text="Home"
@@ -88,7 +81,7 @@ const DrawerContent = ({ setSelectedTab, navigation }) => {
             }}
           />
           <DrawerMenuButton
-            icon={"newspaper"}
+            icon={"book-open"}
             text="Ads"
             onPress={() => {
               setSelectedTab(3);
@@ -113,15 +106,7 @@ const DrawerContent = ({ setSelectedTab, navigation }) => {
         </View>
       </View>
       {/* Sign-Out Section */}
-      <View
-        style={{
-          flexGrow: 1,
-          justifyContent: "center",
-          alignContent: "center",
-          paddingHorizontal: 50,
-          backgroundColor: theme.colors.background,
-        }}
-      >
+      <View style={styles.signoutSection}>
         <SecondaryButton text="Sign Out" onPress={signout} />
       </View>
     </View>
@@ -161,25 +146,30 @@ const styles = StyleSheet.create({
 
   profileContainer: {
     padding: 50,
+    marginBottom: 20,
+    marginHorizontal: -20,
     alignItems: "center",
+    borderTopRightRadius: 16,
     backgroundColor: theme.colors.primary,
   },
   profilePic: {
-    width: 80,
-    height: 80,
+    width: 100,
+    height: 100,
     borderRadius: 40,
-    marginBottom: 10,
-    borderWidth: 2,
-    borderColor: theme.colors.secondary,
+  },
+  userInfoContainer: {
+    alignItems: "center",
+    marginTop: 10,
   },
   userName: {
     fontSize: 16,
-    fontWeight: "bold",
-    color: theme.colors.background,
+    fontFamily: "semibold",
+    color: theme.colors.textOnPrimary,
   },
   email: {
     fontSize: 14,
-    color: theme.colors.background,
+    fontFamily: "light",
+    color: theme.colors.textOnPrimary,
     marginTop: 4,
   },
   noProfilePicIcon: {
@@ -191,5 +181,12 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     padding: 20,
     color: theme.colors.textOnPrimary,
+  },
+  signoutSection: {
+    flexGrow: 1,
+    justifyContent: "flex-end",
+    alignContent: "center",
+    paddingHorizontal: 50,
+    paddingBottom: 20,
   },
 });

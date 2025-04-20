@@ -152,7 +152,7 @@ const ProduceDetails = ({ produceItem, route }) => {
                   size={48}
                   style={styles.useIcon}
                 />
-                <Text style={[styles.text, { fontFamily: "nunito-bold" }]}>
+                <Text style={[styles.text, { fontFamily: "bold" }]}>
                   {use.uses.name}
                 </Text>
                 <Text style={styles.text}>{use.description}</Text>
@@ -225,7 +225,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 18,
-    fontFamily: "nunito-regular",
+    fontFamily: "regular",
     textAlign: "center",
     lineHeight: 25,
     marginVertical: 20,

@@ -21,10 +21,11 @@ const App = () => {
     async function loadFonts() {
       try {
         await Font.loadAsync({
-          "nunito-regular": require("./assets/fonts/Nunito/static/Nunito-Regular.ttf"),
-          "nunito-bold": require("./assets/fonts/Nunito/static/Nunito-Bold.ttf"),
-          "nunito-light": require("./assets/fonts/Nunito/static/Nunito-Light.ttf"),
-          "nunito-extra-light": require("./assets/fonts/Nunito/static/Nunito-ExtraLight.ttf"),
+          regular: require("./assets/fonts/Nunito/static/Nunito-Regular.ttf"),
+          semibold: require("./assets/fonts/Nunito/static/Nunito-SemiBold.ttf"),
+          bold: require("./assets/fonts/Nunito/static/Nunito-Bold.ttf"),
+          light: require("./assets/fonts/Nunito/static/Nunito-Light.ttf"),
+          extralight: require("./assets/fonts/Nunito/static/Nunito-ExtraLight.ttf"),
         });
         setFontsLoaded(true);
       } catch (error) {
@@ -51,8 +52,8 @@ const App = () => {
           <NavigationContainer linking={linking}>
             <StatusBar
               translucent
-              barStyle="light-content"
-              backgroundColor={"transparent"}
+              barStyle="dark-content"
+              backgroundColor={theme.colors.background}
             />
             <Wrapper />
           </NavigationContainer>

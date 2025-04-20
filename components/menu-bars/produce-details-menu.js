@@ -114,6 +114,6 @@ const styles = StyleSheet.create({
     fontFamily: "nunito-normal",
   },
   activeTabText: {
-    fontFamily: "nunito-bold",
+    fontFamily: "bold",
   },
 });

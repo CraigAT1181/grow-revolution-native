@@ -1,5 +1,17 @@
 import { StyleSheet } from "react-native";
 
+export const colours = {
+  primary: "#116530",
+  secondary: "#2c2c2c",
+  background: "#F5F5F5",
+  transparent: "transparent",
+  text: "#212121",
+  white: "#FFFFFF",
+  black: "#000000",
+  danger: "#FF5252",
+  success: "#4CAF50",
+};
+
 export const theme = {
   colors: {
     // 🌱 Primary Colors (Earthy Green Tones)
@@ -42,18 +54,17 @@ export const theme = {
     medium: 16,
     large: 24,
   },
-
   typography: {
     title: {
       fontSize: 24,
-      fontFamily: "nunito-SemiBold",
-      color: "#212121",
+      fontFamily: "light",
+      color: colours.textOnBackground,
     },
     body: {
       fontSize: 18,
-      fontFamily: "nunito-light",
+      fontFamily: "light",
       lineHeight: 28,
-      textAlign: "start",
+      textAlign: "center",
     },
     caption: {
       fontSize: 12,
@@ -62,24 +73,20 @@ export const theme = {
   },
 };
 
-export const colours = {
-  primary: "#116530",
-  secondary: "#2c2c2c",
-  background: "#F5F5F5",
-  transparent: "transparent",
-  text: "#212121",
-  white: "#FFFFFF",
-  black: "#000000",
-  danger: "#FF5252",
-  success: "#4CAF50",
-};
-
 export const getAlternateBackground = (index) =>
   index % 2 === 0 ? colours.background : colours.white;
 
 export const globalStyles = StyleSheet.create({
-  container: {
+  viewContainer: {
+    flex: 1,
+    paddingHorizontal: 20,
+    backgroundColor: theme.colors.background,
+  },
+  scrollContainer: {
     flexGrow: 1,
+  },
+  container: {
+    flex: 1,
     padding: 20,
     backgroundColor: theme.colors.background,
   },
@@ -92,38 +99,39 @@ export const globalStyles = StyleSheet.create({
     borderTopRightRadius: 18,
   },
   screen: {
-    flex: 1,
+    flexGrow: 1,
     padding: 20,
     backgroundColor: theme.colors.background,
   },
   form: {
     flex: 1,
+    padding: 20,
   },
   titleText: {
-    fontFamily: "nunito-bold",
+    fontFamily: "light",
     fontSize: 18,
     color: colours.text,
   },
   titleTextCentered: {
-    fontFamily: "nunito-bold",
+    fontFamily: "light",
     fontSize: 18,
     color: colours.text,
     textAlign: "center",
     marginBottom: 10,
   },
   text: {
-    fontFamily: "nunito-regular",
+    fontFamily: "regular",
     fontSize: 16,
     color: colours.text,
   },
   textCentered: {
-    fontFamily: "nunito-regular",
+    fontFamily: "regular",
     fontSize: 16,
     color: colours.text,
     textAlign: "center",
   },
   smallText: {
-    fontFamily: "nunito-regular",
+    fontFamily: "regular",
     fontSize: 14,
     color: colours.text,
   },
@@ -147,6 +155,12 @@ export const globalStyles = StyleSheet.create({
     textAlign: "center",
     fontSize: 18,
     borderRadius: 6,
+  },
+  successText: {
+    color: "#188918",
+    marginBottom: 10,
+    marginTop: 6,
+    textAlign: "center",
   },
   errorText: {
     color: "#AA0808",

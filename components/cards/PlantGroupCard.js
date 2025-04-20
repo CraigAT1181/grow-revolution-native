@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
   title: {
     color: theme.colors.textPrimary,
     fontSize: 16,
-    fontFamily: "nunito-bold",
+    fontFamily: "bold",
     textAlign: "center",
   },
 });

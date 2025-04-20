@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: theme.colors.textOnBackground,
-    fontFamily: "nunito-SemiBold",
+    fontFamily: "semiboldBold",
     fontSize: 18,
   },
   icon: {

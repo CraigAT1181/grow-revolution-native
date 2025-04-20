@@ -46,7 +46,7 @@ const SignInScreen = ({ navigation }) => {
   }, []);
 
   return (
-    <View style={globalStyles.screen}>
+    <View style={globalStyles.viewContainer}>
       <View style={globalStyles.form}>
         <Formik
           initialValues={{
@@ -127,7 +127,7 @@ const SignInScreen = ({ navigation }) => {
         </View>
       </View>
       {!isKeyboardVisible && (
-        <View>
+        <View style={styles.registerButtonContainer}>
           <Text style={styles.registerText}>Don't have an account yet?</Text>
           <SecondaryButton
             text={"Register"}
@@ -160,6 +160,7 @@ const styles = StyleSheet.create({
   resetPasswordText: {
     color: "crimson",
   },
+  registerButtonContainer: { padding: 20 },
   registerText: {
     textAlign: "center",
     marginVertical: 8,

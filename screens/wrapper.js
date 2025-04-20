@@ -4,6 +4,9 @@ import { useAuth } from "../contexts/AuthContext";
 import MainDrawer from "../navigation/mainDrawer";
 import AuthStack from "../navigation/authStack";
 import { useNavigation } from "@react-navigation/native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { StyleSheet } from "react-native";
+import { theme } from "../styles/global";
 
 const Wrapper = () => {
   const { user } = useAuth();
@@ -41,7 +44,18 @@ const Wrapper = () => {
     };
   }, [navigation]);
 
-  return user ? <MainDrawer /> : <AuthStack />;
+  return (
+    <SafeAreaView style={styles.appContainer}>
+      {user ? <MainDrawer /> : <AuthStack />}
+    </SafeAreaView>
+  );
 };
 
 export default Wrapper;
+
+const styles = StyleSheet.create({
+  appContainer: {
+    flex: 1,
+    backgroundColor: theme.colors.background,
+  },
+});

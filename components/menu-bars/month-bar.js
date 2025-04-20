@@ -10,16 +10,16 @@ const MonthBar = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   return (
-    <View style={styles.container}>
-      <TouchableOpacity
-        style={styles.dropdownButton}
-        onPress={() => setIsVisible(true)}
-      >
-        <Text style={theme.typography.title}>
-          {months.find((month) => month.month_id === selectedMonth)?.name}
-        </Text>
-        <View style={{ position: "absolute", bottom: 8, right: 12 }}>
-          <FontAwesome5 name="chevron-down" size={16} />
+    <View>
+      <TouchableOpacity onPress={() => setIsVisible(true)}>
+        <View style={styles.dropdownButton}>
+          <Text style={theme.typography.title}>
+            {months.find((month) => month.month_id === selectedMonth)?.name}
+          </Text>
+
+          <View style={styles.dropdownButtonIcon}>
+            <FontAwesome5 name="chevron-down" size={16} />
+          </View>
         </View>
       </TouchableOpacity>
 
@@ -58,16 +58,22 @@ export default MonthBar;
 
 const styles = StyleSheet.create({
   container: {
-    marginHorizontal: 25,
+    // marginHorizontal: 25,
     // backgroundColor: "white",
   },
   dropdownButton: {
     backgroundColor: theme.colors.background,
-    paddingVertical: 20,
-    paddingHorizontal: 80,
+    paddingVertical: 6,
+    paddingHorizontal: 60,
     borderRadius: 20,
-    elevation: 4,
+    elevation: 1,
+    flexDirection: "row",
     alignItems: "center",
+    position: "relative",
+  },
+  dropdownButtonIcon: {
+    position: "absolute",
+    right: 10,
   },
   overlay: {
     flex: 1,
@@ -115,6 +121,6 @@ const styles = StyleSheet.create({
   activeTabText: {
     color: theme.colors.textOnPrimary,
     fontSize: 16,
-    fontFamily: "nunito-bold",
+    fontFamily: "bold",
   },
 });

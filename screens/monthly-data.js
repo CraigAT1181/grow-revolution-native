@@ -1,11 +1,18 @@
 import React, { useMemo, useEffect, useState } from "react";
 import { useGrow } from "../contexts/GrowContext";
-import { View, Text, StyleSheet, ImageBackground } from "react-native";
-import { theme } from "../styles/global";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ImageBackground,
+  TouchableOpacity,
+} from "react-native";
+import { theme, globalStyles } from "../styles/global";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
 import PlantGroupCard from "../components/cards/PlantGroupCard";
 import ToggleViewButton from "../components/buttons/toggle-view-button";
 import MonthBar from "../components/menu-bars/month-bar";
+import GrowSearchIcon from "../components/menu-bars/grow-search-icon";
 
 const MonthlyData = () => {
   const {
@@ -18,11 +25,15 @@ const MonthlyData = () => {
 
   const [showSowContainer, setShowSowContainer] = useState(false);
   const [showJobsContainer, setShowJobsContainer] = useState(false);
+  const [introClicked, setIntroClicked] = useState(false);
 
   const monthIntro = useMemo(() => {
-    return months.find((month) => month.month_id === selectedMonth)
-      .introduction;
-  }, [selectedMonth, months]);
+    const intro =
+      months.find((month) => month.month_id === selectedMonth)?.introduction ??
+      "";
+
+    return introClicked ? intro : intro.slice(0, 100) + "...";
+  }, [selectedMonth, months, introClicked]);
 
   useEffect(() => {
     const fetchMonthData = async () => {
@@ -39,28 +50,35 @@ const MonthlyData = () => {
 
   return (
     <ScrollView
-      style={styles.container}
-      contentContainerStyle={{ flexGrow: 1 }}
+      contentContainerStyle={globalStyles.scrollContainer}
+      showsVerticalScrollIndicator={false}
       keyboardShouldPersistTaps="handled"
     >
       <ImageBackground
         source={require("../assets/backgrounds/green_background.jpg")}
-        style={styles.background}
+        style={styles.bannerImage}
         resizeMode="cover"
       >
+        <View style={styles.searchIconContainer}>
+          <GrowSearchIcon />
+        </View>
         <MonthBar />
       </ImageBackground>
 
       <View style={styles.mainContainer}>
-        <Text
-          style={[
-            styles.monthIntro,
-            theme.typography.body,
-            { color: theme.colors.textOnBackground },
-          ]}
-        >
-          {monthIntro}
-        </Text>
+        <TouchableOpacity onPress={() => setIntroClicked(!introClicked)}>
+          <View style={styles.introContainer}>
+            <Text
+              style={[
+                // styles.monthIntro,
+                theme.typography.body,
+                { color: theme.colors.textOnBackground },
+              ]}
+            >
+              {monthIntro}
+            </Text>
+          </View>
+        </TouchableOpacity>
 
         <ToggleViewButton
           title={"Sow or plant this month"}
@@ -118,36 +136,40 @@ const MonthlyData = () => {
 export default MonthlyData;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    position: "relative",
-  },
-  background: {
-    minHeight: 400,
+  bannerImage: {
+    minHeight: 200,
+    paddingVertical: 20,
     width: "100%",
-    justifyContent: "center",
+    justifyContent: "space-between",
     alignItems: "center",
-    paddingTop: 40,
+    overflow: "hidden",
+    borderTopLeftRadius: 25,
+    borderTopRightRadius: 25,
+  },
+  searchIconContainer: {
+    width: "100%",
+    alignItems: "flex-end",
+    paddingRight: 30,
   },
   introContainer: {
-    flexShrink: 0,
-    backgroundColor: theme.colors.background,
-    padding: 20,
+    // flexShrink: 0,
+    // backgroundColor: "pink",
+    // padding: 20,
   },
 
   monthIntro: {
     color: "#fff",
     fontSize: 16,
-    fontFmaily: "nunito-SemiBold",
+    fontFmaily: "semiboldBold",
     textAlign: "center",
   },
   mainContainer: {
     flex: 1,
     backgroundColor: theme.colors.background,
-    borderTopLeftRadius: 18,
-    borderTopRightRadius: 18,
+    // borderTopLeftRadius: 18,
+    // borderTopRightRadius: 18,
     padding: 20,
-    marginTop: -20,
+    // marginTop: -20,
   },
   menuData: {
     height: "auto",

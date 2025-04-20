@@ -17,7 +17,6 @@ const GrowStack = () => {
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
-        headerTransparent: true,
       }}
     >
       <Stack.Screen name="Grow" component={Grow} />
@@ -29,7 +28,7 @@ const GrowStack = () => {
 
           headerLeft: () => (
             <TouchableOpacity
-              style={{ position: "absolute", top: 36, left: 20, padding: 10 }}
+              style={{ position: "absolute", top: 20, left: 20, padding: 10 }}
               onPress={() => navigation.goBack()}
             >
               <FontAwesome5
@@ -50,7 +49,7 @@ const GrowStack = () => {
           headerShown: true,
           headerLeft: () => (
             <TouchableOpacity
-              style={{ position: "absolute", top: 36, left: 20, padding: 10 }}
+              style={{ position: "absolute", top: 20, left: 20, padding: 10 }}
               onPress={() => navigation.goBack()}
             >
               <FontAwesome5

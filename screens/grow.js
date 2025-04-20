@@ -1,23 +1,13 @@
-import React, { useState } from "react";
-import { SafeAreaView } from "react-native";
-import { ScrollView, View } from "react-native";
-import MonthBar from "../components/menu-bars/month-bar";
-import TopMenuBar from "../components/menu-bars/top-menu-bar";
+import React from "react";
+import { View } from "react-native";
+import { globalStyles } from "../styles/global";
 import MonthlyData from "./monthly-data";
-import GrowSearch from "./grow-search";
+import GrowSearchIcon from "../components/menu-bars/grow-search-icon";
 
 const Grow = () => {
   return (
-    <View style={{ flex: 1 }}>
-      <View style={{ position: "relative" }}>
-        <TopMenuBar />
-      </View>
-
-      <View style={{ flex: 1 }}>
-        <View style={{ flex: 1 }}>
-          <MonthlyData />
-        </View>
-      </View>
+    <View style={globalStyles.viewContainer}>
+      <MonthlyData />
     </View>
   );
 };
