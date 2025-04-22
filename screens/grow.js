@@ -1,14 +1,20 @@
 import React from "react";
-import { View } from "react-native";
+import { View, ScrollView } from "react-native";
 import { globalStyles } from "../styles/global";
 import MonthlyData from "./monthly-data";
 import GrowSearchIcon from "../components/menu-bars/grow-search-icon";
+import MonthBar from "../components/menu-bars/month-bar";
 
 const Grow = () => {
   return (
-    <View style={globalStyles.viewContainer}>
-      <MonthlyData />
-    </View>
+    <ScrollView
+      style={globalStyles.viewContainer}
+      contentContainerStyle={globalStyles.scrollContainer}
+      showsVerticalScrollIndicator={false}
+      keyboardShouldPersistTaps="handled"
+    >
+      <MonthBar />
+    </ScrollView>
   );
 };
 
